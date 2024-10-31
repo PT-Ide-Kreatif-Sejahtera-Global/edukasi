@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard | Sundaa Coffee')</title>
-    <link rel="shortcut icon" type="image/png" href="admin/images/logos/sunda.png" />
+    <link rel="shortcut icon" type="image/png" href="admin/images/logos/IdeaThings.png" />
     <link rel="stylesheet" href="admin/css/styles.min.css" />
     {{-- <link rel="stylesheet" href="admin/css/styles.css" /> --}}
     <link rel="stylesheet" href="admin/css/icons/tabler-icons/tabler-icons.css" />
@@ -75,10 +75,10 @@
     </script>
     
     {{-- sweetalert --}}
-    {{-- @yield('js')
+    @yield('js')
     
     @include('sweetalert::alert')
-    @stack('myscript') --}}
+    @stack('myscript')
 </body>
 
 </html>

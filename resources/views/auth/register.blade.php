@@ -37,6 +37,17 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    {{-- <div class="mb-3">
+                                        <label for="exampleInputtext1" class="form-label">Progress</label>
+                                        <input type="text" id="progress" name="progress"
+                                            class="form-control @error('name') is-invalid @enderror" required
+                                            autocomplete="name">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email Address</label>
                                         <input type="email" id="email" name="email"
@@ -68,6 +79,15 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    {{-- <div class="mb-4">
+                                        <label for="foto" class="form-label">Foto</label>
+                                        <input id="foto" type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" required accept="image/*">
+                                        @error('foto')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
                                     <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
                                         Up</button>
                                     <div class="d-flex align-items-center justify-content-center">

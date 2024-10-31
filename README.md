@@ -1,265 +1,66 @@
-# 🎨 iDeaThings Color System Documentation
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-## 📚 Table of Contents
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-1. [Brand Colors](#brand-colors)
-2. [Color Usage Guidelines](#color-usage-guidelines)
-3. [Laravel Implementation](#laravel-implementation)
-4. [CSS & Tailwind Configuration](#css--tailwind-configuration)
-5. [SCSS Variables](#scss-variables)
-6. [Components Example](#components-example)
+## About Laravel
 
-## 🎯 Brand Colors
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-### Primary Palette
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-| Color Name    | Hex Code  | Preview                                                         | Usage            |
-| ------------- | --------- | --------------------------------------------------------------- | ---------------- |
-| Primary       | `#9ACD32` | ![#9ACD32](https://via.placeholder.com/15/9ACD32/000000?text=+) | Main brand color |
-| Primary Dark  | `#7BA428` | ![#7BA428](https://via.placeholder.com/15/7BA428/000000?text=+) | Hover states     |
-| Primary Light | `#B8E255` | ![#B8E255](https://via.placeholder.com/15/B8E255/000000?text=+) | Backgrounds      |
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-### Secondary Palette
+## Learning Laravel
 
-| Color Name      | Hex Code  | Preview                                                         | Usage        |
-| --------------- | --------- | --------------------------------------------------------------- | ------------ |
-| Secondary       | `#FFD700` | ![#FFD700](https://via.placeholder.com/15/FFD700/000000?text=+) | CTA elements |
-| Secondary Dark  | `#CCAC00` | ![#CCAC00](https://via.placeholder.com/15/CCAC00/000000?text=+) | Hover states |
-| Secondary Light | `#FFE147` | ![#FFE147](https://via.placeholder.com/15/FFE147/000000?text=+) | Backgrounds  |
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-### Accent Colors
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-| Color Name  | Hex Code  | Preview                                                         | Usage      |
-| ----------- | --------- | --------------------------------------------------------------- | ---------- |
-| Accent Red  | `#FF4500` | ![#FF4500](https://via.placeholder.com/15/FF4500/000000?text=+) | Highlights |
-| Accent Blue | `#1E90FF` | ![#1E90FF](https://via.placeholder.com/15/1E90FF/000000?text=+) | Links      |
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## 🎯 Color Usage Guidelines
+## Laravel Sponsors
 
-### State Colors
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-```
-Success: #28A745 - Use for positive feedback
-Warning: #FFA500 - Use for cautions and warnings
-Error: #DC3545   - Use for error messages
-Info: #17A2B8    - Use for informational messages
-```
+### Premium Partners
 
-### Text Colors
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
-```
-Primary Text: #333333 - Main content
-Secondary Text: #666666 - Supporting text
-Disabled Text: #999999 - Inactive elements
-```
+## Contributing
 
-## 💻 Laravel Implementation
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-### Configuration (config/colors.php)
+## Code of Conduct
 
-```php
-<?php
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-return [
-    'brand' => [
-        'primary' => [
-            'default' => '#9ACD32',
-            'dark' => '#7BA428',
-            'light' => '#B8E255',
-        ],
-        'secondary' => [
-            'default' => '#FFD700',
-            'dark' => '#CCAC00',
-            'light' => '#FFE147',
-        ],
-    ],
-    'accent' => [
-        'red' => '#FF4500',
-        'blue' => '#1E90FF',
-    ],
-    'state' => [
-        'success' => '#28A745',
-        'warning' => '#FFA500',
-        'error' => '#DC3545',
-        'info' => '#17A2B8',
-    ],
-];
-```
+## Security Vulnerabilities
 
-### Service Provider (app/Providers/ColorServiceProvider.php)
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-```php
-<?php
+## License
 
-namespace App\Providers;
-
-use Illuminate\Support\ServiceProvider;
-
-class ColorServiceProvider extends ServiceProvider
-{
-    public function boot()
-    {
-        $this->publishes([
-            __DIR__.'/../../config/colors.php' => config_path('colors.php'),
-        ], 'colors');
-    }
-
-    public function register()
-    {
-        $this->mergeConfigFrom(
-            __DIR__.'/../../config/colors.php', 'colors'
-        );
-    }
-}
-```
-
-## 🎨 CSS & Tailwind Configuration
-
-### tailwind.config.js
-
-```javascript
-module.exports = {
-    theme: {
-        extend: {
-            colors: {
-                primary: {
-                    DEFAULT: "#9ACD32",
-                    dark: "#7BA428",
-                    light: "#B8E255",
-                },
-                secondary: {
-                    DEFAULT: "#FFD700",
-                    dark: "#CCAC00",
-                    light: "#FFE147",
-                },
-                accent: {
-                    red: "#FF4500",
-                    blue: "#1E90FF",
-                },
-                state: {
-                    success: "#28A745",
-                    warning: "#FFA500",
-                    error: "#DC3545",
-                    info: "#17A2B8",
-                },
-            },
-        },
-    },
-    plugins: [],
-};
-```
-
-## 🎨 SCSS Variables
-
-### resources/sass/\_variables.scss
-
-```scss
-// Brand Colors
-$primary: #9acd32;
-$primary-dark: #7ba428;
-$primary-light: #b8e255;
-
-$secondary: #ffd700;
-$secondary-dark: #ccac00;
-$secondary-light: #ffe147;
-
-// Accent Colors
-$accent-red: #ff4500;
-$accent-blue: #1e90ff;
-
-// State Colors
-$success: #28a745;
-$warning: #ffa500;
-$error: #dc3545;
-$info: #17a2b8;
-
-// Text Colors
-$text-primary: #333333;
-$text-secondary: #666666;
-$text-disabled: #999999;
-```
-
-## 💡 Components Example
-
-### Blade Component (resources/views/components/button.blade.php)
-
-```php
-@props([
-    'variant' => 'primary',
-    'size' => 'md',
-])
-
-@php
-$variantClasses = [
-    'primary' => 'bg-primary hover:bg-primary-dark text-white',
-    'secondary' => 'bg-secondary hover:bg-secondary-dark text-white',
-    'danger' => 'bg-state-error hover:bg-red-700 text-white',
-];
-
-$sizeClasses = [
-    'sm' => 'px-2 py-1 text-sm',
-    'md' => 'px-4 py-2',
-    'lg' => 'px-6 py-3 text-lg',
-];
-@endphp
-
-<button {{ $attributes->merge([
-    'class' => 'rounded-md transition-colors duration-200 ' .
-    $variantClasses[$variant] . ' ' .
-    $sizeClasses[$size]
-]) }}>
-    {{ $slot }}
-</button>
-```
-
-### Usage in Blade Templates
-
-```php
-<x-button variant="primary" size="md">
-    Click Me
-</x-button>
-
-<x-button variant="secondary" size="lg">
-    Secondary Action
-</x-button>
-
-<x-button variant="danger" size="sm">
-    Delete
-</x-button>
-```
-
-## 📱 Responsive Design Considerations
-
-### Media Query Breakpoints
-
-```scss
-// Small devices (phones)
-@media (min-width: 640px) {
-}
-
-// Medium devices (tablets)
-@media (min-width: 768px) {
-}
-
-// Large devices (desktops)
-@media (min-width: 1024px) {
-}
-
-// Extra large devices
-@media (min-width: 1280px) {
-}
-```
-
-## 🔍 Best Practices
-
-1. **Consistency**: Always use color variables instead of hardcoded values
-2. **Accessibility**: Ensure color contrast meets WCAG 2.1 guidelines
-3. **Dark Mode**: Consider implementing dark mode variants
-4. **Documentation**: Keep this color documentation updated
-5. **Component Library**: Build reusable components using these colors
-
-## 🛠 Development Tools
-
--   Color Contrast Checker: [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
--   Color Palette Generator: [Coolors](https://coolors.co/)
--   CSS Gradient Generator: [CSS Gradient](https://cssgradient.io/)
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

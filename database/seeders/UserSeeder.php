@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
             $user -> email = "admin@gmail.com",
             $user -> role = "Admin",
             $user -> password = bcrypt('1'),
-            // $user -> foto = "",
+            // $user -> total_progress = '0',
+            $user -> foto = "",
             // $user -> no_hp = '0895923847629',
             $user -> save()
             ]);
@@ -29,7 +30,8 @@ class UserSeeder extends Seeder
             $user -> email = "customer@gmail.com",
             $user -> role = 'Customer',
             $user -> password = bcrypt('2'),
-            // $user -> foto = "",
+            // $user -> total_progress = '0',
+            $user -> foto = "",
             // $user -> no_hp = '089611029347',
             $user -> save(),
             ]);

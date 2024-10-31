@@ -80,7 +80,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   a:hover, a:active, a:focus {
-    color: #29ca8e;
+    color: #b5e51e;
     outline: none;
   }
 
@@ -258,7 +258,7 @@ http://www.templatemo.com/tm-516-known
 
   .custom-navbar {
     background: #ffffff;
-    border-top: 5px solid #29ca8e;
+    border-top: 5px solid #b5e51e;
     border-bottom: 0;
     -webkit-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
@@ -285,7 +285,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .custom-navbar .navbar-nav.navbar-right li a .fa {
-    background: #29ca8e;
+    background: #b5e51e;
     border-radius: 100%;
     color: #ffffff;
     width: 30px;
@@ -309,12 +309,12 @@ http://www.templatemo.com/tm-516-known
   }
 
   .custom-navbar .nav li a:hover {
-    background-color: #29ca8e;
+    background-color: #b5e51e;
     color: #ffffff;
   }
 
   .custom-navbar .nav li.active > a {
-    background-color: #29ca8e;
+    background-color: #b5e51e;
     color: #ffffff;
   }
 
@@ -444,7 +444,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   #about figure span i {
-    background: #29ca8e;
+    background: #b5e51e;
     border-radius: 50px;
     color: #ffffff;
     font-size: 25px;
@@ -580,7 +580,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .courses-price span {
-    background: #29ca8e;
+    background: #b5e51e;
     border-radius: 2px;
     color: #ffffff;
     display: block;
@@ -739,7 +739,7 @@ http://www.templatemo.com/tm-516-known
   -----------------------------------------*/
 
   footer {
-    background: #252020;
+    background: #b5e51e;
     padding: 120px 0;
   }
 
@@ -753,11 +753,11 @@ http://www.templatemo.com/tm-516-known
 
   footer a,
   footer p {
-    color: #909090;
+    color: #000;
   }
 
   footer strong {
-    color: #d9d9d9;
+    color: #000;
   }
 
   footer address p {
@@ -773,7 +773,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .footer-info h2 {
-    color: #ffffff;
+    color: #000;
     padding: 0;
   }
 
@@ -797,14 +797,14 @@ http://www.templatemo.com/tm-516-known
     border-radius: 0;
     box-shadow: none;
     border: 0;
-    border-bottom: 1px solid #303030;
+    border-bottom: 1px solid #000;
     height: 50px;
     margin: 5px 0;
   }
 
   .newsletter-form input[type="submit"] {
     background: transparent;
-    border: 1px solid #f9f9f9;
+    border: 1px solid #000;
     border-radius: 50px;
     color: #ffffff;
     display: block;
@@ -814,12 +814,12 @@ http://www.templatemo.com/tm-516-known
   }
 
   .newsletter-form input[type="submit"]:hover {
-    background: #29ca8e;
+    background: #b5e51e;
     border-color: transparent;
   }
 
   .newsletter-form .form-group span {
-    color: #909090;
+    color: #000;
     display: block;
     font-size: 12px;
     margin-top: 20px;
@@ -845,7 +845,7 @@ http://www.templatemo.com/tm-516-known
 
   .social-icon li a {
     border-radius: 100px;
-    color: #29ca8e;
+    color: #ffff;
     font-size: 15px;
     width: 35px;
     height: 35px;
@@ -858,7 +858,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .social-icon li a:hover {
-    background: #29ca8e;
+    background: #000;
     color: #ffffff;
   }
 

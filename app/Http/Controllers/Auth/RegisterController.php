@@ -52,6 +52,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'total_progress' => ['required', 'string', 'max:255'],
+            'foto' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ]);
     }
 
@@ -63,11 +65,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $photoPath = null;
+        if (isset($data['foto']) && $data['foto']) {
+            // Simpan foto ke direktori public/storage/users
+            $photoPath = $data['foto']->store('users', 'public');
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => 'Customer',
+            // 'total_progress' => $data['total_progress'],
+            'foto' => $photoPath, // Menyimpan path foto ke dalam kolom database
         ]);
     }
 }
