@@ -1,4 +1,3 @@
-
 <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
     <div class="container">
 
@@ -59,7 +58,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     // Smooth scrolling
-    $('.smoothScroll').on('click', function (e) {
+    $('.smoothScroll').on('click', function(e) {
         e.preventDefault();
         $('html, body').animate({
             scrollTop: $($(this).attr('href')).offset().top
