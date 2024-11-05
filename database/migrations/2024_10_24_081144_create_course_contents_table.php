@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('course_contents', function (Blueprint $table) {
             $table->id();
             // Mendefinisikan foreign key yang merujuk ke 'course_categories'
+            $table->foreignId('course_id');
             $table->foreignId('course_category_id');
             $table->foreignId('section_id');
             $table->string('title',250);

@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Instructor;
 
 class InstructorController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'Instructor')
-            ->orderBy('id', 'DESC')
-            ->get();
-        return view('admin.instructor.index', compact('users'));
+        $data = [
+            'users' => DB::table('users')
+                ->join('instructors', 'users.id', '=', 'instructors.user_id')
+                ->where('users.role', 'Instructor')
+                ->select('users.*', 'instructors.bio', 'instructors.rating') // Tambahkan kolom yang dibutuhkan
+                ->get(),
+        ];
+        return view('admin.instructor.index', $data);
     }
     function deleteuser($id)
     {
@@ -29,43 +34,61 @@ class InstructorController extends Controller
     }
     public function tambah()
     {
-        $data = array(
+        // Ambil data dari tabel users dengan role "Instructor" dan gabungkan dengan tabel instructors
+        $data = [
             'users' => DB::table('users')
+                ->join('instructors', 'users.id', '=', 'instructors.user_id')
+                ->where('users.role', 'Instructor')
+                ->select('users.*', 'instructors.bio', 'instructors.rating') // Tambahkan kolom yang dibutuhkan
                 ->get(),
-        );
+        ];
+
         return view('admin.instructor.tambah', $data);
     }
+
     public function submitinstructor(Request $request)
     {
-        $name            = $request->name;
-        $email            = $request->email;
-        $password         = $request->password;
-        $total_progress         = $request->total_progress;
-        if ($request->hasFile('foto')) {
-            $foto       = $name . "." . $request->file('foto')->getClientOriginalExtension();
-        } else {
-            $foto       = null;
-        }
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bio' => 'required',
+        ]);
 
         try {
-            $data = [
-                'name'           => $name,
-                'email'          => $email,
-                'role'          => 'Instructor',
-                'total_progress'          => $total_progress,
-                'foto'           => $foto,
-                'password'       => bcrypt($password),
-            ];
-            $simpan     = DB::table('users')->insert($data);
-            if ($simpan) {
-                if ($request->hasFile('foto')) {
-                    $folderPath = "public/users";
-                    $request->file('foto')->storeAs($folderPath, $foto);
-                }
-                return redirect('/instructor')->with('Success', 'Data User berhasil disimpan.');
-            }
+            DB::transaction(function () use ($request) {
+                // Upload file foto jika ada
+                $folderPath = "public/users";
+                $fotoPath = null;
+                
+                // Tambahkan user baru dengan role 'Instructor'
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                    'role' => 'Instructor',
+                    'foto' => $folderPath,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                // Tambahkan data Instructor
+                Instructor::create([
+                    'user_id' => $user->id,
+                    'bio' => $request->bio,
+                    'rating' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            });
+
+            // Redirect ke halaman instructur jika berhasil
+            return redirect()->route('instructors.index')->with('success', 'Instructor berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect('/tambahinstructor')->with('danger', 'Data User gagal disimpan.');
+            // Jika gagal, redirect kembali dengan pesan error
+            return redirect()->back()->withInput()->withErrors(['error' => 'Gagal menambahkan instructor: ' . $e->getMessage()]);
         }
     }
+    
 }

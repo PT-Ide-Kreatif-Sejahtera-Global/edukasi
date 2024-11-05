@@ -2,7 +2,15 @@
 <html lang="en">
 
 <head>
+
     <title>IdeaThings - E-Learning</title>
+    <!--
+
+Known Template
+
+http://www.templatemo.com/tm-516-known
+
+-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="description" content="">
@@ -56,6 +64,44 @@
             </div>
         </div>
     </section>
+
+
+    <!-- FEATURE -->
+    <section id="feature">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="feature-thumb">
+                        <span>01</span>
+                        <h3>Trending Courses</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing eiusmod tempor incididunt ut labore et
+                            dolore magna.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="feature-thumb">
+                        <span>02</span>
+                        <h3>Books & Library</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing eiusmod tempor incididunt ut labore et
+                            dolore magna.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="feature-thumb">
+                        <span>03</span>
+                        <h3>Certified Teachers</h3>
+                        <p>templatemo delivers a wide variety of HTML5 templates for you at absolutely no charge. Please
+                            tell your friends.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 
     <!-- ABOUT -->
     <section id="about">
@@ -119,83 +165,48 @@
     <section id="team">
         <div class="container">
             <div class="row">
-
+    
                 <div class="col-md-12 col-sm-12">
                     <div class="section-title">
                         <h2>Teachers <small>Meet Professional Trainers</small></h2>
                     </div>
                 </div>
-
+    
+                @foreach($teachers as $teacher)
                 <div class="col-md-3 col-sm-6">
                     <div class="team-thumb">
                         <div class="team-image">
-                            <img src="landing/images/author-image1.jpg" class="img-responsive" alt="">
+                            <img width="100" height="100" src="{{ url('storage/users/' . $teacher->foto) }}">
                         </div>
                         <div class="team-info">
-                            <h3>Mark Wilson</h3>
-                            <span>I love Teaching</span>
+                            <h3>{{ $teacher->name }}</h3>
+                            <span>{{ $teacher->bio }}</span>
                         </div>
-                        <ul class="social-icon">
-                            <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                            <li><a href="#" class="fa fa-twitter"></a></li>
-                            <li><a href="#" class="fa fa-instagram"></a></li>
-                        </ul>
+                        {{-- <ul class="social-icon">
+                            @if($teacher->facebook)
+                                <li><a href="{{ $teacher->facebook }}" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                            @endif
+                            @if($teacher->twitter)
+                                <li><a href="{{ $teacher->twitter }}" class="fa fa-twitter"></a></li>
+                            @endif
+                            @if($teacher->instagram)
+                                <li><a href="{{ $teacher->instagram }}" class="fa fa-instagram"></a></li>
+                            @endif
+                            @if($teacher->google)
+                                <li><a href="{{ $teacher->google }}" class="fa fa-google"></a></li>
+                            @endif
+                            @if($teacher->linkedin)
+                                <li><a href="{{ $teacher->linkedin }}" class="fa fa-linkedin"></a></li>
+                            @endif
+                        </ul> --}}
                     </div>
                 </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="team-thumb">
-                        <div class="team-image">
-                            <img src="landing/images/author-image2.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="team-info">
-                            <h3>Catherine</h3>
-                            <span>Education is the key!</span>
-                        </div>
-                        <ul class="social-icon">
-                            <li><a href="#" class="fa fa-google"></a></li>
-                            <li><a href="#" class="fa fa-instagram"></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="team-thumb">
-                        <div class="team-image">
-                            <img src="landing/images/author-image3.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="team-info">
-                            <h3>Jessie Ca</h3>
-                            <span>I like Online Courses</span>
-                        </div>
-                        <ul class="social-icon">
-                            <li><a href="#" class="fa fa-twitter"></a></li>
-                            <li><a href="#" class="fa fa-envelope-o"></a></li>
-                            <li><a href="#" class="fa fa-linkedin"></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="team-thumb">
-                        <div class="team-image">
-                            <img src="landing/images/author-image4.jpg" class="img-responsive" alt="">
-                        </div>
-                        <div class="team-info">
-                            <h3>Andrew Berti</h3>
-                            <span>Learning is fun</span>
-                        </div>
-                        <ul class="social-icon">
-                            <li><a href="#" class="fa fa-twitter"></a></li>
-                            <li><a href="#" class="fa fa-google"></a></li>
-                            <li><a href="#" class="fa fa-behance"></a></li>
-                        </ul>
-                    </div>
-                </div>
-
+                @endforeach
+    
             </div>
         </div>
     </section>
+    
 
 
     <!-- Courses -->

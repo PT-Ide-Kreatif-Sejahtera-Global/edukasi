@@ -1,5 +1,5 @@
 @extends('admin.app')
-@section('title','Daftar instructor | IdeaThings E-Learning')
+@section('title','Daftar Kategori | IdeaThings E-Learning')
 {{-- @section('js')
     <script src="sweetalert2.min.js"></script>
 
@@ -35,8 +35,8 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title fw-semibold mb-4">Instructor</h5>
-                <a href="{{ url('tambahinstructor') }}" class="ti ti-plus">Tambah Instructor</a>
+                <h5 class="card-title fw-semibold mb-4">Kategori</h5>
+                <a href="{{ url('tambah') }}" class="ti ti-plus">Tambah Kategori</a>
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="table-responsive">
@@ -44,10 +44,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Bio</th>
-                                        <th>Foto</th>
+                                        <th>Nama Kategori</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -55,14 +52,11 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @if ($users)
-                                        @foreach ($users as $data)
+                                    @if ($pembeli)
+                                        @foreach ($pembeli as $data)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $data->name }}</td>
-                                                <td>{{ $data->email }}</td>
-                                                <td>{{ $data->bio }}</td>
-                                                <td><img width="100" height="100" src="{{ url('storage/users/' . $data->foto) }}"></td>
+                                                <td>{{ $data->category_name }}</td>
                                                 <td>
                                                     <a href="{{ url('edit/' . $data->id) }}">Edit</a>
                                                     {{-- <form action="{{ url('deleteuser/' . $data->id) }}" method="GET" style="display:inline;">
@@ -84,5 +78,3 @@
         </div>
     </div>
 @endsection
-
-

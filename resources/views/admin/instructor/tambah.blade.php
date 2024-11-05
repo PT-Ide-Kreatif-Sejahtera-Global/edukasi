@@ -27,8 +27,12 @@
                                 <input type="text" class="form-control" name="role" value="Instructor" readonly />
                             </div>
                             <div class="mb-3">
-                                <input type="hidden" class="form-control" name="total_progress" value="0" readonly />
+                                <label for="bio">Bio</label>
+                                <textarea type="text" class="form-control" name="bio"required></textarea>
                             </div>
+                            {{-- <div class="mb-3">
+                                <input type="hidden" class="form-control" name="total_progress" value="0" readonly />
+                            </div> --}}
                             <div class="mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" name="password" placeholder="Password..." required />

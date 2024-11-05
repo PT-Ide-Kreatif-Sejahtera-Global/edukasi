@@ -9,7 +9,7 @@
             </button>
 
             <!-- lOGO TEXT HERE -->
-            <a href="#" class="text-nowrap logo-img">
+            <a href="#" class="text-nowrap logo-img" style="margin: 20px;">
                 <img src="admin/images/logos/IdeaThings.png" width="70" alt="" />
             </a>
         </div>

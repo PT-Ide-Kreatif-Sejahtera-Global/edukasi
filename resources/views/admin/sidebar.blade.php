@@ -30,12 +30,35 @@
                         <span class="hide-menu">FITUR</span>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="course" aria-expanded="false">
+                        <a class="sidebar-link" href="#" aria-expanded="false" data-toggle="collapse" data-target="#courseDropdown">
                             <span>
                                 <i class="ti ti-file-description"></i>
                             </span>
-                            <span class="hide-menu">Course</span>
+                            <span class="hide-menu">All Course</span>
                         </a>
+                        <!-- Dropdown menu items -->
+                        <ul id="courseDropdown" class="collapse list-unstyled">
+                            <li class="sidebar-subitem">
+                                <a href="course" class="sidebar-link subitem-link">
+                                    <span class="hide-menu">Courses</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-subitem">
+                                <a href="content" class="sidebar-link subitem-link">
+                                    <span class="hide-menu">Course Content</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-subitem">
+                                <a href="kategori" class="sidebar-link subitem-link">
+                                    <span class="hide-menu">Course Kategori</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-subitem">
+                                <a href="section" class="sidebar-link subitem-link">
+                                    <span class="hide-menu">Course Section</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="user" aria-expanded="false">
@@ -69,6 +92,14 @@
                             <span class="hide-menu">Rating / Ulasan</span>
                         </a>
                     </li>
+                    {{-- <li class="sidebar-item">
+                        <a class="sidebar-link" href="kategori" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-star"></i>
+                            </span>
+                            <span class="hide-menu">Kategori</span>
+                        </a>
+                    </li> --}}
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->
