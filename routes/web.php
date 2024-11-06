@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,23 +11,25 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/', [Controller::class, 'welcome'])->name('welcome');
-
-
-Auth::routes();
-Route::get('/logout', function () {
-    Auth::logout();
-    return view('welcome');
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-Route::middleware(['auth','Admin'])->group(function(){
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'Admin'])->group(function () {
     //tampilan awal atau index
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->name('dashboard');
     Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
@@ -58,8 +60,8 @@ Route::middleware(['auth','Admin'])->group(function(){
     Route::post('/submitsection', [App\Http\Controllers\SectionController::class, 'submit'])->name('submitsection');
     Route::post('/submitcontent', [App\Http\Controllers\ContentController::class, 'submit'])->name('submitcontent');
     //Edit
-    
-    //update
-    
-});
 
+    //update
+
+});
+require __DIR__ . '/auth.php';
