@@ -4,7 +4,7 @@ const HeroSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         {
-            image: "/images/slide1.jpg",
+            image: "/landing/images/slider-image1.jpg",
             title: "Ingin Mengembangkan Diri?",
             text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         },
@@ -39,7 +39,7 @@ const HeroSection = () => {
                 />
             </div>
 
-            <div className="hidden lg:block absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 text-center p-8 bg-white rounded-lg shadow-lg">
+            <div className="hidden lg:block absolute w-96 top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 text-center p-8 bg-white rounded-lg shadow-lg">
                 <h2 className="text-xl font-bold mb-4">
                     {slides[currentSlide].title}
                 </h2>
