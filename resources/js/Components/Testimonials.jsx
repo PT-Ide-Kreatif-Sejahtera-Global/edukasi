@@ -4,7 +4,7 @@ const Testimonials = () => {
             name: "Student Name 1",
             testimonial:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            rating: 1.5,
+            rating: 5,
         },
         {
             name: "Student Name 2",
@@ -29,12 +29,13 @@ const Testimonials = () => {
             <span className="text-yellow-500 text-2xl">
                 {"⭐".repeat(fullStars)} {/* Filled stars */}
                 {halfStar ? "⭐" : ""} {/* Half star */}
+                {"☆".repeat(emptyStars)} {/* Empty stars */}
             </span>
         );
     };
 
     return (
-        <div className="bg-lime-500 my-32 py-10">
+        <div className="bg-lime-500 my-16 py-10">
             <h2 className="text-center text-white text-5xl lg:mb-16 font-semibold mb-6">
                 Trusted By 1000++ Students
             </h2>

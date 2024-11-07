@@ -39,11 +39,13 @@ const HeroSection = () => {
                 />
             </div>
 
-            <div className="hidden lg:block absolute w-96 top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 text-center p-8 bg-white rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold mb-4">
+            <div className="hidden lg:block absolute w-96 top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-white rounded-lg shadow-lg">
+                <h2 className="text-xl font-bold mb-4 text-center">
                     {slides[currentSlide].title}
                 </h2>
-                <p className="text-md mb-6">{slides[currentSlide].text}</p>
+                <p className="text-md mb-6 text-left">
+                    {slides[currentSlide].text}
+                </p>
                 <button className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-6 rounded">
                     Mulai Belajar
                 </button>
