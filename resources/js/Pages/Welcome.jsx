@@ -1,3 +1,4 @@
+import CategoryList from "@/Components/CategoryList";
 import Footer from "@/Components/Footer";
 import HeroSection from "@/Components/HeroSection";
 import Navbar from "@/Components/NavBar";
@@ -11,6 +12,7 @@ export default function Welcome({ auth }) {
             <Navbar auth={auth} />
             <HeroSection />
             <Testimonials />
+            <CategoryList />
             <Footer />
         </>
     );
