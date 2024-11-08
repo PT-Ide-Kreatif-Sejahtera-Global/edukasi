@@ -1,8 +1,9 @@
-// CourseList.js
-import React from "react";
-import CourseCard from "./CourseCard"; // Adjust the path according to your folder structure
+import { useState } from "react";
+import CategoryListSelect from "./ui/CategoryListSelect";
+import CourseCard from "./ui/CourseCard";
 
 const CourseList = () => {
+    const [selectedCategory, setSelectedCategory] = useState(1);
     // Sample data for courses
     const courses = [
         {
@@ -58,6 +59,10 @@ const CourseList = () => {
                 Kami Menyediakan Ribuan Kursus Yang Dapat Menunjang Kemandirian
                 Anda
             </p>
+            <CategoryListSelect
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+            />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {courses.map((course, index) => (
                     <CourseCard
