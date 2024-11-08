@@ -74,7 +74,10 @@ const years = new Date().getFullYear();
 export default function Footer() {
     return (
         <footer className="bg-lime-400">
-            <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+            <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-11 lg:px-8">
+                <p className="text-center text-white text-xl lg:mb-16 font-semibold mb-6">
+                    Temukan Layanan Kami Lainnya
+                </p>
                 <nav
                     aria-label="Footer"
                     className="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6"

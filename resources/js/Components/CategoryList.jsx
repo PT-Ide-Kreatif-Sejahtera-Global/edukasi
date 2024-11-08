@@ -1,4 +1,4 @@
-import CategoryCard from "./CategoryCard";
+import CategoryCard from "./ui/CategoryCard";
 
 const CategoryList = () => {
     // Sample data for categories
