@@ -18,7 +18,7 @@ const CategoryList = ({ selectedCategory, onSelectCategory }) => {
                                 ${
                                     selectedCategory === category.id
                                         ? "bg-lime-500 text-white"
-                                        : "bg-gray-200 text-gray-700 hover:bg-blue-300"
+                                        : "bg-gray-100 text-lime-300 hover:bg-lime-500 hover:text-white"
                                 }`}
                     onClick={() => onSelectCategory(category.id)}
                 >
