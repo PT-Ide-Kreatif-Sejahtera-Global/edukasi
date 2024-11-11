@@ -1,5 +1,5 @@
-import CategoryList from "@/Components/CategoryList";
 import CourseList from "@/Components/CourseList";
+import FAQList from "@/Components/FAQList";
 import Footer from "@/Components/Footer";
 import HeroSection from "@/Components/HeroSection";
 import Navbar from "@/Components/NavBar";
@@ -14,7 +14,7 @@ export default function Welcome({ auth }) {
             <HeroSection />
             <Testimonials />
             <CourseList />
-            <CategoryList />
+            <FAQList />
             <Footer />
         </>
     );
