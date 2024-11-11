@@ -17,7 +17,7 @@ const CourseCard = ({ title, price, totalRating, imageUrl }) => {
                 </h3>
                 <p className="text-blue-600 font-semibold">{price}</p>
                 <div className="flex items-center mt-2">
-                    <div className="flex items-center text-yellow-500">
+                    <div className="flex w-4 h-4 items-center text-yellow-500">
                         {"⭐".repeat(5)}
                         {/* Full Stars */}
                     </div>
