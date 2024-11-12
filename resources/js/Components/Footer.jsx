@@ -1,33 +1,28 @@
+// Footer.js
 export default function Footer() {
     return (
         <footer className="bg-white text-gray-800 py-10">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col sm:flex-row justify-between mb-6">
-                    <div className="flex items-center mb-4 sm:mb-0">
-                        <img
-                            src="https://via.placeholder.com/50"
-                            alt="Logo"
-                            className="mr-2"
-                        />{" "}
-                        {/* Replace with actual logo */}
-                        <div>
-                            <h1 className="font-bold text-lg">
-                                BuildWithAngga
-                            </h1>
-                            <p className="text-sm">Indonesia</p>
-                            <p className="text-xs">
-                                Jl. K.H. Wahid Hasyim Kel. No.100
-                                <br />J Jakarta, Indonesia
-                            </p>
-                            <p className="mt-2">+62.878.7911.9343 (WhatsApp)</p>
-                        </div>
-                    </div>
-                    <p className="text-xs text-center sm:text-right">
-                        © 2019-2024 BuildWithAngga
+            <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Company Logo and Info */}
+                <div className="flex flex-col mb-6">
+                    <img
+                        src="/admin/images/logos/IdeaThings.png" // Replace with actual logo
+                        alt="Logo"
+                        className="mr-2 mb-4 h-16 w-16"
+                    />
+                    <h1 className="font-bold text-lg mb-2">IdeaThings</h1>
+                    <p className="text-md">Jakarta, Indonesia</p>
+                    <p className="text-md">
+                        Jl. K.H. Wahid Hasyim Kel. No.100
+                        <br />
+                        Jakarta, Indonesia
                     </p>
+                    <p className="mt-2 text-md">089699501548 (WhatsApp)</p>
+                    <p className="text-md">© 2019-2024 IdeaThings</p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+                {/* Links Section 1 */}
+                <div className="grid grid-cols-1 gap-6 mb-6 sm:col-span-2 lg:col-span-1">
                     <div>
                         <h2 className="font-semibold">Start Popular Career</h2>
                         <ul className="mt-2">
@@ -59,7 +54,8 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+                {/* Links Section 2 */}
+                <div className="grid grid-cols-1 gap-6 mb-6 sm:col-span-2 lg:col-span-1">
                     <div>
                         <h2 className="font-semibold">Resources</h2>
                         <ul className="mt-2">
@@ -86,7 +82,8 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div>
+                {/* Useful Links Section */}
+                <div className="mb-6 sm:col-span-2 lg:col-span-1">
                     <h2 className="font-semibold">Useful Links</h2>
                     <ul className="mt-2">
                         <li>Privacy & Policy</li>
