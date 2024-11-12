@@ -4,6 +4,7 @@ import Footer from "@/Components/Footer";
 import HeroSection from "@/Components/HeroSection";
 import Navbar from "@/Components/NavBar";
 import Testimonials from "@/Components/Testimonials";
+import ChatComponent from "@/Components/ui/ChatComponent";
 import { Head } from "@inertiajs/react";
 
 export default function Welcome({ auth }) {
@@ -16,6 +17,7 @@ export default function Welcome({ auth }) {
             <CourseList />
             <FAQList />
             <Footer />
+            <ChatComponent />
         </>
     );
 }
