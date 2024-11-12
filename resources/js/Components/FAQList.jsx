@@ -28,7 +28,7 @@ const FAQList = () => {
             <h3 className="text-xl font-semibold text-center mb-4">
                 Frequently Asked Questions 😊
             </h3>
-            <div className="bg-gray-100 rounded-lg p-4">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {faqs.map((faq, index) => (
                     <QuestionCard
                         key={index}
