@@ -1,20 +1,11 @@
-// CourseCard.js
-import React from "react";
-
-const CourseCard = ({ title, price, totalRating, imageUrl }) => {
+const CourseCard = ({ title, price, totalRating, image }) => {
     return (
-        <div className="bg-white shadow-xl rounded-lg p-4 max-w-xs mx-auto text-gray-700">
-            <div className="relative">
-                <img
-                    src={imageUrl}
-                    alt="Course Thumbnail"
-                    className="w-full h-40 object-cover rounded-t-lg"
-                />
-            </div>
-            <div className="pt-6">
-                <h3 className="font-bold text-lg text-gray-800 truncate">
+        <div className="bg-white shadow-md rounded-lg overflow-auto w-62">
+            <img src={image} alt={title} className="w-full h-48 object-cover" />
+            <div className="p-5">
+                <span className="block font-bold overflow-hidden whitespace-nowrap overflow-ellipsis transition-all duration-300 hover:text-wrap">
                     {title}
-                </h3>
+                </span>
                 <p className="text-blue-600 font-semibold">{price}</p>
                 <div className="flex items-center mt-2">
                     <div className="flex w-4 h-4 items-center text-yellow-500">
