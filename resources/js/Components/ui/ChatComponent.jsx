@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ChatComponent = () => {
+export default function ChatComponent() {
     const [isChatOpen, setChatOpen] = useState(false);
 
     const toggleChat = () => {
@@ -93,6 +93,4 @@ const ChatComponent = () => {
             )}
         </div>
     );
-};
-
-export default ChatComponent;
+}
