@@ -1,41 +1,59 @@
+import { useRef } from "react";
 import CourseCard from "./ui/CourseCard";
 
-const CourseList = () => {
-    // Sample data for courses
+export default function CourseList() {
     const courses = [
         {
-            title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta",
+            title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta Pertama",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            totalRating: 4.5,
+            totalRating: 200,
             price: 200000,
             image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
         },
         {
             title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta",
-            description:
-                "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            totalRating: 5.0,
+            totalRating: 50,
             price: 200000,
             image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
         },
         {
             title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta",
-            description:
-                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.",
-            totalRating: 3.5,
+            totalRating: 35,
             price: 200000,
             image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
         },
         {
             title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta",
-            description:
-                "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse.",
-            totalRating: 4.0,
+            totalRating: 40,
             price: 200000,
             image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
         },
     ];
+
+    const scrollRef = useRef(null); // Creating a reference to the scrollable div
+
+    // Mouse dragging logic
+    const handleMouseDown = (event) => {
+        const startX = event.pageX - scrollRef.current.offsetLeft;
+        const scrollLeft = scrollRef.current.scrollLeft;
+
+        const handleMouseMove = (moveEvent) => {
+            const x = moveEvent.pageX - scrollRef.current.offsetLeft;
+            const walk = (x - startX) * 2; // The multiplier controls the dragging speed
+            scrollRef.current.scrollLeft = scrollLeft - walk;
+        };
+
+        const handleMouseUp = () => {
+            scrollRef.current.removeEventListener("mousemove", handleMouseMove);
+            scrollRef.current.removeEventListener("mouseup", handleMouseUp);
+            scrollRef.current.removeEventListener("mouseleave", handleMouseUp);
+        };
+
+        scrollRef.current.addEventListener("mousemove", handleMouseMove);
+        scrollRef.current.addEventListener("mouseup", handleMouseUp);
+        scrollRef.current.addEventListener("mouseleave", handleMouseUp);
+    };
 
     return (
         <div className="p-10 mb-12">
@@ -46,19 +64,22 @@ const CourseList = () => {
                 Kami Menyediakan Ribuan Kursus Yang Dapat Menunjang Kemandirian
                 Anda
             </p>
-            <div className="grid grid-cols-4 gap-6 overflow-x-auto">
+            <div
+                ref={scrollRef}
+                onMouseDown={handleMouseDown} // Handle mouse down event
+                style={{ cursor: "grab" }}
+                className="grid grid-flow-col scrollbar-hidden overflow-auto gap-6"
+            >
                 {courses.map((course, index) => (
                     <CourseCard
                         key={index}
                         title={course.title}
                         price={course.price}
-                        ratings={course.ratings}
+                        totalRating={course.totalRating}
                         image={course.image}
                     />
                 ))}
             </div>
         </div>
     );
-};
-
-export default CourseList;
+}
