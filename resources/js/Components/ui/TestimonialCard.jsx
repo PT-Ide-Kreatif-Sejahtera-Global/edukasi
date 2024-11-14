@@ -5,7 +5,7 @@ export const TestimonialCard = ({
     userName,
 }) => {
     return (
-        <div className="bg-white shadow-lg rounded-xl p-6 max-w-sm mx-auto text-gray-700">
+        <div className="bg-white shadow-lg rounded-xl p-6 w-64 h-auto max-w-sm mx-auto text-gray-700">
             <h3 className="text-xl font-bold mb-2">{title}</h3>
             <p className="text-gray-600 mb-4">{description}</p>
             <div className="flex items-center">

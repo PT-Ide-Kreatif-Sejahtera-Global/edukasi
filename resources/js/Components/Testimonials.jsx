@@ -2,36 +2,56 @@ import { TestimonialCard } from "./ui/TestimonialCard";
 
 export default function Testimonials() {
     return (
-        <div className="bg-lime-500 my-16 py-10">
-            <h2 className="text-center text-white text-5xl lg:mb-16 font-semibold mb-6">
-                Dipercaya lebih dari 900k pelajar
-            </h2>
-            <div className="flex justify-center space-x-4">
+        <div className="grid grid-cols-2 bg-lime-500 my-16 p-10 gap-6">
+            <div className=" bg-white shadow sm:rounded-lg h-64 m-auto">
+                <div className="px-4 py-5 sm:p-6 items-center">
+                    <p>Dipercaya oleh lebih dari 900k pelajar</p>
+                    <h3 className="text-lg font-medium text-gray-900">
+                        Testimonial
+                    </h3>
+                    <button>Cek Katalog Kelas</button>
+                </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 justify-center">
                 <TestimonialCard
                     title="Hemat Waktu"
-                    description="Materi design & development mudah dipahami, thanks BuildWithAngga."
-                    userImage="https://via.placeholder.com/72" // Replace with the actual user image URL
+                    description="Materi design & development mudah dipahami, thanks IdeaCourse."
+                    userImage="https://via.placeholder.com/72"
                     userName="Evita"
                     userRole="UI/UX Designer"
                 />
                 <TestimonialCard
                     title="Hemat Waktu"
-                    description="Materi design & development mudah dipahami, thanks BuildWithAngga."
-                    userImage="https://via.placeholder.com/72" // Replace with the actual user image URL
+                    description="Materi design & development mudah dipahami, thanks IdeaCourse."
+                    userImage="https://via.placeholder.com/72"
                     userName="Evita"
                     userRole="UI/UX Designer"
                 />
                 <TestimonialCard
                     title="Hemat Waktu"
-                    description="Materi design & development mudah dipahami, thanks BuildWithAngga."
-                    userImage="https://via.placeholder.com/72" // Replace with the actual user image URL
+                    description="Materi design & development mudah dipahami, thanks IdeaCourse."
+                    userImage="https://via.placeholder.com/72"
                     userName="Evita"
                     userRole="UI/UX Designer"
                 />
                 <TestimonialCard
                     title="Hemat Waktu"
-                    description="Materi design & development mudah dipahami, thanks BuildWithAngga."
-                    userImage="https://via.placeholder.com/72" // Replace with the actual user image URL
+                    description="Materi design & development mudah dipahami, thanks IdeaCourse."
+                    userImage="https://via.placeholder.com/72"
+                    userName="Evita"
+                    userRole="UI/UX Designer"
+                />
+                <TestimonialCard
+                    title="Hemat Waktu"
+                    description="Materi design & development mudah dipahami, thanks IdeaCourse."
+                    userImage="https://via.placeholder.com/72"
+                    userName="Evita"
+                    userRole="UI/UX Designer"
+                />
+                <TestimonialCard
+                    title="Hemat Waktu"
+                    description="Materi design & development mudah dipahami, thanks IdeaCourse."
+                    userImage="https://via.placeholder.com/72"
                     userName="Evita"
                     userRole="UI/UX Designer"
                 />
