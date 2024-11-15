@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const HeroSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -30,38 +30,55 @@ const HeroSection = () => {
     };
 
     return (
-        <section className="relative">
-            <div className="relative w-full h-[500px] overflow-hidden">
-                <img
-                    src={slides[currentSlide].image}
-                    alt={`Slide ${currentSlide + 1}`}
-                    className="w-full h-full object-cover"
-                />
-            </div>
+        <>
+            <section className="relative">
+                <div className="relative w-full h-[500px] overflow-hidden">
+                    <img
+                        src={slides[currentSlide].image}
+                        alt={`Slide ${currentSlide + 1}`}
+                        className="w-full h-full object-cover"
+                    />
+                </div>
 
-            <div className="hidden lg:block absolute w-96 top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-white rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold mb-4 text-center">
+                {/* Content for Desktop */}
+                <div className="hidden lg:block absolute w-96 top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-white rounded-lg shadow-lg">
+                    <h2 className="text-xl font-bold mb-4 text-center">
+                        {slides[currentSlide].title}
+                    </h2>
+                    <p className="text-md mb-6 text-left">
+                        {slides[currentSlide].text}
+                    </p>
+                    <button className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-6 rounded">
+                        Mulai Belajar
+                    </button>
+                </div>
+
+                <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
+                    <button
+                        onClick={handlePrev}
+                        className="text-white text-4xl"
+                    >
+                        &#8249;
+                    </button>
+                </div>
+                <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
+                    <button
+                        onClick={handleNext}
+                        className="text-white text-4xl"
+                    >
+                        &#8250;
+                    </button>
+                </div>
+            </section>
+            <div className="block lg:hidden w-full mt-12">
+                <h2 className="text-lg font-bold mb-2 text-center">
                     {slides[currentSlide].title}
                 </h2>
-                <p className="text-md mb-6 text-left">
+                <p className="text-sm mb-4 text-center">
                     {slides[currentSlide].text}
                 </p>
-                <button className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-6 rounded">
-                    Mulai Belajar
-                </button>
             </div>
-
-            <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-                <button onClick={handlePrev} className="text-white text-4xl">
-                    &#8249;
-                </button>
-            </div>
-            <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-                <button onClick={handleNext} className="text-white text-4xl">
-                    &#8250;
-                </button>
-            </div>
-        </section>
+        </>
     );
 };
 
