@@ -1,4 +1,5 @@
-import QuestionCard from "./ui/QuestionsCard";
+import { useState } from "react";
+import QuestionCard from "./ui/QuestionsCard"; // Ensure the path is correct based on your project structure
 
 const FAQList = () => {
     const faqs = [
@@ -20,6 +21,14 @@ const FAQList = () => {
         },
     ];
 
+    // State to manage which question is currently visible
+    const [visibleIndex, setVisibleIndex] = useState(null);
+
+    const toggleVisibility = (index) => {
+        // Toggle the visibility of the clicked question card
+        setVisibleIndex((prevIndex) => (prevIndex === index ? null : index));
+    };
+
     return (
         <div className="max-w-2xl mx-auto px-4 py-6">
             <h2 className="text-2xl font-bold text-center mb-6">
@@ -28,12 +37,14 @@ const FAQList = () => {
             <h3 className="text-xl font-semibold text-center mb-4">
                 Frequently Asked Questions 😊
             </h3>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {faqs.map((faq, index) => (
                     <QuestionCard
                         key={index}
                         question={faq.question}
                         answer={faq.answer}
+                        isVisible={visibleIndex === index} // Check if this question index is visible
+                        toggleVisibility={() => toggleVisibility(index)} // Pass toggle function
                     />
                 ))}
             </div>
