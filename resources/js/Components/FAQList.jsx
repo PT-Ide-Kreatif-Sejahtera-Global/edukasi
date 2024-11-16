@@ -1,5 +1,5 @@
 import { useState } from "react";
-import QuestionCard from "./ui/QuestionsCard"; // Ensure the path is correct based on your project structure
+import QuestionCard from "./ui/QuestionsCard"; // Ensure this path is correct
 
 const FAQList = () => {
     const faqs = [
@@ -25,7 +25,7 @@ const FAQList = () => {
     const [visibleIndex, setVisibleIndex] = useState(null);
 
     const toggleVisibility = (index) => {
-        // Toggle the visibility of the clicked question card
+        // Toggle visibility of the clicked card
         setVisibleIndex((prevIndex) => (prevIndex === index ? null : index));
     };
 
@@ -37,16 +37,19 @@ const FAQList = () => {
             <h3 className="text-xl font-semibold text-center mb-4">
                 Frequently Asked Questions 😊
             </h3>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {faqs.map((faq, index) => (
-                    <QuestionCard
-                        key={index}
-                        question={faq.question}
-                        answer={faq.answer}
-                        isVisible={visibleIndex === index} // Check if this question index is visible
-                        toggleVisibility={() => toggleVisibility(index)} // Pass toggle function
-                    />
-                ))}
+            <div className="flex flex-col gap-4">
+                {faqs.map((faq, index) => {
+                    const displayIndex = index + 1; // Start counting from 1
+                    return displayIndex < 1 ? null : ( // Check condition
+                        <QuestionCard
+                            key={index}
+                            question={faq.question}
+                            answer={faq.answer}
+                            isVisible={visibleIndex === index} // Check if this question card is visible
+                            toggleVisibility={() => toggleVisibility(index)} // Pass toggle function
+                        />
+                    );
+                })}
             </div>
         </div>
     );
