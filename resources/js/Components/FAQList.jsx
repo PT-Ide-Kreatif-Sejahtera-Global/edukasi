@@ -1,7 +1,7 @@
 import { useState } from "react";
 import QuestionCard from "./ui/QuestionsCard"; // Ensure this path is correct
 
-const FAQList = () => {
+export default function FAQList() {
     const faqs = [
         {
             question: "Apakah seorang pemula bisa ikut belajar?",
@@ -48,6 +48,4 @@ const FAQList = () => {
             </div>
         </div>
     );
-};
-
-export default FAQList;
+}
