@@ -13,7 +13,7 @@ export default function QuestionCard({
                 onClick={toggleVisibility}
             >
                 <h2 className="text-xl font-semibold">{question}</h2>
-                <button className="text-blue-500 focus:outline-none">
+                <button className="text-lime-500 focus:outline-none">
                     <FontAwesomeIcon
                         icon={
                             isVisible ? "fa-solid fa-minus" : "fa-solid fa-plus"

@@ -21,35 +21,30 @@ const FAQList = () => {
         },
     ];
 
-    // State to manage which question is currently visible
     const [visibleIndex, setVisibleIndex] = useState(null);
 
     const toggleVisibility = (index) => {
-        // Toggle visibility of the clicked card
         setVisibleIndex((prevIndex) => (prevIndex === index ? null : index));
     };
 
     return (
-        <div className="max-w-2xl mx-auto px-4 py-6">
+        <div className="max-w-4xl mx-auto px-4 py-6">
             <h2 className="text-2xl font-bold text-center mb-6">
                 Tanya BuildWithAngga
             </h2>
             <h3 className="text-xl font-semibold text-center mb-4">
                 Frequently Asked Questions 😊
             </h3>
-            <div className="flex flex-col gap-4">
-                {faqs.map((faq, index) => {
-                    const displayIndex = index + 1; // Start counting from 1
-                    return displayIndex < 1 ? null : ( // Check condition
-                        <QuestionCard
-                            key={index}
-                            question={faq.question}
-                            answer={faq.answer}
-                            isVisible={visibleIndex === index} // Check if this question card is visible
-                            toggleVisibility={() => toggleVisibility(index)} // Pass toggle function
-                        />
-                    );
-                })}
+            <div className="grid grid-cols-2 gap-4">
+                {faqs.map((faq, index) => (
+                    <QuestionCard
+                        key={index}
+                        question={faq.question}
+                        answer={faq.answer}
+                        isVisible={visibleIndex === index} // Check if this question card is visible
+                        toggleVisibility={() => toggleVisibility(index)} // Pass toggle function
+                    />
+                ))}
             </div>
         </div>
     );
