@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -134,7 +136,7 @@ export default function Register() {
                                         >
                                             Password
                                         </label>
-                                        <div className="mt-2">
+                                        <div className="mt-2 relative">
                                             <input
                                                 id="password"
                                                 name="password"
@@ -152,14 +154,28 @@ export default function Register() {
                                                         e.target.value
                                                     )
                                                 }
-                                                onFocus={() =>
-                                                    setShowPassword(true)
-                                                }
-                                                onBlur={() =>
-                                                    setShowPassword(false)
-                                                }
                                                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
+                                            <span
+                                                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                                onClick={() =>
+                                                    setShowPassword(
+                                                        !showPassword
+                                                    )
+                                                }
+                                            >
+                                                {showPassword ? (
+                                                    <FontAwesomeIcon
+                                                        icon={faEyeSlash}
+                                                        className="text-lime-400"
+                                                    />
+                                                ) : (
+                                                    <FontAwesomeIcon
+                                                        icon={faEye}
+                                                        className="text-lime-400"
+                                                    />
+                                                )}
+                                            </span>
                                             {errors.password && (
                                                 <div className="text-red-600 mt-1">
                                                     {errors.password}
@@ -175,7 +191,7 @@ export default function Register() {
                                         >
                                             Confirm Password
                                         </label>
-                                        <div className="mt-2">
+                                        <div className="mt-2 relative">
                                             <input
                                                 id="password_confirmation"
                                                 name="password_confirmation"
@@ -195,14 +211,28 @@ export default function Register() {
                                                         e.target.value
                                                     )
                                                 }
-                                                onFocus={() =>
-                                                    setShowPassword(true)
-                                                }
-                                                onBlur={() =>
-                                                    setShowPassword(false)
-                                                }
                                                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
+                                            <span
+                                                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                                onClick={() =>
+                                                    setShowPassword(
+                                                        !showPassword
+                                                    )
+                                                }
+                                            >
+                                                {showPassword ? (
+                                                    <FontAwesomeIcon
+                                                        icon={faEyeSlash}
+                                                        className="text-lime-400"
+                                                    />
+                                                ) : (
+                                                    <FontAwesomeIcon
+                                                        icon={faEye}
+                                                        className="text-lime-400"
+                                                    />
+                                                )}
+                                            </span>
                                             {errors.password_confirmation && (
                                                 <div className="text-red-600 mt-1">
                                                     {

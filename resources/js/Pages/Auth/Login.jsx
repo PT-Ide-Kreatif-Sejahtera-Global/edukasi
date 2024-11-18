@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
@@ -6,6 +6,8 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -24,6 +26,8 @@ export default function Login({ status, canResetPassword }) {
         e.preventDefault();
         post(route("login"));
     };
+
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <>
@@ -96,15 +100,51 @@ export default function Login({ status, canResetPassword }) {
                                         >
                                             Password
                                         </label>
-                                        <div className="mt-2">
+                                        <div className="mt-2 relative">
                                             <input
                                                 id="password"
                                                 name="password"
-                                                type="password"
+                                                type={
+                                                    showPassword
+                                                        ? "text"
+                                                        : "password"
+                                                }
                                                 required
-                                                autoComplete="current-password"
+                                                autoComplete="new-password"
+                                                value={data.password}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "password",
+                                                        e.target.value
+                                                    )
+                                                }
                                                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
+                                            <span
+                                                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                                onClick={() =>
+                                                    setShowPassword(
+                                                        !showPassword
+                                                    )
+                                                }
+                                            >
+                                                {showPassword ? (
+                                                    <FontAwesomeIcon
+                                                        icon={faEyeSlash}
+                                                        className="text-lime-400"
+                                                    />
+                                                ) : (
+                                                    <FontAwesomeIcon
+                                                        icon={faEye}
+                                                        className="text-lime-400"
+                                                    />
+                                                )}
+                                            </span>
+                                            {errors.password && (
+                                                <div className="text-red-600 mt-1">
+                                                    {errors.password}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
 
