@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Register() {
@@ -8,6 +8,7 @@ export default function Register() {
         password: "",
         password_confirmation: "",
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         return () => {
@@ -17,7 +18,7 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("register")); // Ensure this route is correctly defined in your backend
+        post(route("register"));
     };
 
     return (
@@ -85,7 +86,7 @@ export default function Register() {
                                                         e.target.value
                                                     )
                                                 }
-                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
                                             {errors.name && (
                                                 <div className="text-red-600 mt-1">
@@ -116,7 +117,7 @@ export default function Register() {
                                                         e.target.value
                                                     )
                                                 }
-                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
                                             {errors.email && (
                                                 <div className="text-red-600 mt-1">
@@ -137,7 +138,11 @@ export default function Register() {
                                             <input
                                                 id="password"
                                                 name="password"
-                                                type="password"
+                                                type={
+                                                    showPassword
+                                                        ? "text"
+                                                        : "password"
+                                                }
                                                 required
                                                 autoComplete="new-password"
                                                 value={data.password}
@@ -147,7 +152,13 @@ export default function Register() {
                                                         e.target.value
                                                     )
                                                 }
-                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                                onFocus={() =>
+                                                    setShowPassword(true)
+                                                }
+                                                onBlur={() =>
+                                                    setShowPassword(false)
+                                                }
+                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
                                             {errors.password && (
                                                 <div className="text-red-600 mt-1">
@@ -168,7 +179,11 @@ export default function Register() {
                                             <input
                                                 id="password_confirmation"
                                                 name="password_confirmation"
-                                                type="password"
+                                                type={
+                                                    showPassword
+                                                        ? "text"
+                                                        : "password"
+                                                }
                                                 required
                                                 autoComplete="new-password"
                                                 value={
@@ -180,7 +195,13 @@ export default function Register() {
                                                         e.target.value
                                                     )
                                                 }
-                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                                onFocus={() =>
+                                                    setShowPassword(true)
+                                                }
+                                                onBlur={() =>
+                                                    setShowPassword(false)
+                                                }
+                                                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
                                             {errors.password_confirmation && (
                                                 <div className="text-red-600 mt-1">
@@ -195,7 +216,7 @@ export default function Register() {
                                     <div>
                                         <button
                                             type="submit"
-                                            className="flex w-full justify-center rounded-md bg-lime-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                            className="flex w-full justify-center rounded-md bg-lime-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
                                         >
                                             Register
                                         </button>
