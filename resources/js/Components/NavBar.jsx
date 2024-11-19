@@ -5,7 +5,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fas);
 import { Link } from "@inertiajs/react";
 
-const Navbar = ({ auth }) => {
+export default function Navbar({ auth }) {
     return (
         <nav className="bg-white shadow-lg">
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -39,17 +39,14 @@ const Navbar = ({ auth }) => {
 
                 {/* Cart Icon */}
                 <div className="ml-4">
-                    <FontAwesomeIcon
-                        className="h-8 w-8 text-lime-500 hidden md:block"
-                        icon={["fas", "shopping-cart"]}
-                    />
+                    <p>Pembelajaran Saya</p>
                 </div>
 
-                {/* Book Icon */}
+                {/* Cart Icon */}
                 <div className="ml-4">
                     <FontAwesomeIcon
-                        className="h-8 w-8 text-lime-500 hidden md:block"
-                        icon={["fas", "book"]}
+                        className="h-6 w-6 text-lime-500 hidden md:block"
+                        icon={["fas", "shopping-cart"]}
                     />
                 </div>
 
@@ -65,6 +62,4 @@ const Navbar = ({ auth }) => {
             </div>
         </nav>
     );
-};
-
-export default Navbar;
+}
