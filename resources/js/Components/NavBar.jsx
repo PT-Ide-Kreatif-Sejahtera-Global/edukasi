@@ -11,7 +11,6 @@ export default function Navbar({ auth }) {
     const [isSubDropdownOpen, setSubDropdownOpen] = useState(false);
 
     const dropdownRef = useRef(null);
-    const subDropdownRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
