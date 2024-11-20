@@ -35,7 +35,7 @@ export default function FAQList() {
             <h3 className="text-xl font-semibold text-center mb-4">
                 Frequently Asked Questions 😊
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
                 {faqs.map((faq, index) => (
                     <QuestionCard
                         key={index}

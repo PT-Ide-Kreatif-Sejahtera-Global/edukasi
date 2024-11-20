@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -8,13 +8,37 @@ library.add(fas);
 
 export default function Navbar({ auth }) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const [isSubDropdownOpen, setSubDropdownOpen] = useState(false);
+
+    const dropdownRef = useRef(null);
+    const subDropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)
+            ) {
+                setDropdownOpen(false);
+                setSubDropdownOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const toggleDropdown = () => {
         setDropdownOpen((prev) => !prev);
     };
 
-    const closeDropdown = () => {
-        setDropdownOpen(false);
+    const handleMouseEnterSubDropdown = () => {
+        setSubDropdownOpen(true);
+    };
+
+    // Removed setDropdownOpen(false) from handleMouseLeaveSubDropdown
+    const handleMouseLeaveSubDropdown = () => {
+        setSubDropdownOpen(false);
     };
 
     return (
@@ -31,44 +55,73 @@ export default function Navbar({ auth }) {
                     </div>
 
                     {/* Kategori with dropdown trigger */}
-                    <div className="relative ml-4">
+                    <div className="relative ml-4" ref={dropdownRef}>
                         <p
                             className="cursor-pointer hidden lg:block"
-                            onClick={toggleDropdown}
-                            onMouseEnter={() => setDropdownOpen(true)}
-                            onMouseLeave={closeDropdown} // Close on mouse leave
+                            onClick={toggleDropdown} // Toggle the dropdown on click
                         >
                             Kategori
                         </p>
 
-                        {/* Dropdown Menu */}
-                        {isDropdownOpen && ( // Render dropdown if open
-                            <div className="absolute left-1/2 transform -translate-x-1/2 z-40 mt-9 w-48 bg-white border rounded-lg shadow-lg">
+                        {/* Main Dropdown Menu */}
+                        {isDropdownOpen && (
+                            <div className="absolute left-1/2 transform -translate-x-1/2 z-40 mt-9 w-48 h-auto bg-white border shadow-lg">
                                 <Link
                                     href="/kategori/kategori1"
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                    onClick={closeDropdown} // Close dropdown on link click
+                                    onClick={() => setDropdownOpen(false)}
                                 >
                                     Kategori 1
                                 </Link>
                                 <Link
                                     href="/kategori/kategori2"
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                    onClick={closeDropdown}
+                                    onClick={() => setDropdownOpen(false)}
                                 >
                                     Kategori 2
                                 </Link>
-                                <Link
-                                    href="/kategori/kategori3"
-                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                    onClick={closeDropdown}
+
+                                {/* Kategori 3 with subcategories */}
+                                <div
+                                    className="relative"
+                                    onMouseEnter={handleMouseEnterSubDropdown} // Open sub-dropdown on mouse enter
+                                    onMouseLeave={handleMouseLeaveSubDropdown} // Close sub-dropdown on mouse leave
                                 >
-                                    Kategori 3
-                                </Link>
+                                    <p className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-lime-100">
+                                        Kategori 3
+                                    </p>
+
+                                    {/* Sub Dropdown Menu */}
+                                    {isSubDropdownOpen && (
+                                        <div className="absolute left-full top-0 mt-0 ml-0 w-40 bg-white border shadow-lg">
+                                            <Link
+                                                href="/kategori/kategori3/subkategori1"
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
+                                                onClick={() => {
+                                                    setDropdownOpen(false);
+                                                    setSubDropdownOpen(false);
+                                                }}
+                                            >
+                                                Subkategori 1
+                                            </Link>
+                                            <Link
+                                                href="/kategori/kategori3/subkategori2"
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
+                                                onClick={() => {
+                                                    setDropdownOpen(false);
+                                                    setSubDropdownOpen(false);
+                                                }}
+                                            >
+                                                Subkategori 2
+                                            </Link>
+                                        </div>
+                                    )}
+                                </div>
+
                                 <Link
                                     href="/kategori/kategori4"
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                    onClick={closeDropdown}
+                                    onClick={() => setDropdownOpen(false)}
                                 >
                                     Kategori 4
                                 </Link>
@@ -96,7 +149,6 @@ export default function Navbar({ auth }) {
                         <p>Pembelajaran Saya</p>
                     </div>
 
-                    {/* Cart Icon */}
                     <div className="ml-4">
                         <FontAwesomeIcon
                             className="h-6 w-6 text-lime-500 hidden md:block"
