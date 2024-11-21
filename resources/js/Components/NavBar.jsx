@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -9,33 +9,22 @@ library.add(fas);
 export default function Navbar({ auth }) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [isSubDropdownOpen, setSubDropdownOpen] = useState(false);
-
     const dropdownRef = useRef(null);
+    const kategoriRef = useRef(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target)
-            ) {
-                setDropdownOpen(false);
-                setSubDropdownOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () =>
-            document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    const handleMouseEnterDropdown = () => {
+        setDropdownOpen(true);
+    };
 
-    const toggleDropdown = () => {
-        setDropdownOpen((prev) => !prev);
+    const handleMouseLeaveDropdown = () => {
+        setDropdownOpen(false);
+        setSubDropdownOpen(false);
     };
 
     const handleMouseEnterSubDropdown = () => {
         setSubDropdownOpen(true);
     };
 
-    // Removed setDropdownOpen(false) from handleMouseLeaveSubDropdown
     const handleMouseLeaveSubDropdown = () => {
         setSubDropdownOpen(false);
     };
@@ -43,7 +32,7 @@ export default function Navbar({ auth }) {
     return (
         <div>
             <nav className="bg-white shadow-lg">
-                <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div className="container mx-auto px-6 flex justify-between items-center">
                     {/* Logo */}
                     <div className="flex items-center">
                         <img
@@ -54,28 +43,33 @@ export default function Navbar({ auth }) {
                     </div>
 
                     {/* Kategori with dropdown trigger */}
-                    <div className="relative ml-4" ref={dropdownRef}>
-                        <p
-                            className="cursor-pointer hidden lg:block"
-                            onClick={toggleDropdown} // Toggle the dropdown on click
-                        >
-                            Kategori
-                        </p>
+                    <div
+                        className="relative ml-4 h-[96px]"
+                        ref={kategoriRef}
+                        onMouseEnter={handleMouseEnterDropdown}
+                        onMouseLeave={handleMouseLeaveDropdown}
+                    >
+                        <button className="w-full h-full cursor-pointer hidden lg:block text-left">
+                            <p>Kategori</p>
+                        </button>
 
                         {/* Main Dropdown Menu */}
                         {isDropdownOpen && (
-                            <div className="absolute left-1/2 transform -translate-x-1/2 z-40 mt-9 w-48 h-auto bg-white border shadow-lg">
+                            <div
+                                ref={dropdownRef}
+                                className="absolute left-1/2 transform -translate-x-1/2 z-40 mt-0 w-40 h-auto bg-white border shadow-lg"
+                            >
                                 <Link
                                     href="/kategori/kategori1"
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                    onClick={() => setDropdownOpen(false)}
+                                    onClick={handleMouseLeaveDropdown}
                                 >
                                     Kategori 1
                                 </Link>
                                 <Link
                                     href="/kategori/kategori2"
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                    onClick={() => setDropdownOpen(false)}
+                                    onClick={handleMouseLeaveDropdown}
                                 >
                                     Kategori 2
                                 </Link>
@@ -83,8 +77,8 @@ export default function Navbar({ auth }) {
                                 {/* Kategori 3 with subcategories */}
                                 <div
                                     className="relative"
-                                    onMouseEnter={handleMouseEnterSubDropdown} // Open sub-dropdown on mouse enter
-                                    onMouseLeave={handleMouseLeaveSubDropdown} // Close sub-dropdown on mouse leave
+                                    onMouseEnter={handleMouseEnterSubDropdown}
+                                    onMouseLeave={handleMouseLeaveSubDropdown}
                                 >
                                     <p className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-lime-100">
                                         Kategori 3
@@ -96,20 +90,18 @@ export default function Navbar({ auth }) {
                                             <Link
                                                 href="/kategori/kategori3/subkategori1"
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                                onClick={() => {
-                                                    setDropdownOpen(false);
-                                                    setSubDropdownOpen(false);
-                                                }}
+                                                onClick={
+                                                    handleMouseLeaveDropdown
+                                                }
                                             >
                                                 Subkategori 1
                                             </Link>
                                             <Link
                                                 href="/kategori/kategori3/subkategori2"
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                                onClick={() => {
-                                                    setDropdownOpen(false);
-                                                    setSubDropdownOpen(false);
-                                                }}
+                                                onClick={
+                                                    handleMouseLeaveDropdown
+                                                }
                                             >
                                                 Subkategori 2
                                             </Link>
@@ -120,7 +112,7 @@ export default function Navbar({ auth }) {
                                 <Link
                                     href="/kategori/kategori4"
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-lime-100"
-                                    onClick={() => setDropdownOpen(false)}
+                                    onClick={handleMouseLeaveDropdown}
                                 >
                                     Kategori 4
                                 </Link>
