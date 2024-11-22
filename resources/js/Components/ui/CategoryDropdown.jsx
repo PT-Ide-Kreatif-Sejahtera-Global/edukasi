@@ -25,7 +25,7 @@ export default function CategoryDropdown() {
 
     return (
         <div
-            className="relative ml-4"
+            className="relative ml-4 h-full"
             onMouseEnter={handleMouseEnterDropdown}
             onMouseLeave={handleMouseLeaveDropdown}
         >
