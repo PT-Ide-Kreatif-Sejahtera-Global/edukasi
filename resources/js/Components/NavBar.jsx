@@ -5,6 +5,7 @@ import CategoryDropdown from "./ui/CategoryDropdown";
 import SearchBar from "./ui/SearchBar";
 import CartDropdown from "./ui/CartDropdown";
 import AuthButtons from "./ui/AuthButtons";
+import LearningDropdown from "./ui/LearningDropdown";
 
 library.add(fas);
 
@@ -23,9 +24,7 @@ export default function Navbar({ auth, purchasedCourses }) {
                     {/* Search Bar */}
                     <SearchBar />
 
-                    <div className="ml-4">
-                        <p>Pembelajaran Saya</p>
-                    </div>
+                    <LearningDropdown purchasedCourses={purchasedCourses} />
 
                     {/* Cart Icon */}
                     <CartDropdown purchasedCourses={purchasedCourses} />
