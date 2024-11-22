@@ -1,27 +1,31 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
 
 export default function LearningDropdown({ purchasedCourses }) {
-    const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const [isCoursesDropdownOpen, setCoursesDropdownOpen] = useState(false);
 
-    const handleMouseEnterDropdown = () => {
-        setDropdownOpen(true);
+    const handleMouseEnterCoursesDropdown = () => {
+        setCoursesDropdownOpen(true);
     };
 
-    const handleMouseLeaveDropdown = () => {
-        setDropdownOpen(false);
+    const handleMouseLeaveCoursesDropdown = () => {
+        setCoursesDropdownOpen(false);
     };
 
     return (
         <div
             className="relative ml-4 h-full"
-            onMouseEnter={handleMouseEnterDropdown}
-            onMouseLeave={handleMouseLeaveDropdown}
+            onMouseEnter={handleMouseEnterCoursesDropdown}
+            onMouseLeave={handleMouseLeaveCoursesDropdown}
         >
-            <p className="cursor-pointer">Pembelajaran Saya</p>
-
-            {isDropdownOpen && (
-                <div className="absolute right-0 z-40 mt-2 w-64 bg-white border shadow-lg">
+            <button className="w-full h-full cursor-pointer hidden lg:block text-left">
+                <button className="w-full h-full cursor-pointer hidden lg:block text-left">
+                    <p>Pembelajaran Saya</p>
+                </button>
+            </button>
+            {isCoursesDropdownOpen && (
+                <div className="absolute right-1/2 transform translate-x-1/2 z-40 mt-0 w-64 h-auto bg-white border shadow-lg">
                     {purchasedCourses.length > 0 ? (
                         purchasedCourses.map((course, index) => (
                             <div
@@ -37,20 +41,12 @@ export default function LearningDropdown({ purchasedCourses }) {
                                     <Link
                                         href={`/courses/${course.id}`} // Adjust the link as necessary
                                         className="block text-sm font-semibold text-gray-700 hover:underline"
-                                        onClick={handleMouseLeaveDropdown}
+                                        onClick={
+                                            handleMouseLeaveCoursesDropdown
+                                        }
                                     >
                                         {course.title}
                                     </Link>
-                                    <p className="text-xs text-gray-500">
-                                        {course.description}
-                                    </p>
-                                    <p className="text-xs text-gray-600">
-                                        Rating: {course.totalRating}
-                                    </p>
-                                    <p className="text-xs text-gray-600">
-                                        Price: Rp{" "}
-                                        {course.price.toLocaleString()}
-                                    </p>
                                 </div>
                             </div>
                         ))
