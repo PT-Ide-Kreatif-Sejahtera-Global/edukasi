@@ -10,7 +10,6 @@ import LearningDropdown from "./ui/LearningDropdown";
 library.add(fas);
 
 export default function Navbar({ auth, purchasedCourses }) {
-    console.log(purchasedCourses);
     return (
         <div>
             <nav className="bg-white shadow-lg">

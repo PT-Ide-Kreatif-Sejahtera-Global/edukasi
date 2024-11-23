@@ -5,6 +5,7 @@ import HeroSection from "@/Components/HeroSection";
 import Navbar from "@/Components/NavBar";
 import Testimonials from "@/Components/Testimonials";
 import ChatComponent from "@/Components/ui/ChatComponent";
+import UserLayout from "@/Layouts/UserLayout";
 import { Head } from "@inertiajs/react";
 
 // Example of purchased courses
@@ -19,15 +20,13 @@ const purchasedCourses = [
 
 export default function Welcome({ auth }) {
     return (
-        <>
+        <UserLayout>
             <Head title="Welcome" />
-            <Navbar auth={auth} purchasedCourses={purchasedCourses} />
             <HeroSection />
             <Testimonials />
             <CourseList />
             <FAQList />
-            <Footer />
             <ChatComponent />
-        </>
+        </UserLayout>
     );
 }
