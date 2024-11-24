@@ -1,14 +1,11 @@
 import CourseList from "@/Components/CourseList";
 import FAQList from "@/Components/FAQList";
-import Footer from "@/Components/Footer";
 import HeroSection from "@/Components/HeroSection";
-import Navbar from "@/Components/NavBar";
 import Testimonials from "@/Components/Testimonials";
 import ChatComponent from "@/Components/ui/ChatComponent";
 import UserLayout from "@/Layouts/UserLayout";
 import { Head } from "@inertiajs/react";
 
-// Example of purchased courses
 const purchasedCourses = [
     {
         id: 1,
@@ -20,7 +17,7 @@ const purchasedCourses = [
 
 export default function Welcome({ auth }) {
     return (
-        <UserLayout>
+        <UserLayout purchasedCourses={purchasedCourses} auth={auth}>
             <Head title="Welcome" />
             <HeroSection />
             <Testimonials />
