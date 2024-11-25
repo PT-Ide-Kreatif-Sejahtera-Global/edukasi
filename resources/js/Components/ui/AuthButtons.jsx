@@ -1,6 +1,5 @@
-import { Link } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function AuthButtons({ auth }) {
@@ -18,7 +17,7 @@ export default function AuthButtons({ auth }) {
                         onClick={toggleDropdown}
                         className="flex items-center bg-lime-500 text-white font-bold py-2 px-4 rounded"
                     >
-                        <FontAwesomeIcon icon={faUser} className="mr-2" />
+                        <FontAwesomeIcon icon="user" className="mr-2" />
                         {auth.user.name} {/* Display the user's name */}
                     </button>
                     {dropdownOpen && (
