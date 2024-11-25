@@ -29,14 +29,12 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Auth::routes();
 Route::get('/logout', function () {
     Auth::logout();
     return redirect()->route('welcome');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
     //tampilan awal atau index
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->name('dashboard');
