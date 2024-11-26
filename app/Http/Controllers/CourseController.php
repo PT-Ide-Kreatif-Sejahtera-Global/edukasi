@@ -4,12 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\course_category;
-use App\Models\course_contents;
-use App\Models\course_section;
-use App\Models\User;
 
 class CourseController extends Controller
 {
@@ -22,12 +17,14 @@ class CourseController extends Controller
                 ->select(
                     'courses.*',
                     'users.name as instructor_name', // mengambil nama dari tabel users
+                    DB::raw("CASE WHEN courses.is_locked = 1 THEN 'Locked' WHEN courses.is_locked = 2 THEN 'Unlocked' END as lock_status")
                 )
                 ->get(),
         ];
 
         return view('admin.course.index', $data);
     }
+
 
     public function tambah()
     {
@@ -52,7 +49,11 @@ class CourseController extends Controller
         $price = $request->price;
         $total_price = $request->total_price;
         $is_locked = $request->is_locked; // Menangkap nilai is_locked
-
+        if ($request->hasFile('foto')) {
+            $foto = $title . '.' . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = null;
+        }
         try {
             $data = [
                 'instructor_id' => $instructor_id,
@@ -61,65 +62,78 @@ class CourseController extends Controller
                 'price' => $price,
                 'total_price' => $total_price,
                 'is_locked' => $is_locked, // Menyimpan nilai is_locked
+                'foto' => $foto,
             ];
             $simpan = DB::table('courses')->insert($data);
             if ($simpan) {
+                if ($request->hasFile('foto')) {
+                    $folderPath = "public/course";
+                    $request->file('foto')->storeAs($folderPath, $foto);
+                }
                 return redirect('/course')->with('success', 'Data course berhasil disimpan.');
             }
         } catch (\Exception $e) {
             return redirect('/tambahcourse')->with('danger', 'Data course gagal disimpan: ' . $e->getMessage());
         }
     }
-
-
-
-    // Method untuk menampilkan detail kursus
-    public function show($id)
-    {
-        $course = Course::with('instructor', 'category', 'sections', 'registrations')
-            ->findOrFail($id);
-        return view('course.show', compact('course'));
-    }
-
-    // Method untuk menampilkan form edit kursus (hanya untuk Admin dan Instruktur)
     public function edit($id)
     {
-        $course = Course::findOrFail($id);
-        $categories = course_category::all();
+        // Ambil data course berdasarkan ID
+        $course = DB::table('courses')->find($id);
 
-        if (Auth::user()->role == 'Admin' || (Auth::user()->role == 'Instructor' && $course->instructor_id == Auth::id())) {
-            return view('course.edit', compact('course', 'categories'));
-        }
-
-        return redirect()->route('course.index');
+        return view('admin.course.edit', compact('course'));
     }
 
-    // Menyimpan perubahan kursus yang di-edit (Admin atau Instruktur)
     public function update(Request $request, $id)
     {
-        $course = Course::findOrFail($id);
+        $instructor_id = $request->instructor_id;
+        $title = $request->title;
+        $description = $request->description;
+        $price = $request->price;
+        $total_price = $request->total_price;
+        $is_locked = $request->is_locked; // Menangkap nilai is_locked
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:course_categories,id',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'duration' => 'required|string',
-        ]);
+        // Cek apakah ada file foto yang di-upload
+        if ($request->hasFile('foto')) {
+            $foto = $title . '.' . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = null;
+        }
 
-        $course->update($request->only(['name', 'category_id', 'description', 'price', 'duration']));
+        try {
+            // Data yang akan di-update
+            $data = [
+                'instructor_id' => $instructor_id,
+                'title' => $title,
+                'description' => $description,
+                'price' => $price,
+                'total_price' => $total_price,
+                'is_locked' => $is_locked, // Menyimpan nilai is_locked
+            ];
 
-        return redirect()->route('course.index')->with('success', 'Kursus berhasil diperbarui.');
+            // Jika ada foto baru, tambahkan ke data untuk di-update
+            if ($foto) {
+                $data['foto'] = $foto;
+            }
+
+            // Update data di database
+            $update = DB::table('courses')->where('id', $id)->update($data);
+
+            if ($update) {
+                // Jika ada foto baru, simpan di folder
+                if ($request->hasFile('foto')) {
+                    $folderPath = "public/course";
+                    $request->file('foto')->storeAs($folderPath, $foto);
+                }
+                return redirect('/course')->with('success', 'Data course berhasil diperbarui.');
+            }
+        } catch (\Exception $e) {
+            return redirect('/editcourse/' . $id)->with('danger', 'Data course gagal diperbarui: ' . $e->getMessage());
+        }
     }
-
-    // Menghapus kursus (hanya untuk Admin)
     public function delete($id)
     {
-        if (Auth::user()->role == 'Admin') {
-            $course = Course::findOrFail($id);
-            $course->delete();
-            return redirect()->route('course.index')->with('success', 'Kursus berhasil dihapus.');
-        }
-        return redirect()->route('course.index');
+        DB::table('courses')->where('id', $id)->delete();
+        return redirect('/course')->with('success', 'Data courses berhasil dihapus.');
     }
 }

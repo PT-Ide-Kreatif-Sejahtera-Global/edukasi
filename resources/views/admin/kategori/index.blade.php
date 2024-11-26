@@ -57,14 +57,28 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $data->category_name }}</td>
-                                                <td>
-                                                    <a href="{{ url('edit/' . $data->id) }}">Edit</a>
-                                                    {{-- <form action="{{ url('deleteuser/' . $data->id) }}" method="GET" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="ti ti-trash"></button>
-                                                    </form> --}}
-                                                    <a href="{{ url('deleteuser/' . $data->id) }}" class="ti ti-trash" id="delete"></a>
+                                                <td class="text-center">
+                                                    <!-- Dropdown untuk Edit dan Hapus -->
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-light ti ti-dots-vertical" type="button"
+                                                            id="menuOptions" data-bs-toggle="dropdown" aria-expanded="false"
+                                                            style="border: none; background: none;">
+                                                            <i class="ti ti-more" style="font-size: 1.5rem;"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="menuOptions">
+                                                            <li>
+                                                                <a href="{{ url('editkategori' . $data->id) }}"
+                                                                    class="dropdown-item">
+                                                                    <i class="ti ti-pencil"></i> Edit
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ url('deletekategori/' . $data->id) }}"
+                                                                    class="dropdown-item"><i class="ti ti-trash"></i>Delete
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

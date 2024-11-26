@@ -1,5 +1,5 @@
 @extends('admin.app')
-@section('title','Daftar Courses Sections | IdeaThings E-Learning')
+@section('title', 'Daftar Courses Sections | IdeaThings E-Learning')
 {{-- @section('js')
     <script src="sweetalert2.min.js"></script>
 
@@ -35,8 +35,8 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title fw-semibold mb-4">Section</h5>
-                <a href="{{ url('tambahcontent') }}" class="ti ti-plus">Tambah Section</a>
+                <h5 class="card-title fw-semibold mb-4">Content</h5>
+                <a href="{{ url('tambahcontent') }}" class="ti ti-plus">Tambah Content</a>
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="table-responsive">
@@ -66,9 +66,28 @@
                                             <td>{{ $data->title }}</td>
                                             <td><a href="{{ $data->url }}" target="_blank">{{ $data->url }}</a></td>
                                             <td>{{ $data->duration }}</td>
-                                            <td>
-                                                <a href="{{ url('edit/' . $data->id) }}">Edit</a>
-                                                <a href="{{ url('deleteuser/' . $data->id) }}" class="ti ti-trash" id="delete"></a>
+                                            <td class="text-center">
+                                                <!-- Dropdown untuk Edit dan Hapus -->
+                                                <div class="dropdown">
+                                                    <button class="btn btn-light ti ti-dots-vertical" type="button"
+                                                        id="menuOptions" data-bs-toggle="dropdown" aria-expanded="false"
+                                                        style="border: none; background: none;">
+                                                        <i class="ti ti-more" style="font-size: 1.5rem;"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="menuOptions">
+                                                        <li>
+                                                            <a href="{{ url('editcontent' . $data->id) }}"
+                                                                class="dropdown-item">
+                                                                <i class="ti ti-pencil"></i> Edit
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ url('deletecontent/' . $data->id) }}"
+                                                                class="dropdown-item"><i class="ti ti-trash"></i>Delete
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

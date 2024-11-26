@@ -12,6 +12,7 @@
             </div>
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                @if (Auth::user()->role == 'Admin')
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -92,6 +93,14 @@
                             <span class="hide-menu">Rating / Ulasan</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="coupon" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-star"></i>
+                            </span>
+                            <span class="hide-menu">Coupon Diskon</span>
+                        </a>
+                    </li>
                     {{-- <li class="sidebar-item">
                         <a class="sidebar-link" href="kategori" aria-expanded="false">
                             <span>
@@ -101,6 +110,39 @@
                         </a>
                     </li> --}}
                 </ul>
+                @else
+                
+                @endif
+                @if (Auth::user()->role == 'Instructor')
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Home</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="home" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-layout-dashboard"></i>
+                            </span>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">FITUR</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="courses" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-file-description"></i>
+                            </span>
+                            <span class="hide-menu">Course</span>
+                        </a>
+                    </li>
+                </ul>
+                @else
+                    
+                @endif
             </nav>
             <!-- End Sidebar navigation -->
         </div>

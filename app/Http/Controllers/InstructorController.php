@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\course;
+use App\Models\Enrollments;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Instructor;
+use Illuminate\Support\Facades\Auth;
 
 class InstructorController extends Controller
 {
@@ -56,19 +59,21 @@ class InstructorController extends Controller
             'bio' => 'required',
         ]);
 
+        if ($request->hasFile('foto')) {
+            $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = null;
+        }
+
         try {
-            DB::transaction(function () use ($request) {
-                // Upload file foto jika ada
-                $folderPath = "public/users";
-                $fotoPath = null;
-                
+            DB::transaction(function () use ($request, $foto) {
                 // Tambahkan user baru dengan role 'Instructor'
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => bcrypt($request->password),
                     'role' => 'Instructor',
-                    'foto' => $folderPath,
+                    'foto' => $foto,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -81,14 +86,25 @@ class InstructorController extends Controller
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
+
+                // Simpan foto ke dalam folder yang ditentukan
+                if ($request->hasFile('foto')) {
+                    $folderPath = "public/users/";
+                    $request->file('foto')->storeAs($folderPath, $foto);
+                }
             });
 
-            // Redirect ke halaman instructur jika berhasil
-            return redirect()->route('instructors.index')->with('success', 'Instructor berhasil ditambahkan.');
+            // Redirect ke halaman instructors jika berhasil
+            return redirect()->route('instructor')->with('success', 'Instructor berhasil ditambahkan.');
         } catch (\Exception $e) {
             // Jika gagal, redirect kembali dengan pesan error
             return redirect()->back()->withInput()->withErrors(['error' => 'Gagal menambahkan instructor: ' . $e->getMessage()]);
         }
+    }
+    public function delete($id)
+    {
+        DB::table('courses')->where('id', $id)->delete();
+        return redirect('/course')->with('success', 'Data courses berhasil dihapus.');
     }
     
 }

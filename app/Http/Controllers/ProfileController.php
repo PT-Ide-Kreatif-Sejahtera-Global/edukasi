@@ -2,62 +2,117 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
-use Inertia\Response;
+use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): Response
+    public function profile()
     {
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-        ]);
+        $user = Auth::user(); // Atau gunakan logika untuk mengambil user yang diinginkan
+        return view('admin.profile', compact('user'));
+    }
+    public function user()
+    {
+        $user = Auth::user();
+        return view('customer.profile', compact('user'));
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    // Simpan perubahan profil
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $user = auth()->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:8|confirmed',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Data yang akan diupdate
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        // Jika ada input password, update password
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
         }
 
-        $request->user()->save();
+        // Update foto jika ada file foto yang diupload
+        // Cek dan update foto jika ada file yang diunggah
+        if ($request->hasFile('foto')) {
+            // Set nama file baru
+            $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
 
-        return Redirect::route('profile.edit');
+            // Hapus foto lama jika ada
+            if ($user->foto) {
+                Storage::delete('public/users/' . $user->foto);
+            }
+
+            // Simpan foto baru ke folder 'public/users'
+            $folderPath = "public/users/";
+            $request->file('foto')->storeAs($folderPath, $foto);
+
+            // Update nama file foto di database
+            $user->foto = $foto;
+        }
+
+        // Update data user
+        $user->update($data);
+
+        return redirect()->route('home')->with('status', 'Profil berhasil diperbarui.');
     }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function updateuser(Request $request)
     {
+        $user = auth()->user();
+
+        // Validasi input
         $request->validate([
-            'password' => ['required', 'current_password'],
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:8|confirmed',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user = $request->user();
+        // Data yang akan diupdate
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
 
-        Auth::logout();
+        // Jika ada input password, update password
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
 
-        $user->delete();
+        // Update foto jika ada file foto yang diupload
+        // Cek dan update foto jika ada file yang diunggah
+        if ($request->hasFile('foto')) {
+            // Set nama file baru
+            $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            // Hapus foto lama jika ada
+            if ($user->foto) {
+                Storage::delete('public/users/' . $user->foto);
+            }
 
-        return Redirect::to('/');
+            // Simpan foto baru ke folder 'public/users'
+            $folderPath = "public/users/";
+            $request->file('foto')->storeAs($folderPath, $foto);
+
+            // Update nama file foto di database
+            $user->foto = $foto;
+        }
+
+        // Update data user
+        $user->update($data);
+
+        return redirect()->route('home')->with('status', 'Profil berhasil diperbarui.');
     }
 }
