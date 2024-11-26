@@ -10,7 +10,7 @@ http://www.templatemo.com/tm-516-known
 
   body {
     background: #ffffff;
-    font-family: 'Nunito', sans-serif;
+    font-family: sans-serif;
     overflow-x: hidden;
     padding-top: 70px;
   }
@@ -58,7 +58,7 @@ http://www.templatemo.com/tm-516-known
 
 
   /*---------------------------------------
-     GENERAL               
+    GENERAL               
   -----------------------------------------*/
 
   html{
@@ -153,7 +153,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .entry-form .submit-btn:hover {
-    background: #3f51b5;
+    background: #b5e51e;
     color: #ffffff;
   }
 
@@ -348,7 +348,7 @@ http://www.templatemo.com/tm-516-known
 
   #home h3 {
     color: #f9f9f9;
-    font-size: 16px;
+    font-size: 40px;
     font-weight: 300;
     margin: 0;
     padding: 5px 0 40px 0;
@@ -406,7 +406,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .feature-thumb span {
-    background: #3f51b5;
+    background: #b5e51e;
     border-radius: 50px;
     color: #ffffff;
     font-size: 25px;
@@ -419,10 +419,52 @@ http://www.templatemo.com/tm-516-known
     margin-bottom: 5px;
   }
 
+  /* baru */
   .feature-thumb h3 {
     margin: 10px 0;
   }
+  .content-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+/* Baru */
+.course-section {
+    margin-bottom: 30px;
+}
 
+#course-detail {
+  font-family: Arial, sans-serif;
+}
+
+#course-detail h2 {
+  color: #333;
+  font-weight: 700;
+}
+
+.course-description {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.course-info {
+  border-radius: 8px;
+}
+
+.course-contents h3 {
+  color: #d9534f;
+}
+
+.course-section h4 {
+  color: #0275d8;
+  font-weight: 600;
+}
+
+.list-group-item {
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
 
 
   /*---------------------------------------
@@ -588,7 +630,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .courses-price.free span {
-    background: #3f51b5;
+    background: #b5e51e;
   }
 
 
@@ -649,7 +691,7 @@ http://www.templatemo.com/tm-516-known
   }
 
   .tst-rating .fa {
-    color: #3f51b5;
+    color: #b5e51e;
   }
 
   .tst-image,
@@ -683,7 +725,7 @@ http://www.templatemo.com/tm-516-known
   -----------------------------------------*/
 
   #contact {
-    background: #3f51b5;
+    background: #b5e51e;
   }
 
   #contact h2 {

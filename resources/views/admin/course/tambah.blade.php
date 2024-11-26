@@ -58,6 +58,12 @@
                                 </select>
                             </div>
 
+                            <div class="mb-3">
+                                <label for="foto" class="form-label">Foto</label>
+                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*"
+                                    required>
+                            </div>
+
                             <!-- Tombol Aksi -->
                             <div class="d-flex justify-content-between mt-4">
                                 <a href="{{ route('course') }}" class="btn btn-secondary">Kembali</a>

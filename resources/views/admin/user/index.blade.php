@@ -21,7 +21,7 @@
                                     <th>Jumlah Tamu</th>
                                     <th>Menu</th>
                                     <th>Total Harga</th> --}}
-                                    {{-- <th>Aksi</th> --}}
+                                    <th>foto</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,7 +40,7 @@
                                             <td>{{ $data->jumlah_tamu }}</td>
                                             <td>{{ $data->no_meja }}</td>
                                             <td>{{ $data->total_harga }}</td> --}}
-                                            {{-- <td><img width="100" height="100" src="{{ url('storage/menu/' . $data->foto) }}"></td> --}}
+                                            <td><img width="100" height="100" src="{{ url('storage/users/' . $data->foto) }}"></td>
                                             {{-- <td>
                                                 <a href="{{ url('edit/' . $data->id_reservasi) }}">Edit</a>
                                                 <a href="{{ url('deletekasir/' . $data->id_reservasi) }}" class="ti ti-trash" id="delete"></a>
