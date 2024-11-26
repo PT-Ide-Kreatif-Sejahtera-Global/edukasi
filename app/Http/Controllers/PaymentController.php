@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\course;
-use App\Models\cupon;
-use App\Models\Enrollments;
+use App\Models\Coupon;
+use App\Models\Course;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,7 +34,7 @@ class PaymentController extends Controller
     public function index($id)
     {
         $course = course::findOrFail($id);
-        $coupons = Cupon::all();
+        $coupons = Coupon::all();
         return view('customer.payment.index', compact('course', 'coupons'));
     }
 
@@ -53,7 +53,7 @@ class PaymentController extends Controller
 
         // Periksa apakah kupon disertakan
         if ($request->filled('coupon_id')) {
-            $coupon = Cupon::find($request->id);
+            $coupon = Coupon::find($request->id);
 
             // Terapkan kupon jika ada
             if ($coupon) {
@@ -73,7 +73,7 @@ class PaymentController extends Controller
         $totalPrice = max($course->price - $discountAmount, 0);
 
         // Simpan data pendaftaran
-        $enrollment = Enrollments::create([
+        $enrollment = Enrollment::create([
             'user_id' => auth()->id(),
             'course_id' => $course->id,
             'coupon_id' => $couponId,

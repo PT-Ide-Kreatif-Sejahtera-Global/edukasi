@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cupon;
+use App\Models\Coupon;
 use App\Models\Enrollments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +11,7 @@ class CouponController extends Controller
 {
     public function index()
     {
-        $coupons = Cupon::all(); // Mengambil semua data kupon dari database
+        $coupons = Coupon::all(); // Mengambil semua data kupon dari database
         return view('admin.coupon.index', compact('coupons'));
     }
     public function tambah()
