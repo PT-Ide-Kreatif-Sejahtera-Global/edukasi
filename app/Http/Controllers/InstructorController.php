@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Instructor;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -65,6 +66,8 @@ class InstructorController extends Controller
 
         if ($request->hasFile('foto')) {
             $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = 'default.png';
         }
 
         try {
@@ -84,7 +87,8 @@ class InstructorController extends Controller
                 Instructor::create([
                     'user_id' => $user->id,
                     'bio' => $request->bio,
-                    'rating' => null,
+                    'rating' => 0,
+                    'foto' => $foto, // Ensure foto is included here
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -101,11 +105,13 @@ class InstructorController extends Controller
 
             // Redirect to instructors page if successful
             return redirect()->route('instructor')->with('success', 'Instructor berhasil ditambahkan.');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error adding instructor: ' . $e->getMessage());
             return redirect()->back()->withInput()->withErrors(['error' => 'Gagal menambahkan instructor: ' . $e->getMessage()]);
         }
     }
+
+
 
     public function delete($id)
     {
