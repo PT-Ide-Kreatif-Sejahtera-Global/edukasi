@@ -9,17 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
     /**
@@ -39,24 +28,27 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
-    public function authenticated(Request $request, $user){
-        if($user -> role == 'Admin' ){
-            return redirect('/home')->with('success','Login berhasil sebagai Admin.');
-        } else if($user -> role == 'Instructor' ){
-            return redirect('/home')->with('success','Login berhasil '. $user->name . '.');
-        } else if($user -> role == 'Customer' ){
-            return redirect('/')->with('success','Selamat Datang Di IdeaThings '. $user->name . '.');
+
+    /**
+     * Handle the authenticated user after login.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // Check user role and redirect accordingly
+        switch ($user->role) {
+            case 'Admin':
+                return redirect('/home')->with('success', 'Login berhasil sebagai Admin.');
+            case 'Instructor':
+                return redirect('/home')->with('success', 'Login berhasil ' . $user->name . '.');
+            case 'Customer':
+                return redirect('/')->with('success', 'Selamat Datang Di IdeaThings ' . $user->name . '.');
+            default:
+                Auth::logout();
+                return redirect('/')->route('welcome')->with('error', 'Akses Ditolak.');
         }
-        
-        // else if($user -> level == 2 && $user->status == "Tidak Aktif"){
-        //     // Auth::logout();
-        //     $request->session()->flush();
-        //     // Session::flush();
-        //     return redirect('/')->with('error','Akses Ditolak, hubungi Superuser Admin.');
-        // }
-    // else{
-    //     Auth::logout();
-    //     return redirect('/')->route('welcome')->with('error','Anda telah keluar.');
-    // }
     }
 }
