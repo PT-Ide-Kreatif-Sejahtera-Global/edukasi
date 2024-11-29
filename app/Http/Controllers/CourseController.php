@@ -54,7 +54,7 @@ class CourseController extends Controller
             'price' => 'required|numeric|max:8',
             'total_price' => 'required|numeric',
             'is_locked' => 'required|boolean',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Optional image validation
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
         ]);
 
         // Retrieve data from the request
@@ -65,10 +65,8 @@ class CourseController extends Controller
         $total_price = $request->total_price;
         $is_locked = $request->is_locked;
 
-        // Handle file upload
-        $foto = $request->hasFile('foto')
-            ? $title . '.' . $request->file('foto')->getClientOriginalExtension()
-            : null;
+        // Initialize the foto variable
+        $fotoPath = null;
 
         try {
             // Create a new course instance
@@ -79,16 +77,20 @@ class CourseController extends Controller
             $course->price = $price;
             $course->total_price = $total_price;
             $course->is_locked = $is_locked;
-            $course->foto = $foto;
+
+            // Handle file upload
+            if ($request->hasFile('foto')) {
+                // Generate a unique filename
+                $fotoName = $title . '.' . $request->file('foto')->getClientOriginalExtension();
+                $folderPath = 'public/course'; // Define the folder path
+                $fotoPath = $request->file('foto')->storeAs($folderPath, $fotoName); // Store the file
+
+                // Save the file path to the database
+                $course->foto = $fotoPath; // Store the path in the database
+            }
 
             // Save the course to the database
             $course->save();
-
-            // Store the file if it exists
-            if ($foto) {
-                $folderPath = "public/course";
-                $request->file('foto')->storeAs($folderPath, $foto);
-            }
 
             return redirect('/course')->with('success', 'Data course berhasil disimpan.');
         } catch (QueryException $e) {
@@ -100,25 +102,13 @@ class CourseController extends Controller
                 'price' => $price,
                 'total_price' => $total_price,
                 'is_locked' => $is_locked,
-                'foto' => $foto,
+                'foto' => $fotoPath,
                 'request_data' => $request->all(),
             ]);
             return redirect('/tambahcourse')->with('danger', 'Data course gagal disimpan:');
-        } catch (Exception $e) {
-            // Handle general errors
-            Log::error('General error while saving course: ' . $e->getMessage(), [
-                'instructor_id' => $instructor_id,
-                'title' => $title,
-                'description' => $description,
-                'price' => $price,
-                'total_price' => $total_price,
-                'is_locked' => $is_locked,
-                'foto' => $foto,
-                'request_data' => $request->all(),
-            ]);
-            return redirect('/tambahcourse')->with('danger', 'Data course gagal disimpan: ' . $e->getMessage());
         }
     }
+
 
 
 
