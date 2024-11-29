@@ -113,6 +113,7 @@ class InstructorController extends Controller
 
 
 
+
     public function delete($id)
     {
         DB::table('courses')->where('id', $id)->delete();

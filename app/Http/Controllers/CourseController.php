@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\course;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -43,39 +46,82 @@ class CourseController extends Controller
     // Menyimpan kursus baru (Admin atau Instruktur)
     public function submit(Request $request)
     {
+        // Validate the incoming request data
+        $request->validate([
+            'instructor_id' => 'required|exists:instructors,id',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|max:8',
+            'total_price' => 'required|numeric',
+            'is_locked' => 'required|boolean',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Optional image validation
+        ]);
+
+        // Retrieve data from the request
         $instructor_id = $request->instructor_id;
         $title = $request->title;
         $description = $request->description;
         $price = $request->price;
         $total_price = $request->total_price;
-        $is_locked = $request->is_locked; // Menangkap nilai is_locked
-        if ($request->hasFile('foto')) {
-            $foto = $title . '.' . $request->file('foto')->getClientOriginalExtension();
-        } else {
-            $foto = null;
-        }
+        $is_locked = $request->is_locked;
+
+        // Handle file upload
+        $foto = $request->hasFile('foto')
+            ? $title . '.' . $request->file('foto')->getClientOriginalExtension()
+            : null;
+
         try {
-            $data = [
+            // Create a new course instance
+            $course = new Course(); // Assuming you have a Course model
+            $course->instructor_id = $instructor_id;
+            $course->title = $title;
+            $course->description = $description;
+            $course->price = $price;
+            $course->total_price = $total_price;
+            $course->is_locked = $is_locked;
+            $course->foto = $foto;
+
+            // Save the course to the database
+            $course->save();
+
+            // Store the file if it exists
+            if ($foto) {
+                $folderPath = "public/course";
+                $request->file('foto')->storeAs($folderPath, $foto);
+            }
+
+            return redirect('/course')->with('success', 'Data course berhasil disimpan.');
+        } catch (QueryException $e) {
+            // Handle database-related errors
+            Log::error('Error while saving course: ' . $e->getMessage(), [
                 'instructor_id' => $instructor_id,
                 'title' => $title,
                 'description' => $description,
                 'price' => $price,
                 'total_price' => $total_price,
-                'is_locked' => $is_locked, // Menyimpan nilai is_locked
+                'is_locked' => $is_locked,
                 'foto' => $foto,
-            ];
-            $simpan = DB::table('courses')->insert($data);
-            if ($simpan) {
-                if ($request->hasFile('foto')) {
-                    $folderPath = "public/course";
-                    $request->file('foto')->storeAs($folderPath, $foto);
-                }
-                return redirect('/course')->with('success', 'Data course berhasil disimpan.');
-            }
-        } catch (\Exception $e) {
+                'request_data' => $request->all(),
+            ]);
+            return redirect('/tambahcourse')->with('danger', 'Data course gagal disimpan:');
+        } catch (Exception $e) {
+            // Handle general errors
+            Log::error('General error while saving course: ' . $e->getMessage(), [
+                'instructor_id' => $instructor_id,
+                'title' => $title,
+                'description' => $description,
+                'price' => $price,
+                'total_price' => $total_price,
+                'is_locked' => $is_locked,
+                'foto' => $foto,
+                'request_data' => $request->all(),
+            ]);
             return redirect('/tambahcourse')->with('danger', 'Data course gagal disimpan: ' . $e->getMessage());
         }
     }
+
+
+
     public function edit($id)
     {
         // Ambil data course berdasarkan ID
@@ -127,7 +173,7 @@ class CourseController extends Controller
                 }
                 return redirect('/course')->with('success', 'Data course berhasil diperbarui.');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect('/editcourse/' . $id)->with('danger', 'Data course gagal diperbarui: ' . $e->getMessage());
         }
     }
