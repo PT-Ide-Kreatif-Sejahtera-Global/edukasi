@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class course extends Model
+class Course extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -25,12 +25,12 @@ class course extends Model
     // Course.php
     public function contents()
     {
-        return $this->hasMany(course_contents::class);
+        return $this->hasMany(CourseContents::class);
     }
     // Course.php
     public function category()
     {
-        return $this->belongsTo(course_category::class);
+        return $this->belongsTo(CourseCategory::class);
     }
     public function enrollments()
     {

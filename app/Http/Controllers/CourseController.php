@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\course;
+use App\Models\Course;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;

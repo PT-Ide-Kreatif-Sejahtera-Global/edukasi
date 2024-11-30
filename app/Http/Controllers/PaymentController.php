@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\course;
-use App\Models\cupon;
+use App\Models\Coupon;
+use App\Models\Course;
 use App\Models\Enrollments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,12 +18,12 @@ class PaymentController extends Controller
             ->join('courses', 'enrollments.course_id', '=', 'courses.id')
             ->leftJoin('cupons', 'enrollments.coupon_id', '=', 'cupons.id')  // Use left join in case some payments don't have a coupon
             ->select(
-                'enrollments.*', 
-                'users.name as user_name', 
-                'courses.title as course_title', 
-                'cupons.cupon_code as coupon_code', 
-                'enrollments.enrollment_date', 
-                'enrollments.discount_amount', 
+                'enrollments.*',
+                'users.name as user_name',
+                'courses.title as course_title',
+                'cupons.cupon_code as coupon_code',
+                'enrollments.enrollment_date',
+                'enrollments.discount_amount',
                 'enrollments.total_price'
             )
             ->get();
@@ -33,8 +33,8 @@ class PaymentController extends Controller
     }
     public function index($id)
     {
-        $course = course::findOrFail($id);
-        $coupons = Cupon::all();
+        $course = Course::findOrFail($id);
+        $coupons = Coupon::all();
         return view('customer.payment.index', compact('course', 'coupons'));
     }
 
@@ -53,7 +53,7 @@ class PaymentController extends Controller
 
         // Periksa apakah kupon disertakan
         if ($request->filled('coupon_id')) {
-            $coupon = Cupon::find($request->id);
+            $coupon = Coupon::find($request->id);
 
             // Terapkan kupon jika ada
             if ($coupon) {

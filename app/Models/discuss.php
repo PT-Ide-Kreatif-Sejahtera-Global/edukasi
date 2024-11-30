@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class discuss extends Model
+class Discuss extends Model
 {
     use HasFactory;
 
@@ -34,6 +34,6 @@ class discuss extends Model
     // Relasi ke komentar
     public function discussComments()
     {
-        return $this->hasMany(discuss_comment::class, 'discuss_id');
+        return $this->hasMany(DiscussComment::class, 'discuss_id');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class discuss_comment extends Model
+class DiscussComment extends Model
 {
     use HasFactory;
     protected $table = 'discuss_comments';
