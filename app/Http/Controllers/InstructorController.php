@@ -67,7 +67,7 @@ class InstructorController extends Controller
         if ($request->hasFile('foto')) {
             $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
         } else {
-            $foto = 'default.png';
+            $foto = 'default.jng';
         }
 
         try {
