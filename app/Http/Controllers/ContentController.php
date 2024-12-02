@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\course;
 use App\Models\course_category;
 use App\Models\course_section;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ContentController extends Controller
 {
@@ -71,7 +73,7 @@ class ContentController extends Controller
             if ($simpan) {
                 return redirect()->route('coupon')->with('success', 'Kupon berhasil ditambahkan.');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Jika terjadi kesalahan saat menyimpan, tampilkan pesan error
             return redirect()->route('tambahcoupon')->with('danger', 'Data gagal disimpan: ' . $e->getMessage());
         }
@@ -98,7 +100,7 @@ class ContentController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validasi input
+        // Validate input
         $request->validate([
             'judul' => 'required|exists:courses,id',
             'kategori' => 'required|exists:course_categories,id',
@@ -109,7 +111,7 @@ class ContentController extends Controller
         ]);
 
         try {
-            // Update data di database
+            // Prepare data for update
             $data = [
                 'course_id' => $request->judul,
                 'course_category_id' => $request->kategori,
@@ -119,10 +121,18 @@ class ContentController extends Controller
                 'duration' => $request->durasi,
             ];
 
-            DB::table('course_contents')->where('id', $id)->update($data);
+            // Update data in the database
+            $updated = DB::table('course_contents')->where('id', $id)->update($data);
 
-            return redirect()->route('content')->with('success', 'Content berhasil diperbarui.');
-        } catch (\Exception $e) {
+            // Check if the update was successful
+            if ($updated) {
+                return redirect()->route('content')->with('success', 'Content berhasil diperbarui.');
+            } else {
+                return redirect()->route('editcontent', ['id' => $id])->with('danger', 'Data tidak ditemukan atau tidak ada perubahan.');
+            }
+        } catch (Exception $e) {
+            // Log the error for debugging
+            Log::error('Error updating content: ' . $e->getMessage());
             return redirect()->route('editcontent', ['id' => $id])->with('danger', 'Data gagal diperbarui: ' . $e->getMessage());
         }
     }
