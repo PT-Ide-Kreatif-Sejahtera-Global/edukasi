@@ -54,7 +54,7 @@ class CourseController extends Controller
             'price' => 'required|numeric|max:8',
             'total_price' => 'required|numeric',
             'is_locked' => 'required|boolean',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
         ]);
 
         // Retrieve data from the request
