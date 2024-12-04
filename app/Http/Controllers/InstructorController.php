@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use App\Models\Enrollments;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Instructor;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -67,7 +64,7 @@ class InstructorController extends Controller
         if ($request->hasFile('foto')) {
             $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
         } else {
-            $foto = 'default.jng';
+            $foto = 'default.jpg';
         }
 
         try {
@@ -111,7 +108,52 @@ class InstructorController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        // Find the instructor by user ID
+        $user = User::with('instructor')->findOrFail($id); // Eager load the instructor relationship
+        return view('admin.instructor.edit', ['user' => $user]);
+    }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id, // Exclude current user's email from unique validation
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bio' => 'required',
+        ]);
+
+        // Find the user and instructor
+        $user = User::findOrFail($id);
+        $instructor = $user->instructor;
+
+        // Handle photo upload
+        if ($request->hasFile('foto')) {
+            // Delete the old photo if it exists
+            if ($user->foto && $user->foto !== 'default.jpg') {
+                Storage::disk('public')->delete("users/{$user->foto}");
+            }
+            $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
+            $request->file('foto')->storeAs('public/users', $foto);
+        } else {
+            $foto = $user->foto; // Keep the old photo if no new one is uploaded
+        }
+
+        // Update user and instructor data
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'foto' => $foto,
+        ]);
+
+        $instructor->update([
+            'bio' => $request->bio,
+            'foto' => $foto, // Update the instructor's photo if changed
+        ]);
+
+        return redirect()->route('instructor')->with('success', 'Instructor berhasil diperbarui.');
+    }
 
 
     public function delete($id)
