@@ -8,21 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Instructor extends Model
 {
     use HasFactory;
-    protected $table = 'instructors';
 
-    // Tentukan kolom yang dapat diisi
-    protected $fillable = [
-        'user_id',
-        'bio',
-        'rating',
-    ];
+    protected $fillable = ['user_id', 'bio', 'rating'];
+
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
-    // Course.php
-    public function instructor()
+
+    public function courses()
     {
-        return $this->belongsTo(Instructor::class, 'instructor_id');
+        return $this->hasMany(Course::class);
     }
 }

@@ -9,31 +9,20 @@ class Discuss extends Model
 {
     use HasFactory;
 
-    protected $table = 'discusses';
+    protected $fillable = ['user_id', 'course_id', 'content'];
 
-    // Kolom-kolom yang dapat diisi (fillable)
-    protected $fillable = [
-        'user_id',       // ID user yang membuat komentar
-        'course_id',     // ID course terkait
-        'content',       // Isi komentar
-        'created_at',    // Timestamp komentar dibuat
-        'updated_at',    // Timestamp komentar diperbarui
-    ];
-
-    // Relasi ke model User (yang membuat komentar)
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    // Relasi ke model Course (kursus terkait komentar)
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Course::class);
     }
-    // Relasi ke komentar
-    public function discussComments()
+
+    public function comments()
     {
-        return $this->hasMany(DiscussComment::class, 'discuss_id');
+        return $this->hasMany(DiscussComment::class);
     }
 }
