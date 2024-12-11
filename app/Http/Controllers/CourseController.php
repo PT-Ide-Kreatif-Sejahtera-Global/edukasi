@@ -22,7 +22,7 @@ class CourseController extends Controller
                     'users.name as instructor_name', // mengambil nama dari tabel users
                     DB::raw("CASE WHEN courses.is_locked = 1 THEN 'Locked' WHEN courses.is_locked = 2 THEN 'Unlocked' END as lock_status")
                 )
-                ->get(),
+                ->paginate(10),
         ];
 
         return view('admin.course.index', $data);

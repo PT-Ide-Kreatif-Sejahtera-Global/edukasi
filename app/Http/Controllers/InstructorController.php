@@ -55,16 +55,12 @@ class InstructorController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'bio' => 'required',
         ]);
 
-        $foto = null; // Initialize foto variable
-
         if ($request->hasFile('foto')) {
             $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
-        } else {
-            $foto = 'default.jpg';
         }
 
         try {
