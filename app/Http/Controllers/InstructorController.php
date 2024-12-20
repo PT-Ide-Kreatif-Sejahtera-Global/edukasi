@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\course;
+use App\Models\Enrollments;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Instructor;
-use Exception;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class InstructorController extends Controller
 {
@@ -55,17 +55,19 @@ class InstructorController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'bio' => 'required',
         ]);
 
         if ($request->hasFile('foto')) {
             $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = null;
         }
 
         try {
             DB::transaction(function () use ($request, $foto) {
-                // Create new user with role 'Instructor'
+                // Tambahkan user baru dengan role 'Instructor'
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
@@ -76,81 +78,84 @@ class InstructorController extends Controller
                     'updated_at' => now(),
                 ]);
 
-                // Create instructor data
+                // Tambahkan data Instructor
                 Instructor::create([
                     'user_id' => $user->id,
                     'bio' => $request->bio,
-                    'rating' => 0,
-                    'foto' => $foto, // Ensure foto is included here
+                    'rating' => null,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
 
-                // Save photo to the specified folder
+                // Simpan foto ke dalam folder yang ditentukan
                 if ($request->hasFile('foto')) {
                     $folderPath = "public/users/";
-                    if (!Storage::exists($folderPath)) {
-                        Storage::makeDirectory($folderPath);
-                    }
                     $request->file('foto')->storeAs($folderPath, $foto);
                 }
             });
 
-            // Redirect to instructors page if successful
+            // Redirect ke halaman instructors jika berhasil
             return redirect()->route('instructor')->with('success', 'Instructor berhasil ditambahkan.');
-        } catch (Exception $e) {
-            Log::error('Error adding instructor: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            // Jika gagal, redirect kembali dengan pesan error
             return redirect()->back()->withInput()->withErrors(['error' => 'Gagal menambahkan instructor: ' . $e->getMessage()]);
         }
     }
-
     public function edit($id)
     {
-        // Find the instructor by user ID
-        $user = User::with('instructor')->findOrFail($id); // Eager load the instructor relationship
-        return view('admin.instructor.edit', ['user' => $user]);
+        $instructor = Instructor::with('user')->findOrFail($id);
+
+        return view('admin.instructor.edit', compact('instructor'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id, // Exclude current user's email from unique validation
+            'email' => 'required|email|unique:users,email,' . $id . ',id',
+            'password' => 'nullable|min:6',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'bio' => 'required',
         ]);
 
-        // Find the user and instructor
-        $user = User::findOrFail($id);
-        $instructor = $user->instructor;
+        $instructor = Instructor::findOrFail($id);
+        $user = $instructor->user;
 
-        // Handle photo upload
         if ($request->hasFile('foto')) {
-            // Delete the old photo if it exists
-            if ($user->foto && $user->foto !== 'default.jpg') {
-                Storage::disk('public')->delete("users/{$user->foto}");
-            }
             $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
-            $request->file('foto')->storeAs('public/users', $foto);
         } else {
-            $foto = $user->foto; // Keep the old photo if no new one is uploaded
+            $foto = $user->foto;
         }
 
-        // Update user and instructor data
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'foto' => $foto,
-        ]);
+        try {
+            DB::transaction(function () use ($request, $instructor, $user, $foto) {
+                // Update data user
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->password ? bcrypt($request->password) : $user->password,
+                    'foto' => $foto,
+                    'updated_at' => now(),
+                ]);
 
-        $instructor->update([
-            'bio' => $request->bio,
-            'foto' => $foto, // Update the instructor's photo if changed
-        ]);
+                // Update data instructor
+                $instructor->update([
+                    'bio' => $request->bio,
+                    'updated_at' => now(),
+                ]);
 
-        return redirect()->route('instructor')->with('success', 'Instructor berhasil diperbarui.');
+                // Simpan foto jika ada
+                if ($request->hasFile('foto')) {
+                    $folderPath = "public/users/";
+                    $request->file('foto')->storeAs($folderPath, $foto);
+                }
+            });
+
+            return redirect()->route('instructor')->with('success', 'Instructor berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Gagal memperbarui instructor: ' . $e->getMessage()]);
+        }
     }
-
 
     public function delete($id)
     {

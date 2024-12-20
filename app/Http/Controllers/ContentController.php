@@ -79,7 +79,7 @@ class ContentController extends Controller
         DB::table('course_contents')->where('id', $id)->delete();
         return redirect('/content')->with('success', 'Data courses berhasil dihapus.');
     }
-
+    
     public function edit($id)
     {
         // Ambil data content berdasarkan id

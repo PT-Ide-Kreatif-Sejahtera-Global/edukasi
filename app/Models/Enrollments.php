@@ -16,6 +16,7 @@ class Enrollments extends Model
         'discount_amount',
         'total_price',
         'udemy_coupon', // 1 if using a coupon, 0 if not
+        'status'
     ];
 
     /**

@@ -1035,4 +1035,30 @@ http://www.templatemo.com/tm-516-known
       height: inherit;
     }
   }
+  .star-rating {
+    direction: rtl;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.star-rating input:checked ~ label {
+    color: #f5b301;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f5b301;
+}
+
   

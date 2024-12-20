@@ -113,6 +113,6 @@ class ProfileController extends Controller
         // Update data user
         $user->update($data);
 
-        return redirect()->route('home')->with('status', 'Profil berhasil diperbarui.');
+        return redirect()->route('welcome')->with('status', 'Profil berhasil diperbarui.');
     }
 }

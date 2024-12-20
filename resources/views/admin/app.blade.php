@@ -15,6 +15,9 @@
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="MIDTRANS_CLIENT_KEY"></script>
+
     <link rel="stylesheet" href="fontawesome-free-6.4.2-web/css/all.css">
     {{-- sweetalert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -50,6 +53,34 @@
 
     </div>
 
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('TRANSACTION_TOKEN_HERE', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment success!");
+                    console.log(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    alert("wating your payment!");
+                    console.log(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment failed!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('you closed the popup without finishing the payment');
+                }
+            })
+        });
+    </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}
     <script src="admin/libs/jquery/dist/jquery.min.js"></script>
     <script src="admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -63,7 +94,7 @@
     <link rel="stylesheet" href="fontawesome-free-6.4.2-web/js/all.js">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/5.1.5/js/star-rating.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/5.1.5/js/star-rating.min.js"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> --}}
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -73,10 +104,10 @@
             $('#table').DataTable();
         });
     </script>
-    
+
     {{-- sweetalert --}}
     @yield('js')
-    
+
     @include('sweetalert::alert')
     @stack('myscript')
 </body>

@@ -33,6 +33,14 @@
                             @endif
                         @endif
                     </div>
+                    @auth
+                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#reviewModal">
+                        Beri penilaian
+                    </button>
+                    @else
+                        <p class="text-muted">Anda harus <a href="{{ route('login') }}">login</a> untuk memberikan penilaian.
+                        </p>
+                    @endauth
 
                     <!-- Forum Diskusi -->
                     <div class="discussion-forum mt-4">
@@ -67,7 +75,7 @@
                                     <strong>{{ $comment->user->name }}</strong>
                                     <p>{{ $comment->content }}</p>
                                     <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
-                        
+
                                     <!-- Menampilkan balasan -->
                                     <div class="replies mt-3 pl-4 border-left">
                                         @foreach ($comment->discussComments as $reply)
@@ -78,10 +86,11 @@
                                             </div>
                                         @endforeach
                                     </div>
-                        
+
                                     <!-- Form untuk menambahkan balasan -->
                                     @auth
-                                        <form action="{{ route('comment', ['DiscussId' => $comment->id]) }}" method="POST" class="mt-3">
+                                        <form action="{{ route('comment', ['DiscussId' => $comment->id]) }}" method="POST"
+                                            class="mt-3">
                                             @csrf
                                             <div class="form-group">
                                                 <textarea name="content" class="form-control" rows="2" placeholder="Tambahkan balasan..."></textarea>
@@ -97,7 +106,6 @@
                                 <p class="text-muted">Belum ada diskusi. Jadilah yang pertama berkomentar!</p>
                             @endforelse
                         </div>
-                        
                     </div>
                 </div>
 
@@ -142,6 +150,61 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('submitreview') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="course_id" value="{{ $course->id }}">
+                    <input type="hidden" name="instructor_id" value="{{ $course->instructor->id ?? null }}">
+    
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Beri Penilaian</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+    
+                    <div class="modal-body">
+                        <!-- Informasi Kursus -->
+                        <div class="mb-3">
+                            <strong>Nama Kursus:</strong> {{ $course->title ?? 'Tidak Tersedia' }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Nama Pengguna:</strong> {{ auth()->user()->name }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Nama Instruktur:</strong> 
+                            {{ $course->instructor->user->name ?? 'Tidak Ada' }}
+                        </div>
+    
+                        <!-- Penilaian Bintang -->
+                        <div class="mb-3 d-flex align-items-center">
+                            <strong class="me-2">Penilaian Bintang:</strong>
+                            <div class="star-rating d-flex gap-1">
+                                @for ($i = 5; $i >= 1; $i--) <!-- Ubah iterasi dari 5 ke 1 -->
+                                    <input type="radio" id="star{{ $i }}" name="bintang" value="{{ $i }}" required hidden>
+                                    <label for="star{{ $i }}" class="star" style="cursor: pointer;">
+                                        <i class="fa fa-star text-secondary"></i>
+                                    </label>
+                                @endfor
+                            </div>
+                            
+                        </div>
+    
+                        <!-- Komentar -->
+                        <div class="mb-3">
+                            <label for="komentar" class="form-label">Komentar:</label>
+                            <textarea name="komentar" id="komentar" class="form-control" rows="3" placeholder="Tulis komentar (opsional)"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button> --}}
+                        <button type="submit" class="btn btn-primary">Kirim Penilaian</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 <script>
@@ -151,6 +214,14 @@
             const formId = 'reply-form-' + this.getAttribute('data-comment-id');
             const replyForm = document.getElementById(formId);
             replyForm.classList.toggle('d-none');
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const stars = document.querySelectorAll('.star-rating input');
+        stars.forEach(star => {
+            star.addEventListener('change', function() {
+                // Optional: Perform additional actions on rating change
+            });
         });
     });
 </script>

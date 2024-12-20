@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Instructor extends Model
+class instructor extends Model
 {
     use HasFactory;
     protected $table = 'instructors';
@@ -24,5 +24,9 @@ class Instructor extends Model
     public function instructor()
     {
         return $this->belongsTo(Instructor::class, 'instructor_id');
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'instructor_id');
     }
 }

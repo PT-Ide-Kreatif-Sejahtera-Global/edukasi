@@ -28,6 +28,8 @@ http://www.templatemo.com/tm-516-known
     <link rel="stylesheet" href="landing/css/templatemo-style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="MIDTRANS_CLIENT_KEY"></script>
 </head>
 
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -171,7 +173,7 @@ http://www.templatemo.com/tm-516-known
                     </div>
                 </div>
     
-                @foreach($teachers as $teacher)
+                @foreach ($teachers as $teacher)
                 <div class="col-md-3 col-sm-6">
                     <div class="team-thumb">
                         <div class="team-image">
@@ -182,19 +184,19 @@ http://www.templatemo.com/tm-516-known
                             <span>{{ $teacher->bio }}</span>
                         </div>
                         <ul class="social-icon">
-                            @if($teacher->facebook)
+                            @if ($teacher->facebook)
                                 <li><a href="{{ $teacher->facebook }}" class="fa fa-facebook-square" attr="facebook icon"></a></li>
                             @endif
-                            @if($teacher->twitter)
+                            @if ($teacher->twitter)
                                 <li><a href="{{ $teacher->twitter }}" class="fa fa-twitter"></a></li>
                             @endif
-                            @if($teacher->instagram)
+                            @if ($teacher->instagram)
                                 <li><a href="{{ $teacher->instagram }}" class="fa fa-instagram"></a></li>
                             @endif
-                            @if($teacher->google)
+                            @if ($teacher->google)
                                 <li><a href="{{ $teacher->google }}" class="fa fa-google"></a></li>
                             @endif
-                            @if($teacher->linkedin)
+                            @if ($teacher->linkedin)
                                 <li><a href="{{ $teacher->linkedin }}" class="fa fa-linkedin"></a></li>
                             @endif
                         </ul>
@@ -216,7 +218,7 @@ http://www.templatemo.com/tm-516-known
                     </div>
     
                     <div class="owl-carousel owl-theme owl-courses">
-                        @foreach($courses as $course)
+                        @foreach ($courses as $course)
                         <div class="col-md-4 col-sm-4">
                             <div class="item">
                                 <div class="courses-thumb">
@@ -398,6 +400,15 @@ http://www.templatemo.com/tm-516-known
 
 
     <!-- SCRIPTS -->
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('TRANSACTION_TOKEN_HERE');
+            // customer will be redirected after completing payment pop-up
+        });
+    </script>
     <script src="landing/js/jquery.js"></script>
     <script src="landing/js/bootstrap.min.js"></script>
     <script src="landing/js/owl.carousel.min.js"></script>

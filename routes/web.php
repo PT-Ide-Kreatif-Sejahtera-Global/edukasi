@@ -27,7 +27,8 @@ Route::get('/logout', function () {
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth'])->group(function () {
+Auth::routes();
+Route::middleware(['auth','Admin', 'Instructor'])->group(function(){
     //tampilan awal atau index
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->name('dashboard');
     Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
@@ -62,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/submitsection', [App\Http\Controllers\SectionController::class, 'submit'])->name('submitsection');
     Route::post('/submitcontent', [App\Http\Controllers\ContentController::class, 'submit'])->name('submitcontent');
     Route::post('/submitcoupon', [App\Http\Controllers\CouponController::class, 'submit'])->name('submitcoupon');
-
+    
     //Edit
     Route::get('/editcourse{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('editcourse');
     Route::get('/editkategori{id}', [App\Http\Controllers\KategoriController::class, 'edit'])->name('editkategori');
@@ -78,20 +79,22 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/updatekategori{id}', [App\Http\Controllers\KategoriController::class, 'update'])->name('updatekategori');
     Route::put('/updateprofile', [App\Http\Controllers\ProfileController::class, 'update'])->name('updateprofile');
     Route::put('/updatecoupon{id}', [App\Http\Controllers\CouponController::class, 'update'])->name('updatecoupon');
-})->middleware('Admin');
-Route::middleware(['auth', 'Instructor'])->group(function () {
+    
+});
+Route::middleware(['auth','Instructor'])->group(function(){
     Route::get('/courses', [App\Http\Controllers\CoursesController::class, 'mycourses'])->name('courses');
     Route::get('/students{course}', [App\Http\Controllers\CoursesController::class, 'courseStudents'])->name('students');
+
 });
-Route::middleware(['auth', 'Customer'])->group(function () {
+Route::middleware(['auth','Customer'])->group(function(){
     //tampilan awal atau index
     Route::get('/detail{id}', [App\Http\Controllers\Controller::class, 'detail'])->name('detail');
     Route::get('/pembayaran{id}', [App\Http\Controllers\PaymentController::class, 'index'])->name('pembayaran');
 
     //Create
-
+    
     //Delete
-
+    
     //Submit
     Route::post('/submitpayment{id}', [App\Http\Controllers\PaymentController::class, 'submit'])->name('submitpayment');
     Route::post('/discuss{id}', [App\Http\Controllers\Controller::class, 'storeDiscuss'])->name('discuss');
@@ -101,3 +104,4 @@ Route::middleware(['auth', 'Customer'])->group(function () {
     //update
     Route::put('/update', [App\Http\Controllers\ProfileController::class, 'updateuser'])->name('update');
 });
+
