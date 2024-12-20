@@ -39,7 +39,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}  
           password: ${{ secrets.FTP_PASSWORD }} 
           local-dir: ./  
-          server-dir: /home/idek3326/repositories/education  
+          server-dir: /home/idek3326/repositories/education/  
           exclude: |
             **/.git*
             **/.git*/**
@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}  
           password: ${{ secrets.FTP_PASSWORD }} 
           local-dir: ./public
-          server-dir: /home/idek3326/public_html/education
+          server-dir: /home/idek3326/public_html/education/
           exclude: |
             **/.git*
             **/.git*/**
