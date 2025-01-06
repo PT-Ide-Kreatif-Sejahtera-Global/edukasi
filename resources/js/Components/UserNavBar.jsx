@@ -19,52 +19,48 @@ export default function UserNavbar({ auth, purchasedCourses }) {
     };
 
     return (
-        <div>
-            <nav className="bg-white shadow-lg">
-                <div className="container mx-auto px-6 h-[96px] flex justify-between items-center">
-                    {/* Logo */}
-                    <Logo />
+        <nav className="bg-white shadow-lg sticky top-0 z-50">
+            <div className="container mx-auto px-6 h-[96px] flex justify-between items-center">
+                {/* Logo */}
+                <Logo />
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="md:hidden p-2 text-gray-600 focus:outline-none"
-                        onClick={toggleMobileMenu}
-                    >
-                        <FontAwesomeIcon
-                            icon={isMobileMenuOpen ? "times" : "bars"}
-                        />
-                    </button>
+                {/* Mobile Menu Button */}
+                <button
+                    className="md:hidden p-2 text-gray-600 focus:outline-none"
+                    onClick={toggleMobileMenu}
+                >
+                    <FontAwesomeIcon
+                        icon={isMobileMenuOpen ? "times" : "bars"}
+                    />
+                </button>
 
-                    {/* Kategori with dropdown trigger */}
-                    <CategoryDropdown />
+                {/* Kategori with dropdown trigger */}
+                <CategoryDropdown />
 
-                    {/* Search Bar */}
-                    <SearchBar />
+                {/* Search Bar */}
+                <SearchBar />
 
-                    <LearningDropdown purchasedCourses={purchasedCourses} />
+                <LearningDropdown purchasedCourses={purchasedCourses} />
 
-                    {/* Cart Icon */}
-                    <CartDropdown purchasedCourses={purchasedCourses} />
+                {/* Cart Icon */}
+                <CartDropdown purchasedCourses={purchasedCourses} />
 
-                    {/* Buttons */}
-                    <AuthButtons auth={auth} />
-                </div>
+                {/* Buttons */}
+                <AuthButtons auth={auth} />
+            </div>
 
-                {/* Mobile Menu */}
-                {isMobileMenuOpen && (
-                    <div className="md:hidden bg-white shadow-md">
-                        <div className="flex flex-col items-center space-y-2 py-4">
-                            <CategoryDropdown />
-                            <SearchBar />
-                            <LearningDropdown
-                                purchasedCourses={purchasedCourses}
-                            />
-                            <CartDropdown purchasedCourses={purchasedCourses} />
-                            <AuthButtons auth={auth} />
-                        </div>
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-white shadow-md">
+                    <div className="flex flex-col items-center space-y-2 py-4">
+                        <CategoryDropdown />
+                        <SearchBar />
+                        <LearningDropdown purchasedCourses={purchasedCourses} />
+                        <CartDropdown purchasedCourses={purchasedCourses} />
+                        <AuthButtons auth={auth} />
                     </div>
-                )}
-            </nav>
-        </div>
+                </div>
+            )}
+        </nav>
     );
 }

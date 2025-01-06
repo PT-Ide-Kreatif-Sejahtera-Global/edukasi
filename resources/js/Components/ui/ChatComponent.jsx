@@ -7,7 +7,7 @@ export default function ChatComponent() {
         setChatOpen(!isChatOpen);
     };
 
-    const whatsappNumber = "1234567890";
+    const whatsappNumber = "+6285161609396";
 
     const handleConsultationClick = () => {
         // Redirect to WhatsApp chat
@@ -19,7 +19,7 @@ export default function ChatComponent() {
             {/* Button to open chat */}
             <button
                 onClick={toggleChat}
-                className="fixed bottom-4 right-4 bg-green-500 text-white rounded-full p-3 shadow-lg hover:bg-green-600 transition duration-300 flex items-center"
+                className="fixed bottom-4 right-4 bg-lime-500 text-white rounded-full p-3 shadow-lg hover:bg-lime-600 transition duration-300 flex items-center z-10"
             >
                 {/* Conditional rendering for the icon */}
                 {isChatOpen ? (
@@ -66,12 +66,12 @@ export default function ChatComponent() {
                     <div className="flex items-center border-b pb-2 mb-3">
                         <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
                             <span className="text-xl font-bold text-white">
-                                B
+                                I
                             </span>
                         </div>
                         <div className="ml-2">
                             <p className="font-bold text-gray-800">
-                                BuildWithAngga
+                                IdeaCourse
                             </p>
                             <p className="text-sm text-gray-500">Admin</p>
                         </div>
@@ -87,7 +87,7 @@ export default function ChatComponent() {
                     </div>
                     <button
                         onClick={handleConsultationClick}
-                        className="bg-green-500 text-white rounded-full py-2 w-full hover:bg-green-600 transition duration-300"
+                        className="bg-lime-500 text-white rounded-full py-2 w-full hover:bg-lime-600 transition duration-300"
                     >
                         Konsultasi Kelas
                     </button>

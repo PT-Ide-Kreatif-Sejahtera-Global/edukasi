@@ -1,6 +1,7 @@
 import CourseList from "@/Components/CourseList";
 import FAQList from "@/Components/FAQList";
 import HeroSection from "@/Components/HeroSection";
+import InstructorList from "@/Components/InstructorList";
 import Testimonials from "@/Components/Testimonials";
 import ChatComponent from "@/Components/ui/ChatComponent";
 import UserLayout from "@/Layouts/UserLayout";
@@ -15,14 +16,14 @@ const purchasedCourses = [
     },
 ];
 
-export default function Welcome({ auth }) {
+export default function Welcome({ auth, courses, instructors }) {
     return (
         <UserLayout purchasedCourses={purchasedCourses} auth={auth}>
             <Head title="Welcome" />
             <HeroSection />
-            <Testimonials />
-            <CourseList />
-            <FAQList />
+            {/* <Testimonials /> */}
+            <InstructorList instructors={instructors} />
+            <CourseList courses={courses} />
             <ChatComponent />
         </UserLayout>
     );

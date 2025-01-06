@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('total_usage'); // Total usage (integer)
             $table->timestamps(); // Laravel created_at and updated_at timestamps
         });
-        
     }
 
     /**

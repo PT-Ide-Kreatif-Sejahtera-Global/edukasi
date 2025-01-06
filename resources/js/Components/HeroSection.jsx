@@ -6,7 +6,7 @@ const HeroSection = () => {
         {
             image: "/landing/images/slider-image1.jpg",
             title: "Ingin Mengembangkan Diri?",
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            text: "Kami memiliki banyak kursus yang dapat membantu anda berkembang",
         },
         // Add more slides here...
     ];

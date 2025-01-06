@@ -1,36 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import CourseCard from "./ui/CourseCard";
 
-export default function CourseList() {
-    const courses = [
-        {
-            title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta Pertama",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            totalRating: 200,
-            price: 200000,
-            image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
-        },
-        {
-            title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta",
-            totalRating: 50,
-            price: 200000,
-            image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
-        },
-        {
-            title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta",
-            totalRating: 35,
-            price: 200000,
-            image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
-        },
-        {
-            title: "Upwork Freelancer Mastery: Strategi Terbaik 100 Juta",
-            totalRating: 40,
-            price: 200000,
-            image: "/landing/images/slider-image1.jpg", // Replace with actual image URL
-        },
-    ];
-
+export default function CourseList({ courses }) {
     const scrollRef = useRef(null); // Creating a reference to the scrollable div
 
     // Mouse dragging logic
@@ -75,10 +46,14 @@ export default function CourseList() {
                         key={index}
                         title={course.title}
                         price={course.price}
-                        totalRating={course.totalRating}
-                        image={course.image}
+                        image={`/storage/course/${course.foto}`} // Adjust the image path as necessary
                     />
                 ))}
+            </div>
+            <div className="flex justify-center mt-8">
+                <button className="flex items-center justify-center px-4 py-2 bg-lime-500 text-white rounded hover:bg-lime-600">
+                    Tampilkan Lebih Banyak Kursus
+                </button>
             </div>
         </div>
     );

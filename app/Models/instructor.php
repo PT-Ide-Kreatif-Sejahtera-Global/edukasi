@@ -9,7 +9,7 @@ class Instructor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'bio', 'rating'];
+    protected $fillable = ['user_id', 'bio', 'rating', 'foto'];
 
     public function user()
     {

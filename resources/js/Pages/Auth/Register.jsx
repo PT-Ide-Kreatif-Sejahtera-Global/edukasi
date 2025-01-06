@@ -90,11 +90,10 @@ export default function Register() {
                                                 }
                                                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
-                                            {errors.name && (
-                                                <div className="text-red-600 mt-1">
-                                                    {errors.name}
-                                                </div>
-                                            )}
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.name}
+                                            />
                                         </div>
                                     </div>
 
@@ -121,11 +120,10 @@ export default function Register() {
                                                 }
                                                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
-                                            {errors.email && (
-                                                <div className="text-red-600 mt-1">
-                                                    {errors.email}
-                                                </div>
-                                            )}
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.email}
+                                            />
                                         </div>
                                     </div>
 
@@ -156,6 +154,7 @@ export default function Register() {
                                                 }
                                                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
                                             />
+
                                             <span
                                                 className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
                                                 onClick={() =>
@@ -176,11 +175,10 @@ export default function Register() {
                                                     />
                                                 )}
                                             </span>
-                                            {errors.password && (
-                                                <div className="text-red-600 mt-1">
-                                                    {errors.password}
-                                                </div>
-                                            )}
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.password}
+                                            />
                                         </div>
                                     </div>
 
@@ -233,13 +231,12 @@ export default function Register() {
                                                     />
                                                 )}
                                             </span>
-                                            {errors.password_confirmation && (
-                                                <div className="text-red-600 mt-1">
-                                                    {
-                                                        errors.password_confirmation
-                                                    }
-                                                </div>
-                                            )}
+                                            <InputError
+                                                className="mt-2"
+                                                message={
+                                                    errors.password_confirmation
+                                                }
+                                            />
                                         </div>
                                     </div>
 

@@ -69,7 +69,6 @@ export default function Login({ status, canResetPassword }) {
                         <div className="mt-10">
                             <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
                                 <form
-                                    action="#"
                                     method="POST"
                                     className="space-y-6"
                                     onSubmit={submit}
@@ -88,7 +87,18 @@ export default function Login({ status, canResetPassword }) {
                                                 type="email"
                                                 required
                                                 autoComplete="email"
+                                                value={data.email}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "email",
+                                                        e.target.value
+                                                    )
+                                                }
                                                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm"
+                                            />
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.email}
                                             />
                                         </div>
                                     </div>
@@ -140,11 +150,10 @@ export default function Login({ status, canResetPassword }) {
                                                     />
                                                 )}
                                             </span>
-                                            {errors.password && (
-                                                <div className="text-red-600 mt-1">
-                                                    {errors.password}
-                                                </div>
-                                            )}
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.password}
+                                            />
                                         </div>
                                     </div>
 
