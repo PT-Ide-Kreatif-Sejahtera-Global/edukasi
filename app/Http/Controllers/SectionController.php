@@ -4,33 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class SectionController extends Controller
 {
     public function index()
     {
-        $data = array(
-            'sections' => DB::table('course_sections')
-                ->get(),
-        );
-        return view('admin.sections.index', $data);
+        $sections = DB::table('course_sections')->paginate(10);
+        return Inertia::render('Admin/CourseSection/Index', ['sections' => $sections]);
     }
     public function tambah()
     {
-        $data = array(
-            'users' => DB::table('course_sections')
-                ->get(),
-        );
-        return view('admin.sections.tambah', $data);
+        return Inertia::render('Admin/CourseSection/Create');
     }
     public function submit(Request $request)
     {
         $name            = $request->name;
-        // if ($request->hasFile('foto')) {
-        //     $foto       = $name . "." . $request->file('foto')->getClientOriginalExtension();
-        // } else {
-        //     $foto       = null;
-        // }
 
         try {
             $data = [
@@ -38,10 +27,6 @@ class SectionController extends Controller
             ];
             $simpan     = DB::table('course_sections')->insert($data);
             if ($simpan) {
-                // if ($request->hasFile('foto')) {
-                //     $folderPath = "public/users";
-                //     $request->file('foto')->storeAs($folderPath, $foto);
-                // }
                 return redirect('/section')->with('Success', 'Data User berhasil disimpan.');
             }
         } catch (\Exception $e) {
@@ -59,7 +44,7 @@ class SectionController extends Controller
         $section = DB::table('course_sections')->where('id', $id)->first();
 
         // Tampilkan form edit dengan data yang ada
-        return view('admin.sections.edit', compact('section'));
+        return Inertia::render('Admin/CourseSection/Edit', ['section' => $section]);
     }
     public function update(Request $request, $id)
     {

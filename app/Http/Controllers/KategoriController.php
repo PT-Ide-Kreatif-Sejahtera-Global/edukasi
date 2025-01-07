@@ -4,44 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class KategoriController extends Controller
 {
     public function index()
     {
-        $data = array(
-            'pembeli' => DB::table('course_categories')
-                ->get(),
-        );
-        return view('admin.kategori.index', $data);
+        $categories = DB::table('course_categories')->paginate(10);
+        return Inertia::render('Admin/CourseCategory/Index', ['categories' => $categories]);
     }
     public function tambah()
     {
-        $data = array(
-            'users' => DB::table('course_categories')
-                ->get(),
-        );
-        return view('admin.kategori.tambah', $data);
+        return Inertia::render('Admin/CourseCategory/Create');
     }
     public function submit(Request $request)
     {
         $name            = $request->name;
-        // if ($request->hasFile('foto')) {
-        //     $foto       = $name . "." . $request->file('foto')->getClientOriginalExtension();
-        // } else {
-        //     $foto       = null;
-        // }
-
         try {
             $data = [
                 'category_name'           => $name,
             ];
             $simpan     = DB::table('course_categories')->insert($data);
             if ($simpan) {
-                // if ($request->hasFile('foto')) {
-                //     $folderPath = "public/users";
-                //     $request->file('foto')->storeAs($folderPath, $foto);
-                // }
                 return redirect('/kategori')->with('Success', 'Data User berhasil disimpan.');
             }
         } catch (\Exception $e) {
@@ -56,10 +40,10 @@ class KategoriController extends Controller
     public function edit($id)
     {
         // Ambil data kategori berdasarkan id
-        $kategori = DB::table('course_categories')->where('id', $id)->first();
+        $category = DB::table('course_categories')->where('id', $id)->first();
 
         // Tampilkan form edit dengan data yang ada
-        return view('admin.kategori.edit', compact('kategori'));
+        return Inertia::render('Admin/CourseCategory/Index', ['category' => $category]);
     }
     public function update(Request $request, $id)
     {

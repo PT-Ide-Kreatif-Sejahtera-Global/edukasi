@@ -12,12 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('course_categories', function (Blueprint $table) {
-            $table->id();  // Secara default, 'id()' adalah 'unsignedBigInteger'
-            $table->string('category_name',250);
+            $table->id();
+            $table->string('category_name', 250);
             $table->timestamps();
         });
-        
-                
     }
 
     /**

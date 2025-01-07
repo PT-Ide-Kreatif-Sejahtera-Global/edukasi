@@ -7,34 +7,31 @@ use App\Models\course_category;
 use App\Models\course_section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ContentController extends Controller
 {
     public function index()
     {
-        $data = array(
-            'content' => DB::table('course_contents')
-                ->join('courses', 'course_contents.course_id', '=', 'courses.id')
-                ->join('course_categories', 'course_contents.course_category_id', '=', 'course_categories.id')
-                ->join('course_sections', 'course_contents.section_id', '=', 'course_sections.id')
-                ->select(
-                    'course_contents.*',
-                    'courses.title as course_title',
-                    'course_categories.category_name as category_name',
-                    'course_sections.section as section'
-                )
-                ->get(),
-        );
-        return view('admin.content.index', $data);
+        $coursecontents = DB::table('course_contents')
+            ->join('courses', 'course_contents.course_id', '=', 'courses.id')
+            ->join('course_categories', 'course_contents.course_category_id', '=', 'course_categories.id')
+            ->join('course_sections', 'course_contents.section_id', '=', 'course_sections.id')
+            ->select(
+                'course_contents.*',
+                'courses.title as course_title',
+                'course_categories.category_name as category_name',
+                'course_sections.section as section'
+            )
+            ->paginate(10);
+        return Inertia::render('Admin/CourseContent/Index', ['coursecontents' => $coursecontents]);
     }
     public function tambah()
     {
-        $data = [
-            'courses' => DB::table('courses')->get(),
-            'course_categories' => DB::table('course_categories')->get(),
-            'course_sections' => DB::table('course_sections')->get(),
-        ];
-        return view('admin.content.tambah', $data);
+        $courses = DB::table('courses')->get();
+        $coursecategories = DB::table('course_categories')->get();
+        $coursesections = DB::table('course_sections')->get();
+        return Inertia::render('Admin/CourseContent/Create', ['courses' => $courses, 'coursecategories' => $coursecategories, 'coursesections' => $coursesections]);
     }
 
     public function submit(Request $request)
@@ -87,11 +84,11 @@ class ContentController extends Controller
 
         // Ambil data lainnya (courses, categories, sections) untuk dropdown
         $courses = DB::table('courses')->get();
-        $categories = DB::table('course_categories')->get();
-        $sections = DB::table('course_sections')->get();
+        $coursecategories = DB::table('course_categories')->get();
+        $coursesections = DB::table('course_sections')->get();
 
         // Tampilkan form edit dengan data yang ada
-        return view('admin.content.edit', compact('content', 'courses', 'categories', 'sections'));
+        return Inertia::render('Admin/CourseContent/Edit', ['content' => $content, 'courses' => $courses, 'coursecategories' => $coursecategories, 'coursesections' => $coursesections]);
     }
 
     public function update(Request $request, $id)

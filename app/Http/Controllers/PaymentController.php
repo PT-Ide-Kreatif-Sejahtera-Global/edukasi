@@ -7,6 +7,7 @@ use App\Models\cupon;
 use App\Models\Enrollments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
@@ -26,16 +27,16 @@ class PaymentController extends Controller
                 'enrollments.discount_amount', 
                 'enrollments.total_price'
             )
-            ->get();
+            ->paginate(10);
 
         // Pass the payments to the view
-        return view('admin.pembayaran.index', compact('payments'));
+        return Inertia::render('Admin/Payment/Index', ['payments' => $payments]);
     }
     public function index($id)
     {
-        $course = course::findOrFail($id);
-        $coupons = Cupon::all();
-        return view('customer.payment.index', compact('course', 'coupons'));
+        $course = Course::findOrFail($id);
+        $coupons = Coupon::all();
+        return Inertia::render('Customer/Payment/Index', ['course' => $course, 'coupons' => $coupons]);
     }
 
     public function submit(Request $request, $id)

@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Vertical Scrollbar */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the vertical scrollbar */
+}
+
+/* Track for Vertical Scrollbar */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle for Vertical Scrollbar */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
+
+/* Handle on hover for Vertical Scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Horizontal Scrollbar */
+::-webkit-scrollbar:horizontal {
+    height: 10px; /* Height of the horizontal scrollbar */
+}
+
+/* Track for Horizontal Scrollbar */
+::-webkit-scrollbar-track:horizontal {
+    background: #f1f1f1;
+}
+
+/* Handle for Horizontal Scrollbar */
+::-webkit-scrollbar-thumb:horizontal {
+    background: #888;
+    border-radius: 2px;
+}
+
+/* Handle on hover for Horizontal Scrollbar */
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background: #555;
+}

@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role',['Admin','Customer', 'Instructor'])->nullable();
             $table->string('password');
+            $table->enum('role', ['Admin', 'Customer', 'Instructor']);
             $table->string('foto')->nullable();
-            // $table->integer('total_progress')->nullable();
+            $table->integer('total_progress')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
