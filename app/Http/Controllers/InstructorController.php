@@ -77,25 +77,21 @@ class InstructorController extends Controller
                 DB::table('instructors')->insert([
                     'user_id' => $userId,
                     'bio' => $request->bio,
-                    'rating' => 0,
-                    'foto' => $foto, // Ensure foto is included here
+                    'rating' => null,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
 
-                // Save photo to the specified folder
+                // Simpan foto ke dalam folder yang ditentukan
                 if ($request->hasFile('foto')) {
                     $folderPath = "public/users/";
-                    if (!Storage::exists($folderPath)) {
-                        Storage::makeDirectory($folderPath);
-                    }
                     $request->file('foto')->storeAs($folderPath, $foto);
                 }
             });
 
             return redirect()->route('instructor')->with('success', 'Instructor berhasil ditambahkan.');
-        } catch (Exception $e) {
-            Log::error('Error adding instructor: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            // Jika gagal, redirect kembali dengan pesan error
             return redirect()->back()->withInput()->withErrors(['error' => 'Gagal menambahkan instructor: ' . $e->getMessage()]);
         }
     }

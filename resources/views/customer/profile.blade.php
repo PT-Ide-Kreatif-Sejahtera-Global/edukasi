@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="container-fluid">
                         <div class="container my-5">
-                            <form action="{{ route('updateprofile') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 

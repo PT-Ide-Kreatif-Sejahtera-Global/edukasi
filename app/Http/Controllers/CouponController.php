@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Coupon;
+use App\Models\cupon;
 use App\Models\Enrollments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

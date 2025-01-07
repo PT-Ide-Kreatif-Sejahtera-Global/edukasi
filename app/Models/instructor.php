@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Instructor extends Model
+class instructor extends Model
 {
     use HasFactory;
 
@@ -19,5 +19,9 @@ class Instructor extends Model
     public function courses()
     {
         return $this->hasMany(Course::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'instructor_id');
     }
 }

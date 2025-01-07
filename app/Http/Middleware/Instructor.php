@@ -15,7 +15,7 @@ class Instructor
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role == 'Instructor'){
+        if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Instructor'){
             return $next($request);
             }
     
