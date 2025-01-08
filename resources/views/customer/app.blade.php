@@ -70,7 +70,7 @@ http://www.templatemo.com/tm-516-known
 
 
     <!-- FEATURE -->
-    <!-- <section id="feature">
+    <section id="feature">
         <div class="container">
             <div class="row">
 
@@ -103,11 +103,11 @@ http://www.templatemo.com/tm-516-known
 
             </div>
         </div>
-    </section> -->
+    </section>
 
 
     <!-- ABOUT -->
-    <!-- <section id="about">
+    <section id="about">
         <div class="container">
             <div class="row">
 
@@ -161,19 +161,19 @@ http://www.templatemo.com/tm-516-known
 
             </div>
         </div>
-    </section> -->
+    </section>
 
     <!-- TEAM -->
     <section id="team">
         <div class="container">
             <div class="row">
-
+    
                 <div class="col-md-12 col-sm-12">
                     <div class="section-title">
                         <h2>Teachers <small>Meet Professional Trainers</small></h2>
                     </div>
                 </div>
-
+    
                 @foreach($teachers as $teacher)
                 <div class="col-md-3 col-sm-6">
                     <div class="team-thumb">
@@ -187,24 +187,24 @@ http://www.templatemo.com/tm-516-known
                         {{-- <ul class="social-icon">
                             @if($teacher->facebook)
                                 <li><a href="{{ $teacher->facebook }}" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                        @endif
-                        @if($teacher->twitter)
-                        <li><a href="{{ $teacher->twitter }}" class="fa fa-twitter"></a></li>
-                        @endif
-                        @if($teacher->instagram)
-                        <li><a href="{{ $teacher->instagram }}" class="fa fa-instagram"></a></li>
-                        @endif
-                        @if($teacher->google)
-                        <li><a href="{{ $teacher->google }}" class="fa fa-google"></a></li>
-                        @endif
-                        @if($teacher->linkedin)
-                        <li><a href="{{ $teacher->linkedin }}" class="fa fa-linkedin"></a></li>
-                        @endif
+                            @endif
+                            @if($teacher->twitter)
+                                <li><a href="{{ $teacher->twitter }}" class="fa fa-twitter"></a></li>
+                            @endif
+                            @if($teacher->instagram)
+                                <li><a href="{{ $teacher->instagram }}" class="fa fa-instagram"></a></li>
+                            @endif
+                            @if($teacher->google)
+                                <li><a href="{{ $teacher->google }}" class="fa fa-google"></a></li>
+                            @endif
+                            @if($teacher->linkedin)
+                                <li><a href="{{ $teacher->linkedin }}" class="fa fa-linkedin"></a></li>
+                            @endif
                         </ul> --}}
                     </div>
                 </div>
                 @endforeach
-
+    
             </div>
         </div>
     </section>
@@ -217,7 +217,7 @@ http://www.templatemo.com/tm-516-known
                     <div class="section-title">
                         <h2>Popular Courses <small>Upgrade your skills with the newest courses</small></h2>
                     </div>
-
+    
                     <div class="owl-carousel owl-theme owl-courses">
                         @foreach($courses as $course)
                         <div class="col-md-4 col-sm-4">
@@ -228,12 +228,12 @@ http://www.templatemo.com/tm-516-known
                                             <img src="{{ asset('storage/' . $course->image) }}" class="img-responsive" alt="">
                                         </div>
                                     </div>
-
+    
                                     <div class="courses-detail">
                                         <h3><a href="#">{{ $course->title }}</a></h3>
                                         <p>{{ $course->description }}</p>
                                     </div>
-
+    
                                     <div class="courses-info">
                                         <div class="courses-author">
                                             <img src="{{ asset('storage/users/' . $course->instructor->user->foto) }}" class="img-responsive" alt="">
@@ -243,7 +243,7 @@ http://www.templatemo.com/tm-516-known
                                             <a href="#"><span>{{ $course->price > 0 ? 'Rp. ' . $course->price : 'Free' }}</span></a>
                                         </div>
                                     </div>
-
+    
                                     <!-- Detail Button -->
                                     <div class="text-center mt-3">
                                         <a href="{{ route('detail', $course->id) }}" class="btn btn-primary">Detail</a>
@@ -356,7 +356,7 @@ http://www.templatemo.com/tm-516-known
     </section>
 
     <!-- CONTACT -->
-    <!-- <section id="contact">
+    <section id="contact">
         <div class="container">
             <div class="row">
 
@@ -392,7 +392,7 @@ http://www.templatemo.com/tm-516-known
 
             </div>
         </div>
-    </section> -->
+    </section>
 
 
     <!-- FOOTER -->
