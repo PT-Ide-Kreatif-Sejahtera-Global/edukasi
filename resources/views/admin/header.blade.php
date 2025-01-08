@@ -17,7 +17,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    {{-- <img alt="image" src="{{ url('storage/users/' . Auth::user()->foto) }}" class="img-fluid"> --}}
+                    <!-- {{-- <img alt="image" src="{{ url('storage/users/' . Auth::user()->foto) }}" class="img-fluid"> --}} -->
                     <div class="d-sm-none d-lg-inline-block"></div>{{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
