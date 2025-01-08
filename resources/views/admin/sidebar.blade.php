@@ -26,6 +26,14 @@
                             <span class="hide-menu">Dashboard</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="logout" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-layout-dashboard"></i>
+                            </span>
+                            <span class="hide-menu">Logout</span>
+                        </a>
+                    </li>
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">FITUR</span>
@@ -111,7 +119,7 @@
                     </li> --}}
                 </ul>
                 @else
-                
+
                 @endif
                 @if (Auth::user()->role == 'Instructor')
                 <ul id="sidebarnav">
@@ -126,6 +134,14 @@
                             </span>
                             <span class="hide-menu">Dashboard</span>
                         </a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="logout" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-layout-dashboard"></i>
+                            </span>
+                            <span class="hide-menu">Logout</span>
+                        </a>
+                    </li>
                     </li>
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -141,7 +157,7 @@
                     </li>
                 </ul>
                 @else
-                    
+
                 @endif
             </nav>
             <!-- End Sidebar navigation -->

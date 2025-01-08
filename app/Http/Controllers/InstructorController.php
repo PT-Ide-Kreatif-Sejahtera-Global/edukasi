@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Instructor;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InstructorController extends Controller
 {
@@ -55,20 +56,32 @@ class InstructorController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'bio' => 'required',
+        ], [
+            'name.required' => 'Nama instruktur harus diisi.',
+            'name.string' => 'Nama instruktur harus berupa teks.',
+            'name.max' => 'Nama instruktur tidak boleh lebih dari 255 karakter.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email ini sudah terdaftar.',
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password harus terdiri dari minimal 6 karakter.',
+            'foto.required' => 'Foto harus diunggah.',
+            'foto.image' => 'File yang diunggah harus berupa gambar.',
+            'foto.mimes' => 'Foto harus berformat jpeg, png, jpg, atau gif.',
+            'foto.max' => 'Foto tidak boleh lebih dari 2MB.',
+            'bio.required' => 'Bio instruktur harus diisi.',
         ]);
 
         if ($request->hasFile('foto')) {
             $foto = $request->name . '.' . $request->file('foto')->getClientOriginalExtension();
-        } else {
-            $foto = null;
         }
 
         try {
             DB::transaction(function () use ($request, $foto) {
-                // Tambahkan user baru dengan role 'Instructor'
-                $user = User::create([
+                // Create new user with role 'Instructor'
+                $userId = DB::table('users')->insertGetId([
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => bcrypt($request->password),
@@ -78,21 +91,26 @@ class InstructorController extends Controller
                     'updated_at' => now(),
                 ]);
 
-                // Tambahkan data Instructor
-                Instructor::create([
-                    'user_id' => $user->id,
+                // Create instructor data
+                DB::table('instructors')->insert([
+                    'user_id' => $userId,
                     'bio' => $request->bio,
-                    'rating' => null,
+                    'rating' => 0,
+                    'foto' => $foto, // Ensure foto is included here
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
 
-                // Simpan foto ke dalam folder yang ditentukan
+                // Save photo to the specified folder
                 if ($request->hasFile('foto')) {
                     $folderPath = "public/users/";
+                    if (!Storage::exists($folderPath)) {
+                        Storage::makeDirectory($folderPath);
+                    }
                     $request->file('foto')->storeAs($folderPath, $foto);
                 }
             });
+
 
             // Redirect ke halaman instructors jika berhasil
             return redirect()->route('instructor')->with('success', 'Instructor berhasil ditambahkan.');
