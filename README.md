@@ -1,4 +1,6 @@
-Berikut ini link drive berisi repo github terbaru, dimana bagian Marketplace page berisi produk kursus pelatihan online. Link: https://drive.google.com/drive/folders/1XDezli6OjKzrVi248vIdPoMoAPvlgBQb?usp=sharing
+Berikut ini link drive berisi repo github terbaru, dimana bagian MEdukasi E-Learning page berisi produk kursus pelatihan online. Bagian kursus akan dibuat sistem LMS(Learning Management System) Link: https://drive.google.com/drive/folders/1XDezli6OjKzrVi248vIdPoMoAPvlgBQb?usp=sharing
+
+Bagaimana cara mengembangkan projek ini? Kamu cukup mengikuti panduan ini: https://docs.google.com/document/d/1zfgYnvmFZjBHuhN8BAA8SYOo3ADFdmyIlqgGkonYzyg/edit?usp=sharing
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
