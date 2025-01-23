@@ -77,10 +77,6 @@ http://www.templatemo.com/tm-516-known
 
                    <div class="owl-carousel owl-theme home-slider owl-loaded owl-drag">
                         
-
-                        
-
-                        
                    <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-2268px, 0px, 0px); transition: all; width: 5292px;"><div class="owl-item cloned" style="width: 756px;"><div class="item item-second">
                              <div class="caption">
                                   <div class="container">
@@ -339,15 +335,6 @@ http://www.templatemo.com/tm-516-known
                         </div>
 
                         <div class="owl-carousel owl-theme owl-courses owl-loaded owl-drag">
-                             
-
-                             
-
-                             
-
-                             
-
-                             
 
                         <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-2784px, 0px, 0px); transition: all; width: 7656px;"><div class="owl-item cloned" style="width: 696px;"><div class="col-md-4 col-sm-4">
                                   <div class="item">

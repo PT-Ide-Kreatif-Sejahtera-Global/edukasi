@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'welcome'])->name('welcome');
 
-
 Auth::routes();
 Route::get('/logout', function () {
     Auth::logout();
@@ -88,6 +87,8 @@ Route::middleware(['auth', 'Customer'])->group(function () {
     //tampilan awal atau index
     Route::get('/detail{id}', [App\Http\Controllers\Controller::class, 'detail'])->name('detail');
     Route::get('/pembayaran{id}', [App\Http\Controllers\PaymentController::class, 'index'])->name('pembayaran');
+    Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'paymentlist'])->name('paymentlist');
+    Route::get('/payment/course/{id}', [App\Http\Controllers\PaymentController::class, 'paymentCourse'])->name('paymentCourse');
 
     //Create
 

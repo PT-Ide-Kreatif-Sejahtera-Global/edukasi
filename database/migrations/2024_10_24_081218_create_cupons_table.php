@@ -22,8 +22,7 @@ return new class extends Migration
             $table->integer('usage_limit'); // Usage limit (integer)
             $table->integer('total_usage'); // Total usage (integer)
             $table->timestamps(); // Laravel created_at and updated_at timestamps
-        });
-        
+        });        
     }
 
     /**

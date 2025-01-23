@@ -12,6 +12,7 @@
             </div>
 
             <div class="row">
+
                 <!-- Kolom Kiri: Deskripsi Kursus -->
                 <div class="col-md-8">
                     <div class="course-description p-4 bg-light rounded mb-4">
@@ -37,6 +38,7 @@
                     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#reviewModal">
                         Beri penilaian
                     </button>
+                    
                     @else
                         <p class="text-muted">Anda harus <a href="{{ route('login') }}">login</a> untuk memberikan penilaian.
                         </p>
@@ -153,7 +155,7 @@
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('submitreview') }}" method="POST">
+                <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <input type="hidden" name="course_id" value="{{ $course->id }}">
                     <input type="hidden" name="instructor_id" value="{{ $course->instructor->id ?? null }}">
@@ -187,7 +189,6 @@
                                     </label>
                                 @endfor
                             </div>
-                            
                         </div>
     
                         <!-- Komentar -->
