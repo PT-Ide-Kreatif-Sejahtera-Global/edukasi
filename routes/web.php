@@ -79,16 +79,21 @@ Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
     Route::put('/updateprofile', [App\Http\Controllers\ProfileController::class, 'update'])->name('updateprofile');
     Route::put('/updatecoupon{id}', [App\Http\Controllers\CouponController::class, 'update'])->name('updatecoupon');
 });
+
 Route::middleware(['auth', 'Instructor'])->group(function () {
     Route::get('/courses', [App\Http\Controllers\CoursesController::class, 'mycourses'])->name('courses');
     Route::get('/students{course}', [App\Http\Controllers\CoursesController::class, 'courseStudents'])->name('students');
 });
+
 Route::middleware(['auth', 'Customer'])->group(function () {
     //tampilan awal atau index
     Route::get('/detail{id}', [App\Http\Controllers\Controller::class, 'detail'])->name('detail');
     Route::get('/pembayaran{id}', [App\Http\Controllers\PaymentController::class, 'index'])->name('pembayaran');
-    Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'paymentlist'])->name('paymentlist');
-    Route::get('/payment/course/{id}', [App\Http\Controllers\PaymentController::class, 'paymentCourse'])->name('paymentCourse');
+    Route::get(
+        '/customer/payment',
+        [App\Http\Controllers\PaymentController::class, 'paymentlist']
+    )->name('paymentlist');
+    Route::get('customer/payment/course/{id}', [App\Http\Controllers\PaymentController::class, 'paymentCourse'])->name('paymentCourse');
 
     //Create
 

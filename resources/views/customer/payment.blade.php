@@ -12,9 +12,10 @@
 @endsection
 
 @section('script')
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key={{ env('MIDTRANS_CLIENT_KEY') }}></script>
 <script type="text/javascript">
 document.getElementById('pay-button').onclick = function () {
+    
         const snapToken = "{{ $course[0]->snap_token }}"; // Snap token dari server
 
         if (snapToken) {

@@ -1,9 +1,6 @@
 @extends('customer.index')
 
 @section('content')
-{{-- @php
-dd($payments);  
-@endphp --}}
 <div class="flex justify-center items-center min-h-screen">
     <div>
         <h1 class="text-center">payment list</h1>

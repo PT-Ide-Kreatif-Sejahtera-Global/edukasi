@@ -78,6 +78,7 @@ class PaymentController extends Controller
             'course_id' => $course->id,
             'coupon_id' => $couponId,
             'enrollment_date' => now(),
+            'payment_status' => 'pending',
             'discount_amount' => $discountAmount,
             'total_price' => $totalPrice,
             'udemy_coupon' => $udemyCoupon,
@@ -113,7 +114,7 @@ class PaymentController extends Controller
         $paymentSuccess = true;
 
         if ($paymentSuccess) {
-            return redirect()->route('paymentlist')
+            return redirect()->route('paymentCourse', ['id' => $course->id])
                 ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
             // // Update status kursus menjadi tidak terkunci
             // $course->is_locked = 0;

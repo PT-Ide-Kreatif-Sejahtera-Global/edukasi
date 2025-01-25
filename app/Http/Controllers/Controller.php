@@ -40,7 +40,11 @@ class Controller extends BaseController
             ->first();
 
         // Status apakah course ini terkunci untuk user yang belum membeli
-        $isLocked = !$enrollment;
+        if ($enrollment != null && $enrollment->payment_status == 'success') {
+            $isLocked = false;
+        } else {
+            $isLocked = true;
+        }
 
         return view('customer.course.index', compact('course', 'isLocked', 'discussComments'));
     }

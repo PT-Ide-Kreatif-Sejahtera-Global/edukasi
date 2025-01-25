@@ -35,9 +35,14 @@
                         @endif
                     </div>
                     @auth
+                    <div class="alert alert-warning mt-3">
+                        Anda harus membeli kursus ini untuk mengakses seluruh materi.
+                    </div>
+                    @if (!$isLocked)
                     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#reviewModal">
                         Beri penilaian
                     </button>
+                    @endif
                     
                     @else
                         <p class="text-muted">Anda harus <a href="{{ route('login') }}">login</a> untuk memberikan penilaian.
