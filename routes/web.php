@@ -94,6 +94,7 @@ Route::middleware(['auth', 'Customer'])->group(function () {
         [App\Http\Controllers\PaymentController::class, 'paymentlist']
     )->name('paymentlist');
     Route::get('customer/payment/course/{id}', [App\Http\Controllers\PaymentController::class, 'paymentCourse'])->name('paymentCourse');
+    Route::get('customer/payment/course/success/{id}', [App\Http\Controllers\PaymentController::class, 'paymentSuccess'])->name('paymentSuccess');
 
     //Create
 

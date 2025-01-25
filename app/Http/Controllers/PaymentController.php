@@ -33,6 +33,15 @@ class PaymentController extends Controller
     }
     public function index($id)
     {
+        // Cek apakah user sudah terdaftar di kursus ini
+        $existingEnrollment = Enrollments::where('user_id', auth()->id())
+            ->where('course_id', $id)
+            ->first();
+
+        if ($existingEnrollment) {
+            return redirect()->route('paymentCourse', ['id' => $existingEnrollment->course_id]);
+        }
+
         $course = course::findOrFail($id);
         $coupons = Cupon::all();
         return view('customer.payment.index', compact('course', 'coupons'));
@@ -116,13 +125,6 @@ class PaymentController extends Controller
         if ($paymentSuccess) {
             return redirect()->route('paymentCourse', ['id' => $course->id])
                 ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
-            // // Update status kursus menjadi tidak terkunci
-            // $course->is_locked = 0;
-            // $course->save();
-
-            // // Redirect kembali ke halaman kursus dengan pesan sukses
-            // return redirect()->route('detail', ['id' => $course->id])
-            //     ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
         }
 
         // Jika pembayaran gagal, redirect kembali dengan pesan error
@@ -141,5 +143,19 @@ class PaymentController extends Controller
             ->where('course_id', $id)
             ->get();
         return view('customer.payment', compact('course'));
+    }
+
+    public function paymentSuccess($id)
+    {
+        $enrollment = Enrollments::where('user_id', auth()->id())
+            ->where('course_id', $id)
+            ->firstOrFail();
+
+        // Update payment status to success
+        $enrollment->payment_status = 'success';
+        $enrollment->save();
+
+        return redirect()->route('detail', ['id' => $enrollment->course_id])
+            ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
     }
 }
