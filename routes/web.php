@@ -20,14 +20,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Controller::class, 'welcome'])->name('welcome');
 
 Auth::routes();
+
 Route::get('/logout', function () {
     Auth::logout();
     return redirect()->route('welcome');
 });
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
+
     //tampilan awal atau index
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->name('dashboard');
     Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
@@ -48,6 +51,7 @@ Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
     Route::get('/tambahsection', [App\Http\Controllers\SectionController::class, 'tambah'])->name('tambahsection');
     Route::get('/tambahcontent', [App\Http\Controllers\ContentController::class, 'tambah'])->name('tambahcontent');
     Route::get('/tambahcoupon', [App\Http\Controllers\CouponController::class, 'tambah'])->name('tambahcoupon');
+
     //Delete
     Route::get('/deleteuser/{id}', [App\Http\Controllers\InstructorController::class, 'deleteuser'])->name('deleteuser');
     Route::get('/deletecourse/{id}', [App\Http\Controllers\CourseController::class, 'delete'])->name('deletecourse');
@@ -55,6 +59,7 @@ Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
     Route::get('/deletesection/{id}', [App\Http\Controllers\SectionController::class, 'delete'])->name('deletesection');
     Route::get('/deletecontent/{id}', [App\Http\Controllers\ContentController::class, 'delete'])->name('deletecontent');
     Route::get('/deletecoupon/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->name('deletecoupon');
+
     //Submit
     Route::post('/submitinstructor', [App\Http\Controllers\InstructorController::class, 'submitinstructor'])->name('submitinstructor');
     Route::post('/submitcourse', [App\Http\Controllers\CourseController::class, 'submit'])->name('submitcourse');
@@ -70,6 +75,7 @@ Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
     Route::get('/editsection{id}', [App\Http\Controllers\SectionController::class, 'edit'])->name('editsection');
     Route::get('/editcontent{id}', [App\Http\Controllers\ContentController::class, 'edit'])->name('editcontent');
     Route::get('/editcoupon{id}', [App\Http\Controllers\CouponController::class, 'edit'])->name('editcoupon');
+
     //update
     Route::put('/updatecourse{id}', [App\Http\Controllers\CourseController::class, 'update'])->name('updatecourse');
     Route::put('/updateinstructor{id}', [App\Http\Controllers\InstructorController::class, 'update'])->name('updateinstructor');
@@ -86,15 +92,14 @@ Route::middleware(['auth', 'Instructor'])->group(function () {
 });
 
 Route::middleware(['auth', 'Customer'])->group(function () {
+
     //tampilan awal atau index
     Route::get('/detail{id}', [App\Http\Controllers\Controller::class, 'detail'])->name('detail');
     Route::get('/pembayaran{id}', [App\Http\Controllers\PaymentController::class, 'index'])->name('pembayaran');
-    Route::get(
-        '/customer/payment',
-        [App\Http\Controllers\PaymentController::class, 'paymentlist']
-    )->name('paymentlist');
+    Route::get('/customer/payment', [App\Http\Controllers\PaymentController::class, 'paymentlist'])->name('paymentlist');
     Route::get('customer/payment/course/{id}', [App\Http\Controllers\PaymentController::class, 'paymentCourse'])->name('paymentCourse');
     Route::get('customer/payment/course/success/{id}', [App\Http\Controllers\PaymentController::class, 'paymentSuccess'])->name('paymentSuccess');
+    Route::post('/submitreview', [App\Http\Controllers\ReviewController::class, 'submit'])->name('submitreview');
 
     //Create
 
@@ -104,8 +109,10 @@ Route::middleware(['auth', 'Customer'])->group(function () {
     Route::post('/submitpayment{id}', [App\Http\Controllers\PaymentController::class, 'submit'])->name('submitpayment');
     Route::post('/discuss{id}', [App\Http\Controllers\Controller::class, 'storeDiscuss'])->name('discuss');
     Route::post('/comment{DiscussId}', [App\Http\Controllers\Controller::class, 'storeComment'])->name('comment');
+
     //Edit
     Route::get('/profileuser', [App\Http\Controllers\ProfileController::class, 'user'])->name('profileuser');
+
     //update
     Route::put('/update', [App\Http\Controllers\ProfileController::class, 'updateuser'])->name('update');
 

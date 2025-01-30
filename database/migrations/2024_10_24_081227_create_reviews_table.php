@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');  // Relasi ke tabel 'courses'
             $table->foreignId('user_id')->constrained()->onDelete('cascade');    // Relasi ke tabel 'users'
+            $table->string('instructor_id');   // Menggunakan tipe integer untuk rating (bintang)
             $table->integer('bintang');   // Menggunakan tipe integer untuk rating (bintang)
             $table->text('komentar');     // Menggunakan tipe text untuk komentar
             $table->timestamps();

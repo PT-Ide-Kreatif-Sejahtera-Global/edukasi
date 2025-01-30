@@ -30,12 +30,15 @@
                                     Sekarang</a>
                             @else
                                 <a href="{{ route('courses.course', ['id' => $course->id]) }}"
-                                    class="btn btn-success mt-3">Claim Sekarang</a>
+                                    class="btn btn-success mt-3">Claim Sekarang
+                                </a>
                             @endif
                         @endif
+                        
                     </div>
                     @auth
                     @if ($isLocked)
+                    <br>
                     <div class="alert alert-warning mt-3">
                         Anda harus membeli kursus ini untuk mengakses seluruh materi.
                     </div>
@@ -159,10 +162,11 @@
             </div>
         </div>
     </section>
+
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('login') }}" method="POST">
+                <form action="{{ route('submitreview') }}" method="POST">
                     @csrf
                     <input type="hidden" name="course_id" value="{{ $course->id }}">
                     <input type="hidden" name="instructor_id" value="{{ $course->instructor->id ?? null }}">
@@ -227,8 +231,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const stars = document.querySelectorAll('.star-rating input');
         stars.forEach(star => {
-            star.addEventListener('change', function() {
-                // Optional: Perform additional actions on rating change
+            star.addEventListener('change', function() { 
             });
         });
     });

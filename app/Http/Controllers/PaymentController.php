@@ -50,9 +50,9 @@ class PaymentController extends Controller
     public function submit(Request $request, $id)
     {
         // Validasi metode pembayaran
-        $request->validate([
-            'payment_method' => 'required',
-        ]);
+        // $request->validate([
+        //     'payment_method' => 'required',
+        // ]);
 
         // Ambil kursus berdasarkan ID
         $course = Course::findOrFail($id);
@@ -134,7 +134,7 @@ class PaymentController extends Controller
     public function paymentlist()
     {
         $payments = Enrollments::where('user_id', auth()->id())->get();
-        return view('customer.paymentList', compact('payments'));
+        return view('customer.payment.paymentList', compact('payments'));
     }
 
     public function paymentCourse($id)
@@ -142,7 +142,7 @@ class PaymentController extends Controller
         $course = Enrollments::where('user_id', auth()->id())
             ->where('course_id', $id)
             ->get();
-        return view('customer.payment', compact('course'));
+        return view('customer.payment.payment', compact('course'));
     }
 
     public function paymentSuccess($id)

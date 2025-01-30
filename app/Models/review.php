@@ -15,6 +15,7 @@ class review extends Model
         'bintang',
         'komentar',
     ];
+    
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
