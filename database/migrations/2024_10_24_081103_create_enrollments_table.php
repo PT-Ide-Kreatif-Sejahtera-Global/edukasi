@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');  // Relasi ke tabel 'users'
             $table->foreignId('course_id'); // Relasi ke tabel 'courses'
-            $table->foreignId('coupon_id'); // Relasi ke tabel 'courses'
+            $table->foreignId('coupon_id')->nullable(); // Relasi ke tabel 'courses'
+            $table->string('snap_token', 250)->nullable();  // Menggunakan tipe date untuk tanggal pendaftaran
             $table->date('enrollment_date');  // Menggunakan tipe date untuk tanggal pendaftaran
+            $table->string('payment_status'); 
             $table->integer('discount_amount'); // Relasi ke tabel 'courses'
             $table->integer('total_price'); // Relasi ke tabel 'courses'
             $table->string('udemy_coupon',250);  // Menggunakan tipe date untuk tanggal pendaftaran

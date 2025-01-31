@@ -23,8 +23,7 @@ return new class extends Migration
             $table->decimal('duration');
             // $table->boolean('status');
             $table->timestamps();
-        });
-        
+        });        
     }
 
     /**

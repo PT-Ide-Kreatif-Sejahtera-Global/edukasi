@@ -12,6 +12,7 @@
             </div>
 
             <div class="row">
+
                 <!-- Kolom Kiri: Deskripsi Kursus -->
                 <div class="col-md-8">
                     <div class="course-description p-4 bg-light rounded mb-4">
@@ -29,14 +30,25 @@
                                     Sekarang</a>
                             @else
                                 <a href="{{ route('courses.course', ['id' => $course->id]) }}"
-                                    class="btn btn-success mt-3">Claim Sekarang</a>
+                                    class="btn btn-success mt-3">Claim Sekarang
+                                </a>
                             @endif
                         @endif
+                        
                     </div>
                     @auth
+                    @if ($isLocked)
+                    <br>
+                    <div class="alert alert-warning mt-3">
+                        Anda harus membeli kursus ini untuk mengakses seluruh materi.
+                    </div>
+                    @endif
+                    @if (!$isLocked)
                     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#reviewModal">
                         Beri penilaian
                     </button>
+                    @endif
+                    
                     @else
                         <p class="text-muted">Anda harus <a href="{{ route('login') }}">login</a> untuk memberikan penilaian.
                         </p>
@@ -150,6 +162,7 @@
             </div>
         </div>
     </section>
+
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -187,7 +200,6 @@
                                     </label>
                                 @endfor
                             </div>
-                            
                         </div>
     
                         <!-- Komentar -->
@@ -219,8 +231,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const stars = document.querySelectorAll('.star-rating input');
         stars.forEach(star => {
-            star.addEventListener('change', function() {
-                // Optional: Perform additional actions on rating change
+            star.addEventListener('change', function() { 
             });
         });
     });

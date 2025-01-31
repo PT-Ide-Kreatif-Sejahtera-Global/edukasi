@@ -9,7 +9,7 @@
             <form action="{{ route('submitpayment', $course->id) }}" method="POST" id="paymentForm">
                 @csrf
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="payment_method">Metode Pembayaran</label>
                     <select name="payment_method" id="payment_method" class="form-control" required>
                         <option value="">Pilih Metode Pembayaran</option>
@@ -17,7 +17,7 @@
                         <option value="paypal">PayPal</option>
                         <option value="bank_transfer">Transfer Bank</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="coupon_id">Pilih Kupon (Opsional)</label>

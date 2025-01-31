@@ -33,6 +33,15 @@ class PaymentController extends Controller
     }
     public function index($id)
     {
+        // Cek apakah user sudah terdaftar di kursus ini
+        $existingEnrollment = Enrollments::where('user_id', auth()->id())
+            ->where('course_id', $id)
+            ->first();
+
+        if ($existingEnrollment) {
+            return redirect()->route('paymentCourse', ['id' => $existingEnrollment->course_id]);
+        }
+
         $course = course::findOrFail($id);
         $coupons = Cupon::all();
         return view('customer.payment.index', compact('course', 'coupons'));
@@ -41,9 +50,9 @@ class PaymentController extends Controller
     public function submit(Request $request, $id)
     {
         // Validasi metode pembayaran
-        $request->validate([
-            'payment_method' => 'required',
-        ]);
+        // $request->validate([
+        //     'payment_method' => 'required',
+        // ]);
 
         // Ambil kursus berdasarkan ID
         $course = Course::findOrFail($id);
@@ -70,7 +79,7 @@ class PaymentController extends Controller
         }
 
         // Hitung harga total setelah diskon
-        $totalPrice = max($course->price - $discountAmount, 0);
+        $totalPrice = max(round($course->price - $discountAmount), 0);
 
         // Simpan data pendaftaran
         $enrollment = Enrollments::create([
@@ -78,25 +87,75 @@ class PaymentController extends Controller
             'course_id' => $course->id,
             'coupon_id' => $couponId,
             'enrollment_date' => now(),
+            'payment_status' => 'pending',
             'discount_amount' => $discountAmount,
             'total_price' => $totalPrice,
             'udemy_coupon' => $udemyCoupon,
         ]);
 
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => $totalPrice
+            ),
+            'customer_details' => array(
+                'first_name' => auth()->user()->name,
+                'email' => auth()->user()->email,
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        $enrollment->snap_token = $snapToken;
+
+        $enrollment->save();
+        
         // Proses pembayaran (simulasikan berhasil untuk sekarang)
         $paymentSuccess = true;
 
         if ($paymentSuccess) {
-            // Update status kursus menjadi tidak terkunci
-            $course->is_locked = 0;
-            $course->save();
-
-            // Redirect kembali ke halaman kursus dengan pesan sukses
-            return redirect()->route('detail', ['id' => $course->id])
+            return redirect()->route('paymentCourse', ['id' => $course->id])
                 ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
         }
 
         // Jika pembayaran gagal, redirect kembali dengan pesan error
         return back()->with('error', 'Pembayaran gagal, silakan coba lagi.');
+    }
+
+    public function paymentlist()
+    {
+        $payments = Enrollments::where('user_id', auth()->id())->get();
+        return view('customer.payment.paymentList', compact('payments'));
+    }
+
+    public function paymentCourse($id)
+    {
+        $course = Enrollments::where('user_id', auth()->id())
+            ->where('course_id', $id)
+            ->get();
+        return view('customer.payment.payment', compact('course'));
+    }
+
+    public function paymentSuccess($id)
+    {
+        $enrollment = Enrollments::where('user_id', auth()->id())
+            ->where('course_id', $id)
+            ->firstOrFail();
+
+        // Update payment status to success
+        $enrollment->payment_status = 'success';
+        $enrollment->save();
+
+        return redirect()->route('detail', ['id' => $enrollment->course_id])
+            ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
     }
 }

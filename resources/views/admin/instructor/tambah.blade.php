@@ -35,7 +35,10 @@
                             </div> --}}
                             <div class="mb-3">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="Password..." required />
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password..." required minlength="6" />
+                                <div class="invalid-feedback">
+                                    Password must be at least 6 characters long.
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="foto" class="form-label">Foto</label>

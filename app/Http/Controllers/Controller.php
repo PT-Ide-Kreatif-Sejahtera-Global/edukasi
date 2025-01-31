@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\course;
+use App\Models\review;
 use App\Models\discuss;
-use App\Models\discuss_comment;
 use App\Models\Enrollments;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\discuss_comment;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -22,10 +23,14 @@ class Controller extends BaseController
             ->join('users', 'instructors.user_id', '=', 'users.id')
             ->select('instructors.bio', 'users.name', 'users.foto')
             ->get();
+            
         $courses = Course::with('instructor.user')->get();
 
-        // Return the welcome view with the teachers data
-        return view('welcome', compact('teachers', 'courses')); // Assuming your welcome view is named 'welcome.blade.php'
+        // Fetch all reviews from the database
+        $reviews = review::with('course', 'user')->get();
+
+        // Return the welcome view with the teachers, courses, and reviews data
+        return view('welcome', compact('teachers', 'courses', 'reviews')); // Assuming your welcome view is named 'welcome.blade.php'
     }
     //detail course
     public function detail($id)
@@ -40,7 +45,11 @@ class Controller extends BaseController
             ->first();
 
         // Status apakah course ini terkunci untuk user yang belum membeli
-        $isLocked = !$enrollment;
+        if ($enrollment != null && $enrollment->payment_status == 'success') {
+            $isLocked = false;
+        } else {
+            $isLocked = true;
+        }
 
         return view('customer.course.index', compact('course', 'isLocked', 'discussComments'));
     }

@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\review;
 
 class RatingController extends Controller
 {
     public function index()
     {
-        // $data = array(
-        //     'pembeli' => DB::table('reservasi')
-        //         ->join('users', 'reservasi.id_user', '=', 'users.id')
-        //         ->join('meja', 'reservasi.id_meja', '=', 'meja.id_meja')
-        //         ->orderBy('id_reservasi', 'DESC')
-        //         ->get(),
-        // );
-        return view('admin.rating.index');
+        $data = review::with(['course', 'user'])->get();
+        return view('admin.rating.index', compact('data'));
     }
 }
