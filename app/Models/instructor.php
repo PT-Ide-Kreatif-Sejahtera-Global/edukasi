@@ -14,6 +14,7 @@ class instructor extends Model
     protected $fillable = [
         'user_id',
         'bio',
+        'foto',
         'rating',
     ];
     public function user()

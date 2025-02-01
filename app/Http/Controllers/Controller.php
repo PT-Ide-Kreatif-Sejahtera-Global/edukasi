@@ -8,6 +8,7 @@ use App\Models\discuss;
 use App\Models\Enrollments;
 use Illuminate\Http\Request;
 use App\Models\discuss_comment;
+use App\Models\instructor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -21,7 +22,7 @@ class Controller extends BaseController
         // Fetch all teachers from the database
         $teachers = DB::table('instructors')
             ->join('users', 'instructors.user_id', '=', 'users.id')
-            ->select('instructors.bio', 'users.name', 'users.foto')
+            ->select('instructors.bio', 'users.name', 'instructors.foto')
             ->get();
             
         $courses = Course::with('instructor.user')->get();

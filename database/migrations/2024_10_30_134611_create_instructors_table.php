@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('bio',250);
             $table->float('rating');
-            $table->string('foto');
+            $table->string('foto', 255);
             $table->timestamps();
         });
     }

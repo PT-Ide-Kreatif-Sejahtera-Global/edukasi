@@ -7,6 +7,7 @@ use App\Http\Controllers\api\CoursesController;
 use App\Http\Controllers\api\EnrollmentsController;
 use App\Http\Controllers\api\InstructorsController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,3 +35,4 @@ Route::get('/reviews', [EnrollmentsController::class, 'index']);
 Route::get('/instructors', [InstructorsController::class, 'index']);
 
 // POST
+Route::post('/instructors', [InstructorsController::class, 'store']);

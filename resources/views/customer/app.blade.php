@@ -1,3 +1,7 @@
+{{-- @php
+    dd($teachers);
+@endphp --}}
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -26,7 +26,31 @@ class InstructorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|integer',
+            'bio' => 'required|string',
+            'rating' => 'required|numeric',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        // Store the uploaded photo in the storage/instructor directory
+        $path = $request->file('foto')->store('users', 'public');
+        $path = str_replace('users/', '', $path);
+
+        $instructor = Instructor::create([
+            'user_id' => $request->get('user_id'),
+            'bio' => $request->get('bio'),
+            'rating' => $request->get('rating'),
+            'foto' => $path
+        ]);
+
+        $instructor->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Instructor created successfully',
+            'data' => $instructor
+        ], 201);
     }
 
     /**
