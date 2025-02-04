@@ -34,8 +34,8 @@ class InstructorsController extends Controller
         ]);
 
         // Store the uploaded photo in the storage/instructor directory
-        $path = $request->file('foto')->store('instructors', 'public');
-        $path = str_replace('instructors/', '', $path);
+        $path = $request->file('foto')->store('users', 'public');
+        $path = str_replace('users/', '', $path);
 
         $instructor = Instructor::create(['user_id' => $request->user_id,
             'bio' => $request->bio,
@@ -83,12 +83,12 @@ class InstructorsController extends Controller
         if ($request->hasFile('foto')) {
             // Delete the old photo from storage
             if ($instructor->foto) {
-                \Storage::disk('public')->delete('instructors/' . $instructor->foto);
+                \Storage::disk('public')->delete('users/' . $instructor->foto);
             }
 
             // Store the new photo in the storage/instructor directory
-            $path = $request->file('foto')->store('instructors', 'public');
-            $path = str_replace('instructors/', '', $path);
+            $path = $request->file('foto')->store('users', 'public');
+            $path = str_replace('users/', '', $path);
             $instructor->foto = $path;
         }
 
@@ -120,7 +120,7 @@ class InstructorsController extends Controller
 
         if ($instructor->foto) {
             // Delete the photo from storage
-            \Storage::disk('public')->delete('instructors/' . $instructor->foto);
+            \Storage::disk('public')->delete('users/' . $instructor->foto);
         }
 
         // Delete the instructor
