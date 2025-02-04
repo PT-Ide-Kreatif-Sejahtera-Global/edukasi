@@ -1,49 +1,65 @@
 @extends('customer.index')
 
 @section('content')
-    <div class="flex justify-center items-center min-h-screen">
-        <div>
-            <h1 class="text-center">payment list</h1>
-            <div class="overflow-x-auto rounded-lg border border-gray-200">
-                <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-                    <thead class="ltr:text-left rtl:text-right">
-                        <tr>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Course</th>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Coupon</th>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Enrolment date</th>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Discount Amount</th>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Payment Status</th>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Total Price</th>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Udemy Coupon</th>
-                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Pay</th>
-                        </tr>
-                    </thead>
-    
-                    <tbody class="divide-y divide-gray-200">
-                        @foreach($payments as $payment)
-                        <tr>
-                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ $payment->course_id }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ $payment->coupon_id }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ $payment->enrollment_date }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ $payment->discount_amount }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ $payment->payment_status }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ $payment->total_price }}</td>
-                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ $payment->udemy_coupon }}</td>
-                            <td>
-                                <a href="payment/course/{{$payment->course_id}}" @if($payment->payment_status == 'success') class="pointer-events-none opacity-50" @endif>
-                                    <button @if($payment->payment_status == 'success') disabled @endif>
-                                        @if($payment->payment_status == 'success') paid @else pay @endif
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-    
-                </table>
-            </div>
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container">
+        <h1 class="text-center mb-4">Payment List</h1>
+        <div class="table-responsive border rounded">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Course</th>
+                        <th>Coupon</th>
+                        <th>Enrolment Date</th>
+                        <th>Discount Amount</th>
+                        <th>Payment Status</th>
+                        <th>Total Price</th>
+                        <th>Udemy Coupon</th>
+                        <th>Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($payments->isEmpty())
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-3">
+                            <em>No payment data available</em>
+                        </td>
+                    </tr>
+                    @else
+                    @foreach($payments as $payment)
+                    <tr class="text-center">
+                        <td>{{ $payment->course_id }}</td>
+                        <td>{{ $payment->coupon_id }}</td>
+                        <td>{{ $payment->enrollment_date }}</td>
+                        <td>{{ $payment->discount_amount }}</td>
+                        <td>
+                            <span class="badge 
+                                @if($payment->payment_status == 'success') bg-success 
+                                @else bg-warning text-dark @endif">
+                                {{ ucfirst($payment->payment_status) }}
+                            </span>
+                        </td>
+                        <td>{{ $payment->total_price }}</td>
+                        <td>{{ $payment->udemy_coupon }}</td>
+                        <td>
+                            <a href="payment/course/{{$payment->course_id}}" 
+                               class="btn btn-sm 
+                               @if($payment->payment_status == 'success') btn-secondary disabled 
+                               @else btn-primary @endif">
+                                {{ $payment->payment_status == 'success' ? 'Paid' : 'Pay' }}
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+
+
 @endsection
 
 

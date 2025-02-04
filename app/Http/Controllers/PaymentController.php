@@ -141,8 +141,11 @@ class PaymentController extends Controller
     {
         $course = Enrollments::where('user_id', auth()->id())
             ->where('course_id', $id)
-            ->get();
+            ->with('course') // Ambil data courses juga
+        ->get();
+
         return view('customer.payment.payment', compact('course'));
+
     }
 
     public function paymentSuccess($id)
