@@ -26,7 +26,7 @@ class Enrollments extends Model
      */
     public function course()
     {
-        return $this->belongsTo(Course::class, 'id');
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
     /**
@@ -35,7 +35,7 @@ class Enrollments extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
