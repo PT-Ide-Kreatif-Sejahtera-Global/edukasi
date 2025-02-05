@@ -29,8 +29,8 @@
                     @else
                     @foreach($payments as $payment)
                     <tr class="text-center">
-                        <td>{{ $payment->course_id }}</td>
-                        <td>{{ $payment->coupon_id }}</td>
+                        <td>{{ $payment->course->title}}</td>
+                        <td>{{ $payment->coupon->cupon_code }}</td>
                         <td>{{ $payment->enrollment_date }}</td>
                         <td>{{ $payment->discount_amount }}</td>
                         <td>

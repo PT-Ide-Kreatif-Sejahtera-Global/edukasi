@@ -15,8 +15,6 @@
                     
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Course:</strong> {{ $course[0]->course->title }}</li>
-                        <li class="list-group-item"><strong>Course:</strong> {{ $course[0]->course->title }}</li>
-                        {{-- <li class="list-group-item"><strong>Price:</strong> Rp {{ number_format($course[0]->price, 0, ',', '.') }}</li> --}}
                         <li class="list-group-item"><strong>Enrollment Date:</strong> {{ $course[0]->enrollment_date }}</li>
                         <li class="list-group-item"><strong>Payment Status:</strong> 
                             <span class="badge bg-{{ $course[0]->payment_status == 'success' ? 'success' : 'warning' }}">
