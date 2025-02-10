@@ -12,6 +12,7 @@ class Enrollments extends Model
         'user_id',
         'course_id',
         'coupon_id',
+        'order_id',
         'enrollment_date',
         'discount_amount',
         'payment_status',

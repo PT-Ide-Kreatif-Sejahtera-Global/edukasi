@@ -7,6 +7,9 @@ use App\Models\cupon;
 use App\Models\Enrollments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Midtrans\CoreApi;
+use Midtrans\Snap;
 
 class PaymentController extends Controller
 {
@@ -16,7 +19,7 @@ class PaymentController extends Controller
         $payments = DB::table('enrollments')
             ->join('users', 'enrollments.user_id', '=', 'users.id')
             ->join('courses', 'enrollments.course_id', '=', 'courses.id')
-            ->leftJoin('cupons', 'enrollments.coupon_id', '=', 'cupons.id')  // Use left join in case some payments don't have a coupon
+            ->leftJoin('cupons', 'enrollments.coupon_id', '=', 'cupons.id')
             ->select(
                 'enrollments.*', 
                 'users.name as user_name', 
@@ -31,15 +34,19 @@ class PaymentController extends Controller
         // Pass the payments to the view
         return view('admin.pembayaran.index', compact('payments'));
     }
+    
     public function index($id)
     {
         // Cek apakah user sudah terdaftar di kursus ini
         $existingEnrollment = Enrollments::where('user_id', auth()->id())
             ->where('course_id', $id)
+            ->where('payment_status', 'pending')
             ->first();
 
+        // dd($existingEnrollment);
+
         if ($existingEnrollment) {
-            return redirect()->route('paymentCourse', ['id' => $existingEnrollment->course_id]);
+            return redirect()->route('paymentCourse', ['order_id' => $existingEnrollment->order_id]);
         }
 
         $course = course::findOrFail($id);
@@ -49,32 +56,23 @@ class PaymentController extends Controller
 
     public function submit(Request $request, $id)
     {
-        // Validasi metode pembayaran
-        // $request->validate([
-        //     'payment_method' => 'required',
-        // ]);
-
-        // Ambil kursus berdasarkan ID
         $course = Course::findOrFail($id);
         $discountAmount = 0;
         $couponId = null;
         $udemyCoupon = 0;
 
+        // Gunakan UUID agar order_id unik
+        $orderId = 'ORDER-' . Str::uuid();
+
         // Periksa apakah kupon disertakan
         if ($request->filled('coupon_id')) {
-            $coupon = Cupon::find($request->id);
-
-            // Terapkan kupon jika ada
+            $coupon = Cupon::find($request->coupon_id);
             if ($coupon) {
                 $couponId = $coupon->id;
                 $udemyCoupon = 1;
-
-                // Hitung diskon berdasarkan tipe
-                if ($coupon->discount_type === 'percentage') {
-                    $discountAmount = ($course->price * $coupon->discount_value) / 100;
-                } else if ($coupon->discount_type === 'nominal') {
-                    $discountAmount = $coupon->discount_value;
-                }
+                $discountAmount = ($coupon->discount_type === 'percentage')
+                ? ($course->price * $coupon->discount_value) / 100
+                    : $coupon->discount_value;
             }
         }
 
@@ -84,6 +82,7 @@ class PaymentController extends Controller
         // Simpan data pendaftaran
         $enrollment = Enrollments::create([
             'user_id' => auth()->id(),
+            'order_id' => $orderId,
             'course_id' => $course->id,
             'coupon_id' => $couponId,
             'enrollment_date' => now(),
@@ -93,42 +92,35 @@ class PaymentController extends Controller
             'udemy_coupon' => $udemyCoupon,
         ]);
 
-        // Set your Merchant Server Key
+        // Set konfigurasi Midtrans
         \Midtrans\Config::$serverKey = config('midtrans.serverKey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => rand(),
+        // Gunakan CoreAPI charge agar transaksi langsung masuk ke dashboard Midtrans
+        $params = [
+            'transaction_details' => [
+                'order_id' => $orderId,
                 'gross_amount' => $totalPrice
-            ),
-            'customer_details' => array(
+            ],
+            'customer_details' => [
                 'first_name' => auth()->user()->name,
                 'email' => auth()->user()->email,
-            ),
-        );
+            ]
+        ];
 
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        $enrollment->snap_token = $snapToken;
+        try {
+            $snapToken = Snap::getSnapToken($params);
+            $enrollment->snap_token = $snapToken;
+            $enrollment->save();
 
-        $enrollment->save();
-        
-        // Proses pembayaran (simulasikan berhasil untuk sekarang)
-        $paymentSuccess = true;
-
-        if ($paymentSuccess) {
             return redirect()->route('paymentCourse', ['id' => $course->id])
-                ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
+                ->with('success', 'Silakan lakukan pembayaran melalui Midtrans.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal mendapatkan Snap Token: ' . $e->getMessage());
         }
-
-        // Jika pembayaran gagal, redirect kembali dengan pesan error
-        return back()->with('error', 'Pembayaran gagal, silakan coba lagi.');
     }
 
     public function paymentlist()
@@ -137,21 +129,21 @@ class PaymentController extends Controller
         return view('customer.payment.paymentList', compact('payments'));
     }
 
-    public function paymentCourse($id)
+    public function paymentCourse($order_id)
     {
-        $course = Enrollments::where('user_id', auth()->id())
-            ->where('course_id', $id)
-            ->with('course') // Ambil data courses juga
+        $enrollment = Enrollments::where('user_id', auth()->id())
+            ->where('order_id', $order_id)
+            ->with('course') 
         ->get();
 
-        return view('customer.payment.payment', compact('course'));
+        return view('customer.payment.payment', compact('enrollment'));
 
     }
 
-    public function paymentSuccess($id)
+    public function paymentSuccess($order_id)
     {
         $enrollment = Enrollments::where('user_id', auth()->id())
-            ->where('course_id', $id)
+            ->where('order_id', $order_id)
             ->firstOrFail();
 
         // Update payment status to success
@@ -160,5 +152,30 @@ class PaymentController extends Controller
 
         return redirect()->route('detail', ['id' => $enrollment->course_id])
             ->with('success', 'Pembayaran berhasil, akses materi telah dibuka.');
+    }
+
+    public function cancelPayment($order_id)
+    {
+        $payment = Enrollments::where('order_id', $order_id)->firstOrFail();
+
+        if ($payment->payment_status == 'pending') {
+            // Set Midtrans server key
+            \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+            \Midtrans\Config::$isProduction = false;
+
+            try {
+                $response = \Midtrans\Transaction::cancel($payment->order_id);
+
+                // Jika berhasil dibatalkan, update status di database
+                if ($response->status_code == 200 || $response->status_code == 412) {
+                    $payment->update(['payment_status' => 'canceled']);
+                    return back()->with('success', 'Payment has been canceled.');
+                }
+            } catch (\Exception $e) {
+                $payment->update(['payment_status' => 'canceled']);
+                return back()->with('error', 'Error: ' . $e->getMessage());
+            }
+        }
+        return back()->with('error', 'Payment cannot be canceled.');
     }
 }

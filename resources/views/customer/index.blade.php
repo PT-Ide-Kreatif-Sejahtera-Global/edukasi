@@ -39,7 +39,7 @@
 <script type="text/javascript">
     document.getElementById('pay-button').onclick = function () {
         
-            const snapToken = "{{ $course[0]->snap_token ?? '' }}"; // Snap token dari server
+            const snapToken = "{{ $enrollment[0]->snap_token ?? '' }}"; // Snap token dari server
 
             if (snapToken) {
                 window.snap.pay(snapToken, {
@@ -48,10 +48,10 @@
                         console.log(result);
 
                         // Ambil ID kursus dari Blade
-                        const courseId = "{{ $course[0]->course_id ?? '' }}";
+                        const order_id = "{{ $enrollment[0]->order_id ?? '' }}";
 
                         // Redirect ke rute paymentSuccess
-                        window.location.href = `/customer/payment/course/success/${courseId}`;
+                        window.location.href = `/customer/payment/course/success/${order_id}`;
                     },
                     onPending: function (result) {
                         alert('Menunggu pembayaran!');

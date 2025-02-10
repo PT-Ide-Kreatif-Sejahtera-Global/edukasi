@@ -96,10 +96,14 @@ Route::middleware(['auth', 'Customer'])->group(function () {
     //tampilan awal atau index
     Route::get('/detail{id}', [App\Http\Controllers\Controller::class, 'detail'])->name('detail');
     Route::get('/pembayaran{id}', [App\Http\Controllers\PaymentController::class, 'index'])->name('pembayaran');
-    Route::get('/customer/payment', [App\Http\Controllers\PaymentController::class, 'paymentlist'])->name('paymentlist');
-    Route::get('customer/payment/course/{id}', [App\Http\Controllers\PaymentController::class, 'paymentCourse'])->name('paymentCourse');
+    Route::get(
+        '/customer/payments',
+        [App\Http\Controllers\PaymentController::class, 'paymentlist']
+    )->name('paymentlist');
+    Route::get('customer/payment/course/{order_id}', [App\Http\Controllers\PaymentController::class, 'paymentCourse'])->name('paymentCourse');
     Route::get('customer/payment/course/success/{id}', [App\Http\Controllers\PaymentController::class, 'paymentSuccess'])->name('paymentSuccess');
     Route::post('/submitreview', [App\Http\Controllers\ReviewController::class, 'submit'])->name('submitreview');
+    Route::post('/payment/cancel/{order_id}', [App\Http\Controllers\PaymentController::class, 'cancelPayment'])->name('payment.cancel');
 
     //Create
 

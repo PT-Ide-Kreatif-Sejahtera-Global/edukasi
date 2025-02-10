@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');  // Relasi ke tabel 'users'
             $table->foreignId('course_id'); // Relasi ke tabel 'courses'
             $table->foreignId('coupon_id')->nullable(); // Relasi ke tabel 'courses'
+            $table->string('order_id')->nullable();  // Menggunakan tipe date untuk tanggal pendaftaran
             $table->string('snap_token', 250)->nullable();  // Menggunakan tipe date untuk tanggal pendaftaran
             $table->date('enrollment_date');  // Menggunakan tipe date untuk tanggal pendaftaran
             $table->string('payment_status'); 
