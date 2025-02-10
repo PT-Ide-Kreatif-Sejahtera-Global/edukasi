@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- @php
-    dd($course);
+    dd($enrollment);
 @endphp --}}
 <section>
     <div class="d-flex justify-content-center align-items-center min-vh-100">
@@ -10,24 +10,24 @@
             <h1 class="text-center">Continue to Pay</h1>
             <div class="card border shadow-sm rounded-lg">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $course[0]->title }}</h5>
-                    <p class="card-text">{{ $course[0]->description }}</p>
+                    {{-- <h5 class="card-title">{{ $enrollment[0]->course->title }}</h5>
+                    <p class="card-text">{{ $enrollment[0]->course->description }}</p> --}}
                     
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Course:</strong> {{ $course[0]->course->title }}</li>
-                        <li class="list-group-item"><strong>Enrollment Date:</strong> {{ $course[0]->enrollment_date }}</li>
+                        <li class="list-group-item"><strong>Course:</strong> {{ $enrollment[0]->course->title }}</li>
+                        <li class="list-group-item"><strong>Enrollment Date:</strong> {{ $enrollment[0]->enrollment_date }}</li>
                         <li class="list-group-item"><strong>Payment Status:</strong> 
-                            <span class="badge bg-{{ $course[0]->payment_status == 'success' ? 'success' : 'warning' }}">
-                                {{ ucfirst($course[0]->payment_status) }}
+                            <span class="badge bg-{{ $enrollment[0]->payment_status == 'success' ? 'success' : 'warning' }}">
+                                {{ ucfirst($enrollment[0]->payment_status) }}
                             </span>
                         </li>
-                        <li class="list-group-item"><strong>Discount Amount:</strong> Rp {{ number_format($course[0]->discount_amount, 0, ',', '.') }}</li>
-                        <li class="list-group-item"><strong>Total Price:</strong> Rp {{ number_format($course[0]->total_price, 0, ',', '.') }}</li>
-                        <li class="list-group-item"><strong>Udemy Coupon:</strong> {{ $course[0]->udemy_coupon ? 'Yes' : 'No' }}</li>
+                        <li class="list-group-item"><strong>Discount Amount:</strong> Rp {{ number_format($enrollment[0]->discount_amount, 0, ',', '.') }}</li>
+                        <li class="list-group-item"><strong>Total Price:</strong> Rp {{ number_format($enrollment[0]->total_price, 0, ',', '.') }}</li>
+                        <li class="list-group-item"><strong>Udemy Coupon:</strong> {{ $enrollment[0]->udemy_coupon ? 'Yes' : 'No' }}</li>
                     </ul>
 
                     <div class="text-center mt-3">
-                        @if($course[0]->payment_status == 'pending')
+                        @if($enrollment[0]->payment_status == 'pending')
                             <button id="pay-button" class="btn btn-primary">Pay Now</button>
                         @else
                             <button class="btn btn-success" disabled>Paid</button>

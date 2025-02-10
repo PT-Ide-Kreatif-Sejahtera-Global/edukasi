@@ -44,7 +44,7 @@
                     <ul class="dropdown-menu dropdown-menu-end bg-light">
                         <li><a href="/profileuser" class="dropdown-item has-icon"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="/progress" class="dropdown-item has-icon"><i class="fa fa-chart-line"></i> Progress</a></li>
-                        <li><a href="/customer/payment" class="dropdown-item has-icon"><i class="fa-solid fa-cart-shopping"></i> Payment List</a></li>
+                        <li><a href="{{ route('paymentlist') }}" class="dropdown-item has-icon"><i class="fa-solid fa-cart-shopping"></i> Payment List</a></li>
                         <li><a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </li>

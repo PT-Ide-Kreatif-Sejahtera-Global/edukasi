@@ -180,7 +180,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="team-thumb">
                         <div class="team-image">
-                            <img width="100" height="100" src="{{ url('storage/users/' . $teacher->foto) }}">
+                            <img width="100" src="{{ url('storage/users/' . $teacher->foto) }}">
                         </div>
                         <div class="team-info">
                             <h3>{{ $teacher->name }}</h3>
