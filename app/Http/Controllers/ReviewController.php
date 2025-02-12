@@ -38,16 +38,19 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('success', 'Review berhasil ditambahkan!');
     }
-    // public function Review($courseId)
-    // {
-    //     $course = course::with('instructor')->findOrFail($courseId);
-    //     $user = auth()->user(); // User yang login saat ini
-    //     $instructor = $course->instructor; // Data instruktur dari course
 
-    //     return view('customer.course.index', [
-    //         'course' => $course,
-    //         'user' => $user,
-    //         'instructor' => $instructor,
-    //     ]);
-    // }
+    public function delete($id)
+    {
+        $review = Review::find($id);
+
+        if (!$review) {
+            return redirect()->back()->with('error', 'Review tidak ditemukan.');
+        }
+
+        $review->delete();
+
+        return redirect()->back()->with('success', 'Review berhasil dihapus.');
+    }
+
+
 }

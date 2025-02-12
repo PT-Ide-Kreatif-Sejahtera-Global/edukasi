@@ -22,7 +22,7 @@ class Controller extends BaseController
         // Fetch all teachers from the database
         $teachers = DB::table('instructors')
             ->join('users', 'instructors.user_id', '=', 'users.id')
-            ->select('instructors.bio', 'users.name', 'instructors.foto')
+            ->select('instructors.bio', 'users.name', 'users.foto')
             ->get();
             
         $courses = Course::with('instructor.user')->get();

@@ -29,21 +29,14 @@ class InstructorsController extends Controller
         $request->validate([
             'user_id' => 'required|integer',
             'bio' => 'required|string',
-            'rating' => 'required|numeric',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'rating' => 'required|numeric'
         ]);
 
-        // Store the uploaded photo in the storage/instructor directory
-        $path = $request->file('foto')->store('users', 'public');
-        $path = str_replace('users/', '', $path);
-
-        $instructor = Instructor::create(['user_id' => $request->user_id,
+        $instructor = Instructor::create([
+            'user_id' => $request->user_id,
             'bio' => $request->bio,
-            'rating' => $request->rating,
-            'foto' => $path
+            'rating' => $request->rating
         ]);
-
-        $instructor->save();
 
         return response()->json([
             'status' => 'success',
@@ -52,12 +45,13 @@ class InstructorsController extends Controller
         ], 201);
     }
 
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        $instructor = instructor::where('user_id', $id)->first();
+        $instructor = Instructor::where('user_id', $id)->first();
 
         if (!$instructor) {
             return response()->json([
@@ -68,8 +62,7 @@ class InstructorsController extends Controller
 
         $validator = \Validator::make($request->all(), [
             'bio' => 'string',
-            'rating' => 'numeric',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'rating' => 'numeric'
         ]);
 
         if ($validator->fails()) {
@@ -78,18 +71,6 @@ class InstructorsController extends Controller
                 'message' => 'Validation failed',
                 'errors' => $validator->errors()
             ], 422);
-        }
-
-        if ($request->hasFile('foto')) {
-            // Delete the old photo from storage
-            if ($instructor->foto) {
-                \Storage::disk('public')->delete('users/' . $instructor->foto);
-            }
-
-            // Store the new photo in the storage/instructor directory
-            $path = $request->file('foto')->store('users', 'public');
-            $path = str_replace('users/', '', $path);
-            $instructor->foto = $path;
         }
 
         $instructor->bio = $request->bio;
@@ -103,6 +84,7 @@ class InstructorsController extends Controller
             'data' => $instructor
         ], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.

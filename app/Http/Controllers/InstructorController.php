@@ -96,7 +96,6 @@ class InstructorController extends Controller
                     'user_id' => $userId,
                     'bio' => $request->bio,
                     'rating' => 0,
-                    'foto' => $foto, // Ensure foto is included here
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -111,14 +110,17 @@ class InstructorController extends Controller
                 }
             });
 
-
-            // Redirect ke halaman instructors jika berhasil
-            return redirect()->route('instructor')->with('success', 'Instructor berhasil ditambahkan.');
+            // Set success session
+            session()->flash('success', 'Instructor berhasil ditambahkan.');
+            return redirect()->route('instructor');
         } catch (\Exception $e) {
-            // Jika gagal, redirect kembali dengan pesan error
-            return redirect()->back()->withInput()->withErrors(['error' => 'Gagal menambahkan instructor: ' . $e->getMessage()]);
+            // Set error session jika gagal
+            session()->flash('error', 'Gagal menambahkan instructor: ' . $e->getMessage());
+            return redirect()->back()->withInput();
         }
     }
+
+    
     public function edit($id)
     {
         $instructor = Instructor::with('user')->findOrFail($id);

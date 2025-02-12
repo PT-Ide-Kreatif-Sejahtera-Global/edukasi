@@ -64,64 +64,72 @@ class PaymentController extends Controller
         // Gunakan UUID agar order_id unik
         $orderId = 'ORDER-' . Str::uuid();
 
-        // Periksa apakah kupon disertakan
-        if ($request->filled('coupon_id')) {
-            $coupon = Cupon::find($request->coupon_id);
-            if ($coupon) {
-                $couponId = $coupon->id;
-                $udemyCoupon = 1;
-                $discountAmount = ($coupon->discount_type === 'percentage')
-                ? ($course->price * $coupon->discount_value) / 100
-                    : $coupon->discount_value;
-            }
-        }
-
-        // Hitung harga total setelah diskon
-        $totalPrice = max(round($course->price - $discountAmount), 0);
-
-        // Simpan data pendaftaran
-        $enrollment = Enrollments::create([
-            'user_id' => auth()->id(),
-            'order_id' => $orderId,
-            'course_id' => $course->id,
-            'coupon_id' => $couponId,
-            'enrollment_date' => now(),
-            'payment_status' => 'pending',
-            'discount_amount' => $discountAmount,
-            'total_price' => $totalPrice,
-            'udemy_coupon' => $udemyCoupon,
-        ]);
-
-        // Set konfigurasi Midtrans
-        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
-        \Midtrans\Config::$isProduction = false;
-        \Midtrans\Config::$isSanitized = true;
-        \Midtrans\Config::$is3ds = true;
-
-        // Gunakan CoreAPI charge agar transaksi langsung masuk ke dashboard Midtrans
-        $params = [
-            'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => $totalPrice
-            ],
-            'customer_details' => [
-                'first_name' => auth()->user()->name,
-                'email' => auth()->user()->email,
-            ]
-        ];
-
+        DB::beginTransaction(); // Mulai transaksi database
 
         try {
+            // Periksa apakah kupon disertakan
+            if ($request->filled('coupon_id')) {
+                $coupon = Cupon::find($request->coupon_id);
+                if ($coupon) {
+                    $couponId = $coupon->id;
+                    $udemyCoupon = 1;
+                    $discountAmount = ($coupon->discount_type === 'percentage')
+                        ? ($course->price * $coupon->discount_value) / 100
+                        : $coupon->discount_value;
+
+                    // Update total_usage kupon
+                    $coupon->increment('total_usage');
+                }
+            }
+
+            // Hitung harga total setelah diskon
+            $totalPrice = max(round($course->price - $discountAmount), 0);
+
+            // Simpan data pendaftaran
+            $enrollment = Enrollments::create([
+                'user_id' => auth()->id(),
+                'order_id' => $orderId,
+                'course_id' => $course->id,
+                'coupon_id' => $couponId,
+                'enrollment_date' => now(),
+                'payment_status' => 'pending',
+                'discount_amount' => $discountAmount,
+                'total_price' => $totalPrice,
+                'udemy_coupon' => $udemyCoupon,
+            ]);
+
+            // Set konfigurasi Midtrans
+            \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+            \Midtrans\Config::$isProduction = false;
+            \Midtrans\Config::$isSanitized = true;
+            \Midtrans\Config::$is3ds = true;
+
+            // Gunakan CoreAPI charge agar transaksi langsung masuk ke dashboard Midtrans
+            $params = [
+                'transaction_details' => [
+                    'order_id' => $orderId,
+                    'gross_amount' => $totalPrice
+                ],
+                'customer_details' => [
+                    'first_name' => auth()->user()->name,
+                    'email' => auth()->user()->email,
+                ]
+            ];
+
             $snapToken = Snap::getSnapToken($params);
             $enrollment->snap_token = $snapToken;
             $enrollment->save();
 
+            DB::commit(); // Commit transaksi jika tidak ada error
+
             return redirect()->route('paymentCourse', ['id' => $course->id])
                 ->with('success', 'Silakan lakukan pembayaran melalui Midtrans.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal mendapatkan Snap Token: ' . $e->getMessage());
+            DB::rollBack(); // Rollback transaksi jika ada error
+            return back()->with('error', 'Gagal memproses pembayaran: ' . $e->getMessage());
         }
     }
+
 
     public function paymentlist()
     {

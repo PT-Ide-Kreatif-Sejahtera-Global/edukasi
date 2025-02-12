@@ -59,6 +59,10 @@ Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
     Route::get('/deletesection/{id}', [App\Http\Controllers\SectionController::class, 'delete'])->name('deletesection');
     Route::get('/deletecontent/{id}', [App\Http\Controllers\ContentController::class, 'delete'])->name('deletecontent');
     Route::get('/deletecoupon/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->name('deletecoupon');
+    Route::get('/deletereview/{id}',
+        [App\Http\Controllers\ReviewController::class, 'delete']
+    )->name('deletereview');
+
 
     //Submit
     Route::post('/submitinstructor', [App\Http\Controllers\InstructorController::class, 'submitinstructor'])->name('submitinstructor');

@@ -18,7 +18,6 @@ class InstructorsSeeder extends Seeder
             'user_id' => 1,
             'bio' => Str::random(250),
             'rating' => 4.5,
-            'foto' => 'default.jpg',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

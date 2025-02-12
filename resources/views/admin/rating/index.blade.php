@@ -34,7 +34,9 @@
                                         <td>{{ $item->course->title}}</td>
                                         <td>{{ $item->bintang }}</td>
                                         <td>{{ $item->komentar }}</td>
-                                        <td>aksi</td>
+                                        <td>
+                                            <a href="{{ url('/deletereview', $item->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus review ini?');">Delete</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

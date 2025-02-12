@@ -44,8 +44,8 @@
             if (snapToken) {
                 window.snap.pay(snapToken, {
                     onSuccess: function (result) {
-                        alert('Pembayaran berhasil!');
-                        console.log(result);
+                        // alert('Pembayaran berhasil!');
+                        // console.log(result);
 
                         // Ambil ID kursus dari Blade
                         const order_id = "{{ $enrollment[0]->order_id ?? '' }}";
@@ -54,12 +54,12 @@
                         window.location.href = `/customer/payment/course/success/${order_id}`;
                     },
                     onPending: function (result) {
-                        alert('Menunggu pembayaran!');
-                        console.log(result);
+                        // alert('Menunggu pembayaran!');
+                        // console.log(result);
                     },
                     onError: function (result) {
-                        alert('Pembayaran gagal!');
-                        console.log(result);
+                        // alert('Pembayaran gagal!');
+                        // console.log(result);
                     }
                 });
             } else {

@@ -25,15 +25,9 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="landing/css/templatemo-style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-
 </head>
 
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-{{-- 
-@php
-    dd($reviews);
-@endphp --}}
 
     <!-- PRE LOADER -->
     <section class="preloader">
@@ -70,102 +64,7 @@
         </div>
     </section>
 
-
-    <!-- FEATURE -->
-    <!-- <section id="feature">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="feature-thumb">
-                        <span>01</span>
-                        <h3>Trending Courses</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing eiusmod tempor incididunt ut labore et
-                            dolore magna.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="feature-thumb">
-                        <span>02</span>
-                        <h3>Books & Library</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing eiusmod tempor incididunt ut labore et
-                            dolore magna.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="feature-thumb">
-                        <span>03</span>
-                        <h3>Certified Teachers</h3>
-                        <p>templatemo delivers a wide variety of HTML5 templates for you at absolutely no charge. Please
-                            tell your friends.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section> -->
-
-
-    <!-- ABOUT -->
-    <!-- <section id="about">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-6 col-sm-12">
-                    <div class="about-info">
-                        <h2>Start your journey to a better life with online practical courses</h2>
-
-                        <figure>
-                            <span><i class="fa fa-users"></i></span>
-                            <figcaption>
-                                <h3>Professional Trainers</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                            </figcaption>
-                        </figure>
-
-                        <figure>
-                            <span><i class="fa fa-certificate"></i></span>
-                            <figcaption>
-                                <h3>International Certifications</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                            </figcaption>
-                        </figure>
-
-                        <figure>
-                            <span><i class="fa fa-bar-chart-o"></i></span>
-                            <figcaption>
-                                <h3>Free for 3 months</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-
-                <div class="col-md-offset-1 col-md-4 col-sm-12">
-                    <div class="entry-form">
-                        <form action="#" method="post">
-                            <h2>Signup today</h2>
-                            <input type="text" name="full name" class="form-control" placeholder="Full name"
-                                required="">
-
-                            <input type="email" name="email" class="form-control" placeholder="Your email address"
-                                required="">
-
-                            <input type="password" name="password" class="form-control" placeholder="Your password"
-                                required="">
-
-                            <button class="submit-btn form-control" id="form-submit">Get started</button>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section> -->
-
-    <!-- TEAM -->
+    <!-- instructor -->
     <section id="team">
         <div class="container">
             <div class="row">
@@ -186,23 +85,6 @@
                             <h3>{{ $teacher->name }}</h3>
                             <span>{{ $teacher->bio }}</span>
                         </div>
-                        {{-- <ul class="social-icon">
-                            @if($teacher->facebook)
-                                <li><a href="{{ $teacher->facebook }}" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                        @endif
-                        @if($teacher->twitter)
-                        <li><a href="{{ $teacher->twitter }}" class="fa fa-twitter"></a></li>
-                        @endif
-                        @if($teacher->instagram)
-                        <li><a href="{{ $teacher->instagram }}" class="fa fa-instagram"></a></li>
-                        @endif
-                        @if($teacher->google)
-                        <li><a href="{{ $teacher->google }}" class="fa fa-google"></a></li>
-                        @endif
-                        @if($teacher->linkedin)
-                        <li><a href="{{ $teacher->linkedin }}" class="fa fa-linkedin"></a></li>
-                        @endif
-                        </ul> --}}
                     </div>
                 </div>
                 @endforeach
@@ -296,46 +178,6 @@
                 </div>
             </div>
     </section>
-
-    <!-- CONTACT -->
-    <!-- <section id="contact">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-6 col-sm-12">
-                    <form id="contact-form" role="form" action="" method="post">
-                        <div class="section-title">
-                            <h2>Contact us <small>we love conversations. let us talk!</small></h2>
-                        </div>
-
-                        <div class="col-md-12 col-sm-12">
-                            <input type="text" class="form-control" placeholder="Enter full name" name="name"
-                                required="">
-
-                            <input type="email" class="form-control" placeholder="Enter email address"
-                                name="email" required="">
-
-                            <textarea class="form-control" rows="6" placeholder="Tell us about your message" name="message"
-                                required=""></textarea>
-                        </div>
-
-                        <div class="col-md-4 col-sm-12">
-                            <input type="submit" class="form-control" name="send message" value="Send Message">
-                        </div>
-
-                    </form>
-                </div>
-
-                <div class="col-md-6 col-sm-12">
-                    <div class="contact-image">
-                        <img src="landing/images/contact-image.jpg" class="img-responsive" alt="Smiling Two Girls">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section> -->
-
 
     <!-- FOOTER -->
     <footer id="footer">

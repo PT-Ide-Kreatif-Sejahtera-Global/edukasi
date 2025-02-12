@@ -10,7 +10,7 @@
 
             <!-- lOGO TEXT HERE -->
             <a href="#" class="text-nowrap logo-img">
-                <img src="admin/images/logos/IdeaThings.png" width="60" alt="" style="padding-top: 4px;" />
+                <img src="admin/images/logos/IdeaThings.png" width="60" alt="" style="padding-top: 5px;" />
             </a>
         </div>
 
@@ -18,7 +18,6 @@
         <div class="collapse navbar-collapse" aria-expanded="false">
             <ul class="nav navbar-nav navbar-nav-first">
                 <li><a href="/" class="smoothScroll">Home</a></li>
-                <!-- <li><a href="#about" class="smoothScroll">About</a></li> -->
                 <li><a href="#team" class="smoothScroll">Our Teacher</a></li>
                 <li><a href="#courses" class="smoothScroll">Courses</a></li>
                 <li><a href="#testimonial" class="smoothScroll">Reviews</a></li>
@@ -44,7 +43,7 @@
                     <ul class="dropdown-menu dropdown-menu-end bg-light">
                         <li><a href="/profileuser" class="dropdown-item has-icon"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="/progress" class="dropdown-item has-icon"><i class="fa fa-chart-line"></i> Progress</a></li>
-                        <li><a href="{{ route('paymentlist') }}" class="dropdown-item has-icon"><i class="fa-solid fa-cart-shopping"></i> Payment List</a></li>
+                        <li><a href="{{ route('paymentlist') }}" class="dropdown-item has-icon"><i class="fa fa-cart-shopping"></i> Payment List</a></li>
                         <li><a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </li>
