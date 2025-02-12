@@ -1,4 +1,4 @@
-<footer class="bg-success text-white py-5">
+<footer class="text-white py-5">
     <div class="container">
         <div class="row">
             <!-- Company Logo and Info -->

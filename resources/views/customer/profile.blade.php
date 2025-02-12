@@ -3,7 +3,7 @@
 <div class="container">
     <div class="container-fluid">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="margin: 50px 0px;">
                 <h5 class="card-title fw-semibold mb-4">Edit Profile</h5>
                 <div class="card">
                     <div class="container-fluid">
