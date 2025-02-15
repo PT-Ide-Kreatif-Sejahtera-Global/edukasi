@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\course;
-use App\Models\Enrollments;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Instructor;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class InstructorController extends Controller
@@ -19,11 +15,13 @@ class InstructorController extends Controller
             'users' => DB::table('users')
                 ->join('instructors', 'users.id', '=', 'instructors.user_id')
                 ->where('users.role', 'Instructor')
-                ->select('users.*', 'instructors.bio', 'instructors.rating') // Tambahkan kolom yang dibutuhkan
+                ->select('users.*', 'instructors.id', 'instructors.bio', 'instructors.rating')
                 ->get(),
         ];
+
         return view('admin.instructor.index', $data);
     }
+
     function deleteuser($id)
     {
         $query = DB::table('users')
@@ -36,6 +34,7 @@ class InstructorController extends Controller
             return redirect('/instructor')->with('Error', 'Data instructor gagal dihapus');
         }
     }
+
     public function tambah()
     {
         // Ambil data dari tabel users dengan role "Instructor" dan gabungkan dengan tabel instructors
@@ -124,7 +123,7 @@ class InstructorController extends Controller
     public function edit($id)
     {
         $instructor = Instructor::with('user')->findOrFail($id);
-
+        
         return view('admin.instructor.edit', compact('instructor'));
     }
 
@@ -132,9 +131,9 @@ class InstructorController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id . ',id',
+            'email' => 'nullable',
             'password' => 'nullable|min:6',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|max:2048',
             'bio' => 'required',
         ]);
 
@@ -149,6 +148,7 @@ class InstructorController extends Controller
 
         try {
             DB::transaction(function () use ($request, $instructor, $user, $foto) {
+
                 // Update data user
                 $user->update([
                     'name' => $request->name,
