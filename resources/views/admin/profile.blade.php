@@ -13,34 +13,34 @@
                                     @method('PUT')
 
                                     <!-- Nama -->
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="name">Nama</label>
                                         <input type="text" id="name" name="name" class="form-control"
                                             value="{{ Auth::user()->name }}" required>
                                     </div>
 
                                     <!-- Email -->
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="email">Email</label>
                                         <input type="email" id="email" name="email" class="form-control"
                                             value="{{ Auth::user()->email }}" required>
                                     </div>
 
                                     <!-- Role (Readonly) -->
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="role">Role</label>
                                         <input type="text" id="role" name="role" class="form-control"
                                             value="{{ Auth::user()->role }}" readonly>
                                     </div>
 
                                     <!-- Password -->
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="password">Password (Kosongkan jika tidak ingin mengubah)</label>
                                         <input type="password" id="password" name="password" class="form-control">
                                     </div>
 
                                     <!-- Foto Profil -->
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="foto">Foto Profil</label>
                                         <input type="file" id="foto" name="foto" class="form-control">
                                     </div>

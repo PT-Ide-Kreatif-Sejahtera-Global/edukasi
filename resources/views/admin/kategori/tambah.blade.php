@@ -18,7 +18,7 @@
                                 <label for="nama-barang">Nama</label>
                                 <input type="text" class="form-control" name="name" placeholder="Nama..." required />
                             </div>
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between mb-3">
                                 <a href="{{ route('kategori') }}" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>

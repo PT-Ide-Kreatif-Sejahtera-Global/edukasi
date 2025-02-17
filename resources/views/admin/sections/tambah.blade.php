@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title fw-semibold mb-4">Tambah Kategori</h5>
+                <h5 class="card-title fw-semibold mb-4">Tambah Section</h5>
                 <div class="card">
                     <div class="container-fluid">
                         <form action="{{ route('submitsection') }}" method="POST" enctype="multipart/form-data">
@@ -18,7 +18,7 @@
                                 <label for="nama-barang">Section</label>
                                 <input type="text" class="form-control" name="name" placeholder="Section..." required />
                             </div>
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between mb-3">
                                 <a href="{{ route('section') }}" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>

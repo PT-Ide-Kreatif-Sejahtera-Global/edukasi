@@ -79,6 +79,8 @@ class PaymentController extends Controller
 
                     // Update total_usage kupon
                     $coupon->increment('total_usage');
+                    $coupon->decrement('usage_limit');
+
                 }
             }
 

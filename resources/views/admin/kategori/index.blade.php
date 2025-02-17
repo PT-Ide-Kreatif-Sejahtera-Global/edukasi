@@ -36,7 +36,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title fw-semibold mb-4">Kategori</h5>
-                <a href="{{ url('tambah') }}" class="ti ti-plus">Tambah Kategori</a>
+                <a href="{{ url('tambahkategori') }}" class="ti ti-plus">Tambah Kategori</a>
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="table-responsive">

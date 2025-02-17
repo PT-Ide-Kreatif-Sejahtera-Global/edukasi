@@ -46,7 +46,7 @@ Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
 
     //Create
     Route::get('/tambahinstructor', [App\Http\Controllers\InstructorController::class, 'tambah'])->name('tambahinstructor');
-    Route::get('/tambah', [App\Http\Controllers\KategoriController::class, 'tambah'])->name('tambah');
+    Route::get('/tambahkategori', [App\Http\Controllers\KategoriController::class, 'tambah'])->name('tambahkategori');
     Route::get('/tambahcourse', [App\Http\Controllers\CourseController::class, 'tambah'])->name('tambahcourse');
     Route::get('/tambahsection', [App\Http\Controllers\SectionController::class, 'tambah'])->name('tambahsection');
     Route::get('/tambahcontent', [App\Http\Controllers\ContentController::class, 'tambah'])->name('tambahcontent');

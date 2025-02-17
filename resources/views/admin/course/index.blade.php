@@ -36,7 +36,7 @@
                                                 <td>{{ Str::limit($data->description, 50) }}</td>
                                                 <td>{{ $data->price }}</td>
                                                 <td>{{ $data->total_price }}</td>
-                                                <td>{{ $data->lock_status }}</td>
+                                                <td>{{ $data->is_locked ? 'Locked' : 'Unlocked' }}</td>
                                                 <td>
                                                     <img width="100" height="100"
                                                         src="{{ url('storage/course/' . $data->foto) }}" alt="Course Image">
