@@ -57,15 +57,15 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @forelse ($content as $data)
+                                    @forelse ($data as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $data->course_title }}</td>
-                                            <td>{{ $data->category_name }}</td>
-                                            <td>{{ $data->section }}</td>
-                                            <td>{{ $data->title }}</td>
-                                            <td><a href="{{ $data->url }}" target="_blank">{{ $data->url }}</a></td>
-                                            <td>{{ $data->duration }}</td>
+                                            <td>{{ $item->course->title }}</td>
+                                            <td>{{ $item->category->category_name }}</td>
+                                            <td>{{ $item->section->section ?? '-' }}</td>
+                                            <td>{{ $item->title }}</td>
+                                            <td><a href="{{ $item->url }}" target="_blank">{{ $item->url }}</a></td>
+                                            <td>{{ $item->duration }}</td>
                                             <td class="text-center">
                                                 <!-- Dropdown untuk Edit dan Hapus -->
                                                 <div class="dropdown">
@@ -76,13 +76,13 @@
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="menuOptions">
                                                         <li>
-                                                            <a href="{{ url('editcontent' . $data->id) }}"
+                                                            <a href="{{ url('editcontent' . $item->id) }}"
                                                                 class="dropdown-item">
                                                                 <i class="ti ti-pencil"></i> Edit
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ url('deletecontent/' . $data->id) }}"
+                                                            <a href="{{ url('deletecontent/' . $item->id) }}"
                                                                 class="dropdown-item"><i class="ti ti-trash"></i>Delete
                                                             </a>
                                                         </li>

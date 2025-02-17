@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\course;
+use App\Models\course_contents;
 use App\Models\course_category;
 use App\Models\course_section;
 use Illuminate\Http\Request;
@@ -12,21 +13,11 @@ class ContentController extends Controller
 {
     public function index()
     {
-        $data = array(
-            'content' => DB::table('course_contents')
-                ->join('courses', 'course_contents.course_id', '=', 'courses.id')
-                ->join('course_categories', 'course_contents.course_category_id', '=', 'course_categories.id')
-                ->join('course_sections', 'course_contents.section_id', '=', 'course_sections.id')
-                ->select(
-                    'course_contents.*',
-                    'courses.title as course_title',
-                    'course_categories.category_name as category_name',
-                    'course_sections.section as section'
-                )
-                ->get(),
-        );
-        return view('admin.content.index', $data);
+        $data = course_contents::with('course', 'category', 'section')->get();
+
+        return view('admin.content.index', compact('data'));
     }
+
     public function tambah()
     {
         $data = [
