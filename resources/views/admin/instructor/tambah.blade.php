@@ -34,7 +34,7 @@
                 @endif
 
                 <div class="card">
-                    <div class="container-fluid">
+                    <div class="container-fluid mb-3">
                         <form action="{{ route('submitinstructor') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
