@@ -11,7 +11,7 @@ class ProfileController extends Controller
 {
     public function profile()
     {
-        $user = Auth::user(); // Atau gunakan logika untuk mengambil user yang diinginkan
+        $user = Auth::user();
         return view('admin.profile', compact('user'));
     }
     public function user()
@@ -43,8 +43,7 @@ class ProfileController extends Controller
         if ($request->filled('password')) {
             $data['password'] = bcrypt($request->password);
         }
-
-        // Update foto jika ada file foto yang diupload
+ 
         // Cek dan update foto jika ada file yang diunggah
         if ($request->hasFile('foto')) {
             // Set nama file baru
