@@ -118,4 +118,33 @@ class AdminTest extends TestCase
 
         $response->assertStatus(200);
     }
+<<<<<<< HEAD
+=======
+
+    public function test_admin_can_view_home()
+    {
+        $admin = User::where('role', 'admin')->first();
+
+        $this->assertNotNull($admin, "Admin tidak ditemukan di database");
+
+        $this->actingAs($admin);
+
+        $response = $this->get('/home');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_admin_can_logout()
+    {
+        $admin = User::where('role', 'admin')->first();
+
+        $this->actingAs($admin);
+
+        $response = $this->post('/logout');
+
+        $response->assertRedirect('/');
+
+        $this->assertGuest();
+    }
+>>>>>>> update
 }
