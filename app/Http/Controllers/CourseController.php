@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\course;
+use App\Models\instructor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -81,7 +82,9 @@ class CourseController extends Controller
         // Ambil data course berdasarkan ID
         $course = DB::table('courses')->find($id);
 
-        return view('admin.course.edit', compact('course'));
+        $instructors = instructor::with('user')->get();
+
+        return view('admin.course.edit', compact('course', 'instructors'));
     }
 
     public function update(Request $request, $id)

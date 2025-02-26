@@ -1,3 +1,4 @@
+{{-- {{dd($instructor)}} --}}
 @extends('admin.index')
 
 @section('content')
@@ -17,10 +18,21 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="instructor_id">Instructor ID</label>
                                     <input type="text" class="form-control" id="instructor_id" name="instructor_id"
                                         value="{{ $course->instructor_id }}" required>
+                                </div> --}}
+
+                                <!-- Pilihan Instruktur -->
+                                <div class="form-group">
+                                    <label for="instructor_id">Instruktur</label>
+                                    <select name="instructor_id" id="instructor_id" class="form-control" required>
+                                        <option value="">Pilih Instruktur</option>
+                                        @foreach ($instructors as $instructor)
+                                            <option value="{{ $instructor->id }}">{{ $instructor->user->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group">

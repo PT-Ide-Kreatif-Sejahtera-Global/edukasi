@@ -107,29 +107,34 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="item">
                                 <div class="courses-thumb">
+                                    <!-- Course Image -->
                                     <div class="courses-top">
                                         <div class="courses-image">
-                                            <img src="{{ asset('storage/' . $course->image) }}" class="img-responsive" alt="">
+                                            <img src="{{ asset('storage/course/' . $course->foto) }}" class="img-responsive" alt="Course Image">
                                         </div>
                                     </div>
-
-                                    <div class="courses-detail">
-                                        <h3><a href="#">{{ $course->title }}</a></h3>
+                                    
+                                    <!-- Course Details -->
+                                    <div class="courses-detail text-center">
+                                        <h3><a href="{{ route('detail', $course->id) }}">{{ $course->title }}</a></h3>
                                         <p>{{ $course->description }}</p>
                                     </div>
-
-                                    <div class="courses-info">
-                                        <div class="courses-author">
-                                            <img src="{{ asset('storage/users/' . $course->instructor->user->foto) }}" class="img-responsive" alt="">
-                                            <span>{{ $course->instructor->user->name }}</span> <!-- Instructor's name -->
+                                    
+                                    <!-- Course Info -->
+                                    <div class="courses-info d-flex justify-content-between align-items-center">
+                                        <div class="courses-author d-flex align-items-center">
+                                            <img src="{{ asset('storage/users/' . $course->instructor->user->foto) }}" class="img-responsive" alt="Instructor Image">
+                                            <span class="ml-2">{{ $course->instructor->user->name }}</span>
                                         </div>
                                         <div class="courses-price">
-                                            <a href="#"><span>{{ $course->price > 0 ? 'Rp. ' . $course->price : 'Free' }}</span></a>
+                                            <a href="#" class="btn btn-outline-primary bg-success">
+                                                {{ $course->price > 0 ? 'Rp. ' . number_format($course->price, 0, ',', '.') : 'Free' }}
+                                            </a>
                                         </div>
                                     </div>
-
+                                    
                                     <!-- Detail Button -->
-                                    <div class="text-center mt-3">
+                                    <div class="text-center mt-3" style="padding-bottom: 10px">
                                         <a href="{{ route('detail', $course->id) }}" class="btn btn-primary">Detail</a>
                                     </div>
                                 </div>
