@@ -40,10 +40,11 @@ class Controller extends BaseController
 
         $discussComments = Discuss::where('course_id', $id)->get();
 
-        // Cek apakah user telah mendaftar pada course ini
         $enrollment = Enrollments::where('user_id', auth()->id())
             ->where('course_id', $course->id)
+            ->orderBy('created_at', 'desc') 
             ->first();
+
 
         // Status apakah course ini terkunci untuk user yang belum membeli
         if ($enrollment != null && $enrollment->payment_status == 'success') {

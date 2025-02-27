@@ -64,7 +64,7 @@ class PaymentController extends Controller
         // Gunakan UUID agar order_id unik
         $orderId = 'ORDER-' . Str::uuid();
 
-        DB::beginTransaction(); // Mulai transaksi database
+        DB::beginTransaction(); 
 
         try {
             // Periksa apakah kupon disertakan
@@ -115,8 +115,9 @@ class PaymentController extends Controller
                 'customer_details' => [
                     'first_name' => auth()->user()->name,
                     'email' => auth()->user()->email,
-                ]
+                ],
             ];
+
 
             $snapToken = Snap::getSnapToken($params);
             $enrollment->snap_token = $snapToken;
