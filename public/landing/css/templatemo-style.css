@@ -258,14 +258,14 @@ http://www.templatemo.com/tm-516-known
 
   .custom-navbar {
     background: #ffffff;
-    border-top: 5px solid #b5e51e;
+    /* border-top: 5px solid #b5e51e; */
     border-bottom: 0;
     -webkit-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
     padding: 12px 0;
     margin-bottom: 0;
-    padding: 0;
+    padding: 0px;
   }
 
   .custom-navbar .navbar-brand {
@@ -383,15 +383,17 @@ http://www.templatemo.com/tm-516-known
 
   .home-slider .item-first {
     background-image: url(../images/slider-image1.jpg);
-	background-position: center;
+	  background-position: center;
   }
 
   .home-slider .item-second {
     background-image: url(../images/slider-image2.jpg);
+    /* background-position: center; */
   }
 
   .home-slider .item-third {
     background-image: url(../images/slider-image3.jpg);
+    /* background-position: center; */
   }
 
 
@@ -399,6 +401,13 @@ http://www.templatemo.com/tm-516-known
   /*---------------------------------------
       FEATURE              
   -----------------------------------------*/
+ .team-image img:hover {
+        transform: scale(1.1);
+}
+
+  .courses-image img:hover {
+      transform: scale(1.1);
+  }
 
   .feature-thumb {
     border: 1px solid #f0f0f0;
