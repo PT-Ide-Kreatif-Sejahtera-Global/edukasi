@@ -14,9 +14,17 @@ class CouponController extends Controller
         $coupons = Cupon::all(); // Mengambil semua data kupon dari database
         return view('admin.coupon.index', compact('coupons'));
     }
+
     public function tambah()
     {
         return view('admin.coupon.tambah'); // Halaman form tambah coupon
+    }
+
+    public function delete($id)
+    {
+        $coupon = Cupon::find($id);
+        $coupon->delete();
+        return redirect('/coupon')->with('success', 'Data coupon berhasil dihapus.');
     }
 
     public function submit(Request $request)

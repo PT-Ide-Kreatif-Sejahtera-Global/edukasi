@@ -1,5 +1,32 @@
 @extends('admin.index')
 
+@section('js')
+    <script src="sweetalert2.min.js"></script>
+
+    <script>
+        $(function() {
+            $(document).on('click', '.delete-button', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                Swal.fire({
+                    title: "Apakah anda yakin menghapus data ini?",
+                    text: "Anda tidak akan dapat mengembalikan data ini!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Saya Yakin!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;3
+                    }
+                });
+            })
+        })
+    </script>
+@endsection
+
 @section('content')
     <br><br><br><br><br>
     <div class="container-fluid">
@@ -54,7 +81,7 @@
                                                         </li>
                                                         <li>
                                                             <a href="{{ url('deletecoupon/' . $coupon->id) }}"
-                                                                class="dropdown-item"><i class="ti ti-trash"></i>Delete
+                                                                class="dropdown-item delete-button"><i class="ti ti-trash"></i>Delete
                                                             </a>
                                                         </li>
                                                     </ul>

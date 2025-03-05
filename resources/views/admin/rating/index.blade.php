@@ -1,10 +1,33 @@
 @extends('admin.app')
 
-@section('content')
+@section('js')
+    <script src="sweetalert2.min.js"></script>
 
-{{-- @php
-    dd($data);
-@endphp --}}
+    <script>
+        $(function() {
+            $(document).on('click', '.delete-button', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                Swal.fire({
+                    title: "Apakah anda yakin menghapus data ini?",
+                    text: "Anda tidak akan dapat mengembalikan data ini!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Saya Yakin!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+                });
+            })
+        })
+    </script>
+@endsection
+
+@section('content')
 
 <br><br><br><br><br>
 <div class="container-fluid">
@@ -35,7 +58,7 @@
                                         <td>{{ $item->bintang }}</td>
                                         <td>{{ $item->komentar }}</td>
                                         <td>
-                                            <a href="{{ url('/deletereview', $item->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus review ini?');">Delete</a>
+                                            <a href="{{ url('/deletereview', $item->id) }}" class="btn btn-danger btn-sm delete-button">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

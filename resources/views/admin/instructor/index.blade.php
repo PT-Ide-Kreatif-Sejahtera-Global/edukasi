@@ -1,13 +1,13 @@
 @extends('admin.app')
 @section('title','Daftar instructor | IdeaThings E-Learning')
-{{-- @section('js')
+@section('js')
     <script src="sweetalert2.min.js"></script>
 
     <script>
         $(function() {
             $(document).on('click', '.delete-button', function(e) {
                 e.preventDefault();
-                var form = $(this).closest('form');
+                var url = $(this).attr('href');
 
                 Swal.fire({
                     title: "Apakah anda yakin menghapus data ini?",
@@ -19,13 +19,13 @@
                     confirmButtonText: "Ya, Saya Yakin!"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit();
+                        window.location.href = url;
                     }
                 });
             })
         })
     </script>
-@endsection --}}
+@endsection
 @section('content')
 <br>
 <br>
@@ -80,7 +80,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="{{ url('deleteinstructor/' . $data->id) }}"
-                                                        class="dropdown-item"><i class="ti ti-trash"></i>Delete
+                                                        class="dropdown-item delete-button"><i class="ti ti-trash"></i>Delete
                                                     </a>
                                                 </li>
                                             </ul>

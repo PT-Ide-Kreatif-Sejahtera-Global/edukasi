@@ -24,7 +24,7 @@ class InstructorController extends Controller
 
     function deleteuser($id)
     {
-        $query = DB::table('users')
+        $query = DB::table('instructors')
             ->where('id', $id)
             ->delete();
 
