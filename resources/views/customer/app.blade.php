@@ -147,8 +147,8 @@
                                     <div class="courses-info d-flex justify-content-between align-items-center">
                                         <div class="courses-author d-flex align-items-center">
                                             <img src="{{ asset('storage/users/' . $course->instructor->user->foto) }}" class="img-responsive" alt="Instructor Image" 
-                                                style="border-radius: 50%; width: 40px; height: 40px;">
-                                            <span class="ml-2">{{ $course->instructor->user->name }}</span>
+                                                style="border-radius: 50%; width: 40px;">
+                                            <span class="ml-2">{{ $course->instructor->user->name ?? ''}}</span>
                                         </div>
                                         <div class="courses-price">
                                             <a href="#" class="btn btn-outline-primary bg-success">
