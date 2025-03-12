@@ -10,10 +10,9 @@
 
             <!-- lOGO TEXT HERE -->
             <a href="#" class="text-nowrap logo-img" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
-                <img src="admin/images/logos/IdeaThings.png" width="50" alt="Ideathings Education Logo" style="padding-top: 10px; margin-right: 10px; margin-left: 10px;" />
-                <h1 style="margin-top: 17px; font-size: 18px;">Education IdeaThings</h1>
+                <img src="admin/images/logos/Logo-new.png" width="50" alt="Ideathings Education Logo" style="padding-top: 10px; margin-right: 10px; margin-left: 10px;" />
+                <h1 style="margin-top: 17px; font-size: 18px;">Education iDeaThings</h1>
             </a>
-
         </div>
 
         <!-- MENU LINKS -->

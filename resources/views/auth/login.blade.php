@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login | IdeaThings</title>
-    <link rel="shortcut icon" type="image/png" href="admin/images/logos/IdeaThings.png" />
+    <link rel="shortcut icon" type="image/png" href="admin/images/logos/logo-new.png" />
     <link rel="stylesheet" href="admin/css/styles.min.css" />
 </head>
 
@@ -21,7 +21,7 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="#" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                    <img src="admin/images/logos/IdeaThings.png" width="150" alt="">
+                                    <img src="admin/images/logos/logo-new.png" width="150" alt="">
                                 </a>
                                 <h3>
                                     <p class="text-center">IdeaThings</p>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register | IdeaThings</title>
-    <link rel="shortcut icon" type="image/png" href="admin/images/logos/IdeaThings.png" />
+    <link rel="shortcut icon" type="image/png" href="admin/images/logos/logo-new.png" />
     <link rel="stylesheet" href="admin/css/styles.min.css" />
 </head>
 
@@ -21,7 +21,7 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                    <img src="admin/images/logos/IdeaThings.png" width="180" alt="">
+                                    <img src="admin/images/logos/logo-new.png" width="180" alt="">
                                 </a>
                                 <p class="text-center">IdeaThings</p>
                                 <form method="POST" action="{{ route('register') }}">

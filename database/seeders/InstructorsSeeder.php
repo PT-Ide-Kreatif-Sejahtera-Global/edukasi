@@ -14,12 +14,14 @@ class InstructorsSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('instructors')->insert([
-            'user_id' => 1,
-            'bio' => Str::random(250),
+        for ($i = 2; $i <= 9; $i++) {
+            DB::table('instructors')->insert([
+                'user_id' => $i,
+                'bio' => 'Keterangan instructor',
             'rating' => 4.5,
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+            ]);
+        }
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>IdeaThings - E-Learning</title>
+    <title>iDeaThings - Course</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('landing/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('landing/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('landing/css/owl.theme.default.min.css') }}">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/logos/IdeaThings.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/logos/logo-new.png') }}" />
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('landing/css/templatemo-style.css') }}">
