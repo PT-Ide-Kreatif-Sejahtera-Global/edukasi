@@ -7,7 +7,7 @@
 
 <head>
 
-    <title>IdeaThings - E-Learning</title>
+    <title>iDeaThings - Education</title>
   
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -20,7 +20,7 @@
     {{-- <link rel="stylesheet" href="landing/css/font-awesome.min.css"> --}}
     <link rel="stylesheet" href="landing/css/owl.carousel.css">
     <link rel="stylesheet" href="landing/css/owl.theme.default.min.css">
-    <link rel="shortcut icon" type="image/png" href="admin/images/logos/IdeaThings.png" />
+    <link rel="shortcut icon" type="image/png" href="admin/images/logos/logo-new.png" />
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="landing/css/templatemo-style.css">
@@ -97,11 +97,11 @@
                 </div>
 
                 @foreach($teachers as $teacher)
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6" style="margin-bottom: 10px;">
                     <div class="team-thumb" style="border-radius: 15px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; padding: 15px;">
                         <div class="team-image" style="overflow: hidden;">
-                            <img width="100" src="{{ url('storage/users/' . $teacher->foto) }}" 
-                                style="transition: transform 0.3s ease;">
+                            {{-- <img width="100" src="{{ url('storage/users/' . $teacher->foto) }}" 
+                                style="transition: transform 0.3s ease;"> --}}
                         </div>
                         <div class="team-info">
                             <h3>{{ $teacher->name }}</h3>
@@ -147,7 +147,7 @@
                                     <div class="courses-info d-flex justify-content-between align-items-center">
                                         <div class="courses-author d-flex align-items-center">
                                             <img src="{{ asset('storage/users/' . $course->instructor->user->foto) }}" class="img-responsive" alt="Instructor Image" 
-                                                style="border-radius: 50%; width: 40px; height: 40px;">
+                                                style="border-radius: 50%; width: 40px; ">
                                             <span class="ml-2">{{ $course->instructor->user->name }}</span>
                                         </div>
                                         <div class="courses-price">
@@ -159,7 +159,7 @@
 
                                     <!-- Detail Button -->
                                     <div class="text-center mt-5" style="padding: 20px;">
-                                        <a href="{{ route('detail', $course->id) }}" class="btn btn-success">Course Detail &rarr;</a>
+                                        <a href="{{ route('detail', $course->id) }}" class="btn" style="background-color: #b5e51e;">Course Detail &rarr;</a>
                                     </div>
                                 </div>
                             </div>

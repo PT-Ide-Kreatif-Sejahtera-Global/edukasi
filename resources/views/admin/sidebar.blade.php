@@ -4,7 +4,7 @@
         <div>
             <div class="brand-logo d-flex align-items-center justify-content-between">
                 <a href="#" class="text-nowrap logo-img">
-                    <img src="admin/images/logos/IdeaThings.png" width="180" alt="logo" style="margin: 20px"/>
+                    <img src="admin/images/logos/logo-new.png" width="180" alt="logo" style="margin: 20px"/>
                 </a>
                 <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                     <i class="ti ti-x fs-8"></i>

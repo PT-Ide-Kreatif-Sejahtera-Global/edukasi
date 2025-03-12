@@ -1,13 +1,13 @@
 @extends('customer.index')
 
 @section('content')
-    <section id="course-detail" class="my-5">
+    <section id="course-detail" >
         <div class="container">
             <h2 class="mb-4">{{ $course->title }}</h2>
 
             <!-- Gambar Kursus -->
-            <div class="course-image mb-4 text-center">
-                <img width="150" height="150" src="{{ url('storage/course/' . $course->foto) }}" alt="Course Image"
+            <div class="course-image mb-4 text-center" style="margin: 5px">
+                <img width="500" src="{{ url('storage/course/' . $course->foto) }}" alt="Course Image"
                     class="img-thumbnail">
             </div>
 
@@ -132,7 +132,7 @@
                                     @foreach ($contents as $index => $content)
                                         <div class="list-group-item">
                                             <div class="d-flex w-100 justify-content-between">
-                                                @if ($isLocked && $index > 0)
+                                                @if ($isLocked)
                                                     <h5 class="mb-1 text-muted">
                                                         <i class="fa fa-lock"></i> {{ $content->title }}
                                                     </h5>
