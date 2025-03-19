@@ -39,24 +39,31 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
-    public function authenticated(Request $request, $user){
-        if($user -> role == 'Admin' ){
-            return redirect('/home')->with('success','Login berhasil sebagai Admin.');
-        } else if($user -> role == 'Instructor' ){
-            return redirect('/home')->with('success','Login berhasil '. $user->name . '.');
-        } else if($user -> role == 'Customer' ){
-            return redirect('/')->with('success','Selamat Datang Di IdeaThings '. $user->name . '.');
+
+    public function authenticated(Request $request, $user)
+    {
+        // Set session data based on user role
+        $request->session()->put('user_id', $user->id);
+        $request->session()->put('user_role', $user->role);
+        $request->session()->put('user_name', $user->name);
+
+        if ($user->role == 'Admin') {
+            return redirect('/home')->with('success', 'Login berhasil sebagai Admin.');
+        } else if ($user->role == 'Instructor') {
+            return redirect('/home')->with('success', 'Login berhasil ' . $user->name . '.');
+        } else if ($user->role == 'Customer') {
+            return redirect('/education')->with('success', 'Selamat Datang Di IdeaThings ' . $user->name . '.');
         }
-        
-        // else if($user -> level == 2 && $user->status == "Tidak Aktif"){
-        //     // Auth::logout();
-        //     $request->session()->flush();
-        //     // Session::flush();
-        //     return redirect('/')->with('error','Akses Ditolak, hubungi Superuser Admin.');
-        // }
+    }
+
+    // else if($user -> level == 2 && $user->status == "Tidak Aktif"){
+    //     // Auth::logout();
+    //     $request->session()->flush();
+    //     // Session::flush();
+    //     return redirect('/')->with('error','Akses Ditolak, hubungi Superuser Admin.');
+    // }
     // else{
     //     Auth::logout();
     //     return redirect('/')->route('welcome')->with('error','Anda telah keluar.');
     // }
-    }
 }

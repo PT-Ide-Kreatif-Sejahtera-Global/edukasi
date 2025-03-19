@@ -15,10 +15,10 @@ class Customer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role == 'Customer'){
+        if (auth()->check() && auth()->user()->role == 'Customer' && $request->session()->get('user_role') == 'Customer') {
             return $next($request);
-            }
-    
-            abort(403, "You don't have Customer access.");
+        }
+
+        abort(403, "You don't have Customer access or session is missing.");
     }
 }

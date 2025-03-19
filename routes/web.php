@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Controller::class, 'welcome'])->name('welcome');
+Route::get('/education', [Controller::class, 'welcome'])->name('welcome');
 
 Auth::routes();
 
 Route::get('/logout', function () {
     Auth::logout();
+    session()->flush();
     return redirect()->route('welcome');
 });
 
