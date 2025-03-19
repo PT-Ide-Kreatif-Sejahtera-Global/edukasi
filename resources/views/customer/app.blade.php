@@ -1,7 +1,3 @@
-{{-- @php
-    dd($teachers);
-@endphp --}}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,6 +125,7 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="item">
                                 <div class="courses-thumb" style="border-radius: 15px; overflow: hidden">
+
                                     <!-- Course Image -->
                                     <div class="courses-top" style="overflow: hidden;">
                                         <div class="courses-image">
@@ -139,7 +136,7 @@
 
                                     <!-- Course Details -->
                                     <div class="courses-detail text-center">
-                                        <h3><a href="{{ route('detail', $course->id) }}">{{ $course->title }}</a></h3>
+                                        <h3><a href="{{$course->url}}">{{ $course->title }}</a></h3>
                                         <p>{{ $course->description }}</p>
                                     </div>
 
@@ -150,6 +147,7 @@
                                                 style="border-radius: 50%; width: 40px; ">
                                             <span class="ml-2">{{ $course->instructor->user->name }}</span>
                                         </div>
+                                        
                                         <div class="courses-price">
                                             <a href="#" class="btn btn-outline-primary bg-success">
                                                 {{ $course->price > 0 ? 'Rp. ' . number_format($course->price, 0, ',', '.') : 'Free' }}
@@ -159,7 +157,7 @@
 
                                     <!-- Detail Button -->
                                     <div class="text-center mt-5" style="padding: 20px;">
-                                        <a href="{{ route('detail', $course->id) }}" class="btn" style="background-color: #b5e51e;">Course Detail &rarr;</a>
+                                        <a href="{{ $course->url }}" class="btn" style="background-color: #b5e51e;">Course Detail &rarr;</a>
                                     </div>
                                 </div>
                             </div>

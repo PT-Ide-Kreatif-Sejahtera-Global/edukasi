@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/education';
 
     /**
      * Create a new controller instance.
@@ -51,9 +51,27 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).+$/'
+            ],
             // 'total_progress' => ['required', 'string', 'max:255'],
             'foto' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password harus memiliki minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, dan karakter khusus.',
+            'foto.image' => 'Foto harus berupa file gambar.',
+            'foto.mimes' => 'Foto harus memiliki format jpeg, png, jpg, gif, atau svg.',
+            'foto.max' => 'Ukuran foto maksimal adalah 2048 kilobyte.',
         ]);
     }
 

@@ -15,10 +15,10 @@ class Instructor
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role == 'Admin' || auth()->user()->role == 'Instructor'){
+        if (auth()->check() && session()->has('user_role') && (session('user_role') == 'Admin' || session('user_role') == 'Instructor')) {
             return $next($request);
-            }
-    
-            abort(403, "You don't have Admin access.");
+        }
+
+        abort(403, "You don't have Admin or Instructor access.");
     }
 }

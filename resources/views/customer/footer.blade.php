@@ -27,7 +27,7 @@
 
             <!-- Social Media Links (Opsional) -->
             <div style="display: flex; gap: 15px;">
-                <a href="#" style="
+                <a href="https://web.facebook.com/ideathings.id" target="_blank" style="
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
@@ -38,9 +38,35 @@
                     text-decoration: none;
                 ">
                     <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" 
-                         alt="Facebook" style="width: 20px; height: 20px;">
+                        alt="Facebook" style="width: 20px; height: 20px;">
                 </a>
-                <a href="#" style="
+                <a href="https://x.com/ideathingstudio" target="_blank" style="
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    background: rgba(255, 255, 255, 0.2);
+                    border-radius: 50%;
+                    text-decoration: none;
+                ">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png" 
+                        alt="X" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.tiktok.com/@ideathingstudio" target="_blank" style="
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    background: rgba(255, 255, 255, 0.2);
+                    border-radius: 50%;
+                    text-decoration: none;
+                ">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" 
+                        alt="TikTok" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.instagram.com/ideathings.id/" target="_blank" style="
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
@@ -51,9 +77,9 @@
                     text-decoration: none;
                 ">
                     <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" 
-                         alt="Twitter" style="width: 20px; height: 20px;">
+                        alt="Instagram" style="width: 20px; height: 20px;">
                 </a>
-                <a target="_blank" href="https://www.linkedin.com/company/ideathings" style="
+                <a href="https://www.youtube.com/@ideathings?sub_confirmation=1" target="_blank" style="
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
@@ -63,8 +89,8 @@
                     border-radius: 50%;
                     text-decoration: none;
                 ">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" 
-                         alt="Instagram" style="width: 20px; height: 20px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" 
+                        alt="YouTube" style="width: 20px; height: 20px;">
                 </a>
             </div>
         </div>

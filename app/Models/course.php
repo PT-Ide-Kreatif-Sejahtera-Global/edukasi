@@ -13,6 +13,7 @@ class course extends Model
         'title',
         'description',
         'price',
+        'url',
         'is_locked',
         'total_price',
         'foto',
