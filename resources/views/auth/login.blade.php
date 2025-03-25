@@ -56,7 +56,7 @@
                                         <a class="text-primary fw-bold ms-2" href="{{ route('register') }}">Buat Akun</a>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <a href="/" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
+                                        <a href="/education" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
                                             Kembali
                                         </a>
                                     </div>
