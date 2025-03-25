@@ -14,6 +14,7 @@ class course extends Model
         'description',
         'price',
         'url',
+        'embedded_video',
         'is_locked',
         'total_price',
         'foto',

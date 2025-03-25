@@ -27,13 +27,13 @@
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
     <!-- PRE LOADER -->
-    <section class="preloader">
+    {{-- <section class="preloader">
         <div class="spinner">
 
             <span class="spinner-rotate"></span>
 
         </div>
-    </section>
+    </section> --}}
 
     <!-- MENU -->
     @include('customer.navbar')
@@ -124,47 +124,48 @@
                         @foreach($courses as $course)
                         <div class="col-md-4 col-sm-4">
                             <div class="item">
-                                <div class="courses-thumb" style="border-radius: 15px; overflow: hidden">
+                                <div class="courses-thumb" style="border-radius: 15px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
 
                                     <!-- Course Image -->
-                                    <div class="courses-top" style="overflow: hidden;">
+                                    <div class="courses-top" style="position: relative; overflow: hidden;">
                                         <div class="courses-image">
-                                            <img src="{{ asset('storage/course/' . $course->foto) }}" class="img-responsive" alt="Course Image" 
-                                                style="border-top-left-radius: 15px; border-top-right-radius: 15px; transition: transform 0.3s ease;">
+                                            <img src="{{ asset('storage/course/' . $course->foto) }}" class="img-responsive" 
+                                                alt="{{ $course->title }}" 
+                                                style="width: 100%; height: auto; border-top-left-radius: 15px; border-top-right-radius: 15px; transition: transform 0.3s ease;">
                                         </div>
                                     </div>
 
                                     <!-- Course Details -->
-                                    <div class="courses-detail text-center">
-                                        <h3><a href="{{$course->url}}">{{ $course->title }}</a></h3>
-                                        <p>{{ $course->description }}</p>
+                                    <div class="courses-detail text-center" style="padding: 15px;">
+                                        <h3><a href="{{ $course->url }}" style="text-decoration: none; color: #333;">{{ $course->title }}</a></h3>
+                                        <p style="color: #666;">{{ $course->description }}</p>
                                     </div>
 
                                     <!-- Course Info -->
-                                    <div class="courses-info d-flex justify-content-between align-items-center">
+                                    <div class="courses-info d-flex justify-content-between align-items-center" style="padding: 10px 15px;">
                                         <div class="courses-author d-flex align-items-center">
                                             <img src="{{ asset('storage/users/' . $course->instructor->user->foto) }}" class="img-responsive" alt="Instructor Image" 
-                                                style="border-radius: 50%; width: 40px; ">
-                                            <span class="ml-2">{{ $course->instructor->user->name }}</span>
+                                                style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;">
+                                            <span class="ml-2" style="color: #333;">{{ $course->instructor->user->name }}</span>
                                         </div>
                                         
                                         <div class="courses-price">
-                                            <a href="#" class="btn btn-outline-primary bg-success">
+                                            <a href="#" class="btn btn-outline-primary" style="background-color: #28a745; color: #fff;">
                                                 {{ $course->price > 0 ? 'Rp. ' . number_format($course->price, 0, ',', '.') : 'Free' }}
                                             </a>
                                         </div>
                                     </div>
 
                                     <!-- Detail Button -->
-                                    <div class="text-center mt-5" style="padding: 20px;">
-                                        <a href="{{ $course->url }}" class="btn" style="background-color: #b5e51e;">Course Detail &rarr;</a>
+                                    <div class="text-center" style="padding: 15px;">
+                                        <a href="{{ $course->url }}" class="btn" style="background-color: #b5e51e; color: #fff;">Course Detail &rarr;</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         @endforeach
                     </div>
+
                 </div>
             </div>
         </div>
@@ -219,21 +220,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-  $(document).ready(function(){
-    $(".home-slider").owlCarousel({
-      items: 1,              // Tampilkan satu item per slide
-      loop: true,            // Looping otomatis
-      autoplay: true,        // Auto-slide aktif
-      autoplayTimeout: 4000, // Waktu antar slide (ms)
-      autoplayHoverPause: true, // Pause saat hover
-      nav: true,             // Tampilkan tombol navigasi
-      dots: true,            // Tampilkan indikator slide
-      navText: ["<", ">"],   // Custom tombol navigasi
-      animateOut: 'fadeOut', // Efek transisi keluar
-      animateIn: 'fadeIn'    // Efek transisi masuk
-    });
-  });
-</script>
+        $(document).ready(function(){
+            $(".home-slider").owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            nav: true,
+            dots: true,
+            navText: ["<", ">"],
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn'
+            });
+        });
+    </script>
 
 
 </body>

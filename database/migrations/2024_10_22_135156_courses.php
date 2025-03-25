@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price');
             $table->string('url');
+            $table->text('embedded_video')->nullable();
             $table->string('foto')->nullable();
             $table->boolean('is_locked');
             $table->decimal('total_price');
