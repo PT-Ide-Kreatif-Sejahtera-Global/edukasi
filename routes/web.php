@@ -65,7 +65,6 @@ Route::middleware(['auth', 'Admin', 'Instructor'])->group(function () {
         [App\Http\Controllers\ReviewController::class, 'delete']
     )->name('deletereview');
 
-
     //Submit
     Route::post('/submitinstructor', [App\Http\Controllers\InstructorController::class, 'submitinstructor'])->name('submitinstructor');
     Route::post('/submitcourse', [App\Http\Controllers\CourseController::class, 'submit'])->name('submitcourse');

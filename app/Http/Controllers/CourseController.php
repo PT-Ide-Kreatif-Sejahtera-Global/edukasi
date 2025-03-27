@@ -45,38 +45,63 @@ class CourseController extends Controller
     public function submit(Request $request)
     {
         $instructor_id = $request->instructor_id;
+
         $title = $request->title;
+
         $description = $request->description;
+
         $price = $request->price;
+
         $total_price = $request->total_price;
-        $is_locked = $request->is_locked; // Menangkap nilai is_locked
+
+        $embedded_video = $request->embedded_video;
+
+        $url = $request->url;
+
+        $is_locked = $request->is_locked;
+
         if ($request->hasFile('foto')) {
+
             $foto = $title . '.' . $request->file('foto')->getClientOriginalExtension();
         } else {
+
             $foto = null;
         }
+
         try {
+            // Log the incoming request data for debugging
+            \Log::info('Submit Course Data:', $request->all());
+
             $data = [
                 'instructor_id' => $instructor_id,
                 'title' => $title,
                 'description' => $description,
                 'price' => $price,
                 'total_price' => $total_price,
-                'is_locked' => $is_locked, // Menyimpan nilai is_locked
+                'embedded_video' => $embedded_video,
+                'url' => $url,
+                'is_locked' => $is_locked,
                 'foto' => $foto,
             ];
+
+            // Log the data being inserted
+            \Log::info('Data to be inserted:', $data);
+
             $simpan = DB::table('courses')->insert($data);
             if ($simpan) {
                 if ($request->hasFile('foto')) {
                     $folderPath = "public/course";
                     $request->file('foto')->storeAs($folderPath, $foto);
                 }
-                return redirect('/course')->with('success', 'Data course berhasil disimpan.');
+                return redirect('/tambahcourse')->with('success', 'Data course berhasil disimpan.');
             }
         } catch (\Exception $e) {
+            // Log the exception for debugging
+            \Log::error('Error saving course:', ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
             return redirect('/tambahcourse')->with('danger', 'Data course gagal disimpan: ' . $e->getMessage());
         }
     }
+
     public function edit($id)
     {
         // Ambil data course berdasarkan ID
@@ -90,11 +115,20 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         $instructor_id = $request->instructor_id;
+
         $title = $request->title;
+
         $description = $request->description;
+
         $price = $request->price;
+
         $total_price = $request->total_price;
-        $is_locked = $request->is_locked; // Menangkap nilai is_locked
+
+        $embedded_video = $request->embedded_video;
+
+        $url = $request->url;
+
+        $is_locked = $request->is_locked;
 
         // Cek apakah ada file foto yang di-upload
         if ($request->hasFile('foto')) {
@@ -111,7 +145,9 @@ class CourseController extends Controller
                 'description' => $description,
                 'price' => $price,
                 'total_price' => $total_price,
-                'is_locked' => $is_locked, // Menyimpan nilai is_locked
+                'embedded_video' => $embedded_video,
+                'url' => $url,
+                'is_locked' => $is_locked,
             ];
 
             // Jika ada foto baru, tambahkan ke data untuk di-update

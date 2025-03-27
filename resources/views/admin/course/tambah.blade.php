@@ -38,6 +38,19 @@
                                 <input type="number" class="form-control" name="total_price" placeholder="Masukkan total harga kursus" required />
                             </div>
 
+                            <!-- Url Udemy -->
+                            <div class="mb-3">
+                                <label for="url">URL Udemy (contoh: https://www.udemy.com/course/your-course-id)</label>
+                                <input type="url" class="form-control" name="url" placeholder="Masukkan URL Udemy kursus" required />
+                            </div>
+
+                            <!-- embedded video -->
+                            <div class="mb-3">
+                                <label for="embedded_video">Url Embedded Video (contoh: https://www.youtube.com/embed/your_video_id)</label>
+                                <input type="text" class="form-control" name="embedded_video" placeholder="Masukkan URL embedded video" required />
+                                <small class="text-muted">Pastikan untuk mengubah width ke 100% untuk tampilan yang lebih rapi.</small>
+                            </div>
+
                             <!-- Status Locked -->
                             <div class="mb-3">
                                 <label for="is_locked">Status Kunci</label>
@@ -60,8 +73,7 @@
 
                             <div class="mb-3">
                                 <label for="foto" class="form-label">Foto</label>
-                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*"
-                                    required>
+                                <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
                             </div>
 
                             <!-- Tombol Aksi -->

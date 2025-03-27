@@ -128,10 +128,9 @@
 
                                     <!-- Course Image -->
                                     <div class="courses-top" style="position: relative; overflow: hidden;">
-                                        <div class="courses-image">
-                                            <img src="{{ asset('storage/course/' . $course->foto) }}" class="img-responsive" 
-                                                alt="{{ $course->title }}" 
-                                                style="width: 100%; height: auto; border-top-left-radius: 15px; border-top-right-radius: 15px; transition: transform 0.3s ease;">
+                                        <div class="courses-video">
+                                            {{-- {!! $course->embedded_video !!} --}}
+                                            {!! $course->embedded_video !!}
                                         </div>
                                     </div>
 
@@ -235,7 +234,6 @@
             });
         });
     </script>
-
 
 </body>
 

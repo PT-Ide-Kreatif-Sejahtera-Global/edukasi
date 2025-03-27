@@ -58,6 +58,17 @@
                                         value="{{ $course->total_price }}" required>
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="url">URL Udemy (contoh: https://www.udemy.com/course/your-course-id)</label>
+                                    <input type="url" class="form-control" name="url" placeholder="Masukkan URL Udemy kursus" value="{{ $course->url }}" required />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="embedded_video">Url Embedded Video (contoh: https://mega.nz/embed/your_video_id)</label>
+                                    <input type="text" class="form-control" name="embedded_video" value="{{ $course->embedded_video }}" placeholder="Masukkan URL embedded video" required />
+                                    <small class="text-muted">Pastikan untuk mengubah width ke 100% untuk tampilan yang lebih rapi.</small>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="is_locked">Is Locked</label>
                                     <select class="form-control" id="is_locked" name="is_locked">
