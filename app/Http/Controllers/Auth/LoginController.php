@@ -48,10 +48,13 @@ class LoginController extends Controller
         $request->session()->put('user_name', $user->name);
 
         if ($user->role == 'Admin') {
+
             return redirect('/home')->with('success', 'Login berhasil sebagai Admin.');
         } else if ($user->role == 'Instructor') {
+
             return redirect('/home')->with('success', 'Login berhasil ' . $user->name . '.');
         } else if ($user->role == 'Customer') {
+
             return redirect('/education')->with('success', 'Selamat Datang Di IdeaThings ' . $user->name . '.');
         }
     }
