@@ -55,7 +55,7 @@ class LoginController extends Controller
             return redirect('/home')->with('success', 'Login berhasil ' . $user->name . '.');
         } else if ($user->role == 'Customer') {
 
-            return redirect('/education')->with('success', 'Selamat Datang Di IdeaThings ' . $user->name . '.');
+            return redirect('/')->with('success', 'Selamat Datang Di IdeaThings ' . $user->name . '.');
         }
     }
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | IdeaThings</title>
+    <title>Login | iDeaThings</title>
     <link rel="shortcut icon" type="image/png" href="admin/images/logos/logo-new.png" />
     <link rel="stylesheet" href="admin/css/styles.min.css" />
 </head>
@@ -24,7 +24,7 @@
                                     <img src="admin/images/logos/logo-new.png" width="150" alt="">
                                 </a>
                                 <h3>
-                                    <p class="text-center">IdeaThings</p>
+                                    <p class="text-center">iDeaThings</p>
                                 </h3>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
