@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/education', [Controller::class, 'welcome'])->name('welcome');
 
 Auth::routes();
